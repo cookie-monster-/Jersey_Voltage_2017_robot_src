@@ -684,16 +684,12 @@ public class PathPlanner
 
 		//create waypoint path
 		double[][] waypoints = new double[][]{
-				{1, 1},
-				{5, 1},
-				{9, 12},
-				{12, 9},
-				{15, 6},
-				{19, 12}
+				{0, 0},
+				{1960, 0}
 		}; 
 
-		double totalTime = 8; //seconds
-		double timeStep = 0.1; //period of control loop on Rio, seconds
+		double totalTime = 1; //seconds
+		double timeStep = 0.02; //period of control loop on Rio, seconds
 		double robotTrackWidth = 2; //distance between left and right wheels, feet
 
 		final PathPlanner path = new PathPlanner(waypoints);
@@ -703,7 +699,7 @@ public class PathPlanner
 		
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
 
-		if(!GraphicsEnvironment.isHeadless())
+		/*if(!GraphicsEnvironment.isHeadless())
 		{
 
 			LinePlot fig2 = new LinePlot(path.smoothCenterVelocity,null,Color.blue);
@@ -735,7 +731,7 @@ public class PathPlanner
 			//generate poof path used in 2014 Einstein
 			path.poofExample();
 
-		}
+		}*/
 
 
 		//example on printing useful path information

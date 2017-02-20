@@ -176,6 +176,11 @@ public class DriveBase extends Subsystem implements LogDataSource {
 		m_speedLimiter = x;
 	}
 	
+	public void arcadeDrive(double drive, double turn)
+	{
+		m_robotDrive.arcadeDrive(drive, turn*-1, true);
+	}
+	
 	public double straightDistanceTraveled(int startLeft, int startRight)
 	{
 		int deltaLeft = getEncoderLeft() - startLeft;

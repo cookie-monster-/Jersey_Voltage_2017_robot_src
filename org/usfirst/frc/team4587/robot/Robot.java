@@ -12,6 +12,8 @@ import utility.Gyro;
 import utility.LogDataSource;
 import utility.ValueLogger;
 
+import java.io.FileOutputStream;
+
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
@@ -68,6 +70,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 
 	private static ValueLogger  logger;
 	private static SerialPort m_arduino;
+	private FileOutputStream log;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -78,8 +81,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_robot = this;
 		m_turret = new TurretPID();
     	m_gearIntake = new GearIntake();
-		m_driveBase = new DriveBase();
-		//m_driveBaseSimple = new DriveBaseSimple();
+		//m_driveBase = new DriveBase();
+		m_driveBaseSimple = new DriveBaseSimple();
 		try
 		{
 			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
@@ -93,8 +96,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		
         logger = new ValueLogger("/home/lvuser/dump",10);
         logger.registerDataSource(this);
-        logger.registerDataSource ( m_driveBase );
-        logger.registerDataSource ( m_gearIntake );
+        //logger.registerDataSource ( m_driveBase );
+        //logger.registerDataSource ( m_gearIntake );
+        logger.registerDataSource ( m_driveBaseSimple );
+        
         //logger.registerDataSource(m_turret);
 		/*chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -162,7 +167,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		long start = System.nanoTime();
         Scheduler.getInstance().run();
        // if ( logger != null ) logger.logValues(start);
-		m_driveBase.getValues(); //put driveBase info on SmartDashboard
+		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
 	}
 
 	@Override
@@ -174,8 +179,17 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		// this line or comment it out.
 
 		m_turret.enable();
+		m_driveBaseSimple.resetEncoders();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		try
+		{
+			log = new FileOutputStream("log.csv");
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 
 	/**
@@ -187,12 +201,14 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		boolean on = true;
     
 		Scheduler.getInstance().run();
-		//if ( logger != null ) logger.logValues(start);
+		if ( logger != null ) logger.logValues(start);
 		SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
 		SmartDashboard.putNumber("Turret Degrees", m_turret.getDegrees());
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
 		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());
-		m_driveBase.getValues(); //put driveBase info on SmartDashboard
+		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
+		m_driveBaseSimple.getValues();
+		
 		//SmartDashboard.putNumber("Turret Motor", m_turret.getTurretMotorActual());
 		if (m_gearIntake.getGearIntakeSwitch() == false)
     	{
@@ -215,7 +231,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
             autonomousCommand = null;
         }
     	//if ( m_iAmARealRobot ) {
-            Robot.getDriveBase().initialize();
+            //Robot.getDriveBase().initialize();
             //Robot.getIntake().initialize();
     	//}
         Gyro.reset();

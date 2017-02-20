@@ -1,7 +1,13 @@
 package org.usfirst.frc.team4587.robot;
 
+import org.usfirst.frc.team4587.robot.commands.AutonomousMotionTesting;
+import org.usfirst.frc.team4587.robot.commands.AutonomousTurnToAngle;
 import org.usfirst.frc.team4587.robot.commands.ChangeLEDMode;
+import org.usfirst.frc.team4587.robot.commands.DriveSimpleWithJoysticks;
+import org.usfirst.frc.team4587.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team4587.robot.commands.EjectGear;
+import org.usfirst.frc.team4587.robot.commands.FollowPath;
+import org.usfirst.frc.team4587.robot.commands.FollowPathTest;
 import org.usfirst.frc.team4587.robot.commands.PlanPathTest;
 import org.usfirst.frc.team4587.robot.commands.PrintTurretEncoder;
 import org.usfirst.frc.team4587.robot.commands.StartTurretMotors;
@@ -65,7 +71,14 @@ public class OI implements LogDataSource {
     	buttonY1.whenPressed(new ChangeLEDMode((byte)65));
     	buttonB1.whenPressed(new ChangeLEDMode((byte)66));
     	*/
-    	buttonA1.whenPressed(new PlanPathTest());
+    	//buttonA1.whenPressed(new PlanPathTest());
+    	//buttonA1.whenPressed(new AutonomousMotionTesting(0.5));
+    	//buttonX1.whenPressed(new FollowPathTest());
+		buttonB1.whenPressed(new DriveSimpleWithJoysticks());
+		//buttonY1.whenPressed(new AutonomousTurnToAngle(20, 0.6, 2));
+		leftBumper1.whenPressed(new PlanPathTest());
+		rightBumper1.whenPressed(new FollowPath());
+		
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {
