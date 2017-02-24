@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4587.robot;
 
+import org.usfirst.frc.team4587.robot.commands.AimFixedShooter;
 import org.usfirst.frc.team4587.robot.commands.AutonomousMotionTesting;
 import org.usfirst.frc.team4587.robot.commands.AutonomousTurnToAngle;
+import org.usfirst.frc.team4587.robot.commands.AutonomousTurnToAngleSimple;
 import org.usfirst.frc.team4587.robot.commands.ChangeLEDMode;
 import org.usfirst.frc.team4587.robot.commands.DriveSimpleWithJoysticks;
 import org.usfirst.frc.team4587.robot.commands.DriveWithJoysticks;
@@ -73,9 +75,9 @@ public class OI implements LogDataSource {
     	*/
     	//buttonA1.whenPressed(new PlanPathTest());
     	//buttonA1.whenPressed(new AutonomousMotionTesting(0.5));
-    	//buttonX1.whenPressed(new FollowPathTest());
+    	buttonX1.whenPressed(new AimFixedShooter());
 		buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-		//buttonY1.whenPressed(new AutonomousTurnToAngle(20, 0.6, 2));
+		buttonY1.whenPressed(new AutonomousTurnToAngleSimple(135, 0.6, 2));
 		leftBumper1.whenPressed(new PlanPathTest());
 		rightBumper1.whenPressed(new FollowPath());
 		

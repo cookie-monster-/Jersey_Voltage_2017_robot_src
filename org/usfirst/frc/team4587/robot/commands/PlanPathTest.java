@@ -26,13 +26,16 @@ public class PlanPathTest extends Command {
 
 		//create waypoint path
 		double[][] waypoints = new double[][]{
-				{0, 0},
-				{1960, 0}//1960,0
+
+			{7,16},
+			{11,16},
+			{17,28},
+			{23,28},
 		}; 
 
 		double totalTime = 1.0; //seconds
 		double timeStep = 0.02; //period of control loop on Rio, seconds
-		double robotTrackWidth = 2; //distance between left and right wheels, feet
+		double robotTrackWidth = 2.25; //distance between left and right wheels, feet
 
 		final PathPlanner path = new PathPlanner(waypoints);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
@@ -46,7 +49,7 @@ public class PlanPathTest extends Command {
     		double prevRight = 0;
     		double xLeft = 0;
     		double xRight = 0;
-    		for (int i = 0; i<50;i++)
+    		for (int i = 0; i<path.smoothLeftVelocity.length;i++)
     		{
     			double vLeft = path.smoothLeftVelocity[i][1] / 50;
     			double vRight = path.smoothRightVelocity[i][1] / 50;
@@ -54,8 +57,8 @@ public class PlanPathTest extends Command {
     			double aRight = vRight-prevRight;
     			xLeft += (vLeft+prevLeft)/2;
     			xRight += (vRight+prevRight)/2;
-    			double desiredAngle = Math.asin((xLeft - xRight)/551);
-    			w.write(aLeft + "," + vLeft + "," + xLeft + "," +aRight + "," + vRight + "," + xRight + "," + desiredAngle +"\n");
+    			double desiredAngle = (Math.asin((xLeft - xRight)/551)) * (180/Math.PI);
+    			w.write(aLeft + "," + vLeft + "," + xLeft + ","+ path.leftPath[i][1] + "," +aRight + "," + vRight + "," + xRight + ","+ path.rightPath[i][1] + "," + desiredAngle +"\n");
     			prevLeft = vLeft;
     			prevRight = vRight;
     		}

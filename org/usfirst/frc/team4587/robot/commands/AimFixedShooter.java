@@ -7,30 +7,28 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import utility.Gyro;
 
 /**
  *
  */
-public class AutonomousTurnToAngleSimple extends Command {
+public class AimFixedShooter extends Command {
+	private double m_centerline;
+	private double m_lastCenterline;
 	double m_startAngle;
 	double m_desiredAngle;
-	double m_speed;
-	double m_tolerance;
 	PIDController turnControl;
 	myPIDSource m_myPIDSource;
 	myPIDOutput m_myPIDOutput;
 	int count;
 
-    public AutonomousTurnToAngleSimple(double angleDegrees, double speed, double tolerance) {
+    public AimFixedShooter() {
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	count = 0;
     	requires(Robot.getDriveBaseSimple());
-    	m_desiredAngle = angleDegrees;
-    	m_speed = speed;
-    	m_tolerance = tolerance;
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
     	turnControl = new PIDController(0.03, 0.0, 0.0, m_myPIDSource, m_myPIDOutput);
@@ -48,6 +46,18 @@ public class AutonomousTurnToAngleSimple extends Command {
 			Robot.getDriveBaseSimple().setRightMotor(output*-1);
 		}
     	
+    }
+    void setSetpoint(double setpoint)
+    {
+    	while (setpoint < -180)
+    	{
+    		setpoint += 360;
+    	}
+    	while (setpoint > 180)
+    	{
+    		setpoint -= 360;
+    	}
+    	turnControl.setSetpoint(setpoint);
     }
     
     class myPIDSource implements PIDSource{
@@ -73,55 +83,54 @@ public class AutonomousTurnToAngleSimple extends Command {
     }
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("hello");
+    	m_lastCenterline = -5000;
     	turnControl.reset();
-    	m_startAngle = Gyro.getYaw();
-    	turnControl.setSetpoint(m_desiredAngle);
+    	turnControl.setSetpoint(Gyro.getYaw());;
     	turnControl.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*double direction;
-    	if (Math.abs(Gyro.getYaw() - m_desiredAngle) < m_tolerance)
-    	{
-    		direction = 0;
+    		System.out.println("Execute");
+	    	m_centerline = SmartDashboard.getNumber("pi.centerline", -1);
+	    	if (m_centerline >= 0)
+	    	{
+	    		System.out.println("centerline >= 0");
+	    		if(Math.abs(m_centerline - 320) > 20)
+	    		{
+	    			Robot.writeToArduino((byte)65);
+	    			SmartDashboard.putNumber("byte sent to arduino", 65);
+	    			SmartDashboard.putNumber("last centerline", m_lastCenterline);
+	    			if(m_lastCenterline != m_centerline)
+	    			{
+		    			double error = (m_centerline - 320) / 16.0;
+		    			//turnControl.setSetpoint(turnControl.getSetpoint() + error);
+		    			setSetpoint(turnControl.getSetpoint() + error);
+		    			//setSetpoint(error);
+		    			//Robot.getTurret().setSetpoint(120);
+		    			m_lastCenterline = m_centerline;
+		    			SmartDashboard.putNumber("Desired Setpoint", turnControl.getSetpoint());
+	    			}
+	    		}
+	    		else
+	    		{
+	    			Robot.writeToArduino((byte)64);
+	    			SmartDashboard.putNumber("byte sent to arduino", 64);
+	    		}
+	    	}
+	    	else
+	    	{
+	    		System.out.println("centerline < 0");
+	    		//turnControl.setSetpoint(-135);
+	    		setSetpoint(-135);
+	    	}
+	    	System.out.println("Setpoint: " + turnControl.getSetpoint());
     	}
-    	else
-    	if (m_startAngle < m_desiredAngle)
-    	{
-    		direction = 1;
-    	}
-    	else
-    	{
-    		direction = -1;
-    	}
-    	Robot.getDriveBaseSimple().arcadeDrive(0.0, m_speed * direction);*/
-    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	/*if (m_startAngle < m_desiredAngle)
-    	{
-    		return Gyro.getYaw() >= m_desiredAngle - m_tolerance;
-    	}
-    	else
-    	{
-    		return Gyro.getYaw() <= m_desiredAngle + m_tolerance;
-    	}*/
-    	if(count > 3)
-    	{
-        	return turnControl.onTarget();
-    	}
-    	else if(turnControl.onTarget())
-    	{
-    		count ++;
-    		return false;
-    	}
-    	else 
-    	{
-    		count = 0;
-    		return false;
-    	}
+    	return false;
     }
 
     // Called once after isFinished returns true

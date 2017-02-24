@@ -685,7 +685,7 @@ public class PathPlanner
 		//create waypoint path
 		double[][] waypoints = new double[][]{
 				{0, 0},
-				{1960, 0}
+				{1960, 490}
 		}; 
 
 		double totalTime = 1; //seconds
