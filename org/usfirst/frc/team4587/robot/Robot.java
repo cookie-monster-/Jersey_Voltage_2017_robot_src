@@ -17,7 +17,9 @@ import java.io.FileOutputStream;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
+import org.usfirst.frc.team4587.robot.subsystems.ElevatorPID;
 import org.usfirst.frc.team4587.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4587.robot.subsystems.FlywheelPID;
 import org.usfirst.frc.team4587.robot.subsystems.GearIntake;
 import org.usfirst.frc.team4587.robot.subsystems.Turret;
 import org.usfirst.frc.team4587.robot.subsystems.TurretPID;
@@ -46,6 +48,17 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public static TurretPID getTurret()
 	{
 		return m_turret;
+	}
+	
+	private static FlywheelPID m_flywheel;
+	public static FlywheelPID getFlywheel()
+	{
+		return m_flywheel;
+	}
+	private static ElevatorPID m_elevator;
+	public static ElevatorPID getElevator()
+	{
+		return m_elevator;
 	}
 	
 	private static GearIntake m_gearIntake;
@@ -80,9 +93,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void robotInit() {
 		m_robot = this;
 		m_turret = new TurretPID();
+		m_flywheel = new FlywheelPID();
+		m_elevator = new ElevatorPID();
     	m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
-		m_driveBaseSimple = new DriveBaseSimple();
+		//m_driveBaseSimple = new DriveBaseSimple();
 		try
 		{
 			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
@@ -93,12 +108,12 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		}
 		
 		m_oi = new OI();
-		
-        logger = new ValueLogger("/home/lvuser/dump",10);
-        logger.registerDataSource(this);
+		logger = null;
+        //logger = new ValueLogger("/home/lvuser/dump",10);
+        //logger.registerDataSource(this);
         //logger.registerDataSource ( m_driveBase );
         //logger.registerDataSource ( m_gearIntake );
-        logger.registerDataSource ( m_driveBaseSimple );
+        //logger.registerDataSource ( m_driveBaseSimple );
         
         //logger.registerDataSource(m_turret);
 		/*chooser.addDefault("Default Auto", new ExampleCommand());
@@ -125,6 +140,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		m_turret.disable();
+		m_flywheel.disable();
+		m_elevator.disable();
 	}
 
 	@Override
@@ -179,7 +196,9 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		// this line or comment it out.
 
 		m_turret.enable();
-		m_driveBaseSimple.resetEncoders();
+		m_flywheel.enable();
+		m_elevator.enable();
+		//m_driveBaseSimple.resetEncoders();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		try
@@ -207,7 +226,9 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
 		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
-		m_driveBaseSimple.getValues();
+		//m_driveBaseSimple.getValues();
+		SmartDashboard.putBoolean("Is Running", m_flywheel.running());
+		SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
 		
 		//SmartDashboard.putNumber("Turret Motor", m_turret.getTurretMotorActual());
 		if (m_gearIntake.getGearIntakeSwitch() == false)

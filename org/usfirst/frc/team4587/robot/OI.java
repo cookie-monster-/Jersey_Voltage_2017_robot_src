@@ -13,7 +13,10 @@ import org.usfirst.frc.team4587.robot.commands.FollowPathTest;
 import org.usfirst.frc.team4587.robot.commands.PlanPathTest;
 import org.usfirst.frc.team4587.robot.commands.PrintTurretEncoder;
 import org.usfirst.frc.team4587.robot.commands.StartTurretMotors;
+import org.usfirst.frc.team4587.robot.commands.TestFlywheelDecrease;
+import org.usfirst.frc.team4587.robot.commands.TestFlywheelIncrease;
 import org.usfirst.frc.team4587.robot.commands.ToggleAimMode;
+import org.usfirst.frc.team4587.robot.commands.ToggleFlywheelRunning;
 import org.usfirst.frc.team4587.robot.commands.ToggleGearIntakeMotors;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.commands.testTurretDecrease;
@@ -75,12 +78,17 @@ public class OI implements LogDataSource {
     	*/
     	//buttonA1.whenPressed(new PlanPathTest());
     	//buttonA1.whenPressed(new AutonomousMotionTesting(0.5));
+    	/*
     	buttonX1.whenPressed(new AimFixedShooter());
 		buttonB1.whenPressed(new DriveSimpleWithJoysticks());
 		buttonY1.whenPressed(new AutonomousTurnToAngleSimple(135, 0.6, 2));
 		leftBumper1.whenPressed(new PlanPathTest());
 		rightBumper1.whenPressed(new FollowPath());
-		
+		*/
+    	buttonA1.whenPressed(new TestFlywheelIncrease());
+    	buttonB1.whenPressed(new TestFlywheelDecrease());
+    	buttonX1.whenPressed(new ToggleFlywheelRunning());
+    	buttonY1.whenPressed(new ChangeLEDMode((byte)64));
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {

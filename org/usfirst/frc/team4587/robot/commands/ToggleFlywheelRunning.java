@@ -3,25 +3,23 @@ package org.usfirst.frc.team4587.robot.commands;
 import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class ChangeLEDMode extends Command {
+public class ToggleFlywheelRunning extends Command {
 
-	byte m_mode;
-    public ChangeLEDMode(byte mode) {
+    public ToggleFlywheelRunning() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	m_mode = mode;
+    	requires(Robot.getFlywheel());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.writeToArduino(m_mode);
-    	System.out.println("hello");
-    	SmartDashboard.putBoolean("HELLO", true);
+    	System.out.println("PLEASE");
+    	Robot.getFlywheel().setRunning(!Robot.getFlywheel().running());
+    	Robot.getElevator().setRunning(!Robot.getElevator().running());
     }
 
     // Called repeatedly when this Command is scheduled to run

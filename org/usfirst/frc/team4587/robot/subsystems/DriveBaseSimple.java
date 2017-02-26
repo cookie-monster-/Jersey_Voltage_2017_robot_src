@@ -32,9 +32,9 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 	
 	public DriveBaseSimple()
 	{
-		left0 = new Spark(1);
+		left0 = new Spark(RobotMap.MOTOR_LEFT_DRIVETRAIN);
 		left1 = new Spark(3);
-		right0 = new Spark(0);
+		right0 = new Spark(RobotMap.MOTOR_RIGHT_DRIVETRAIN);
 		right1 = new Spark(2);
 		
 		drive0 = new RobotDrive(left0, right0);
@@ -43,8 +43,9 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 		m_encoderLeft = new Encoder(RobotMap.ENCODER_LEFT_DRIVE_A, 
 				RobotMap.ENCODER_LEFT_DRIVE_B);
 
-		m_encoderRight = new Encoder(RobotMap.ENCODER_RIGHT_DRIVE_A, 
-				 RobotMap.ENCODER_RIGHT_DRIVE_B);
+		//m_encoderRight = new Encoder(RobotMap.ENCODER_RIGHT_DRIVE_A, 
+		//		 RobotMap.ENCODER_RIGHT_DRIVE_B);
+				 m_encoderRight = new Encoder(RobotMap.ENCODER_FLYWHEEL_A, RobotMap.ENCODER_FLYWHEEL_B);
 	}
 	
 	public void resetEncoders()
@@ -86,6 +87,8 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
     	SmartDashboard.putNumber("Right Motor Value", right0.get());
     	SmartDashboard.putNumber("Left Encoder Value", getEncoderLeft());
     	SmartDashboard.putNumber("Right Encoder Value", getEncoderRight());
+    	SmartDashboard.putNumber("Left Encoder Rate", m_encoderLeft.getRate());
+    	SmartDashboard.putNumber("Right Encoder Rate", m_encoderRight.getRate());
     	/*SmartDashboard.putNumber("Right Encoder Delta Value", m_rightRingBuffer.getAverage());
     	SmartDashboard.putNumber("Left Encoder Delta Value", m_leftRingBuffer.getAverage());
     	SmartDashboard.putNumber("Delta Tolerance Value", m_tolerance);

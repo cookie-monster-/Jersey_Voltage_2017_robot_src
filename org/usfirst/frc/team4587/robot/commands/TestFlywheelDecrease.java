@@ -8,20 +8,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ChangeLEDMode extends Command {
+public class TestFlywheelDecrease extends Command {
 
-	byte m_mode;
-    public ChangeLEDMode(byte mode) {
+    public TestFlywheelDecrease() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	m_mode = mode;
+    	requires(Robot.getFlywheel());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.writeToArduino(m_mode);
-    	System.out.println("hello");
-    	SmartDashboard.putBoolean("HELLO", true);
+    	SmartDashboard.putNumber("FlywheelVelocity", SmartDashboard.getNumber("FlywheelVelocity", 0.0) - 250);
     }
 
     // Called repeatedly when this Command is scheduled to run
