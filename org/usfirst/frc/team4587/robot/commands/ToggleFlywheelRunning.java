@@ -17,9 +17,22 @@ public class ToggleFlywheelRunning extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("PLEASE");
-    	Robot.getFlywheel().setRunning(!Robot.getFlywheel().running());
-    	Robot.getElevator().setRunning(!Robot.getElevator().running());
+    	//Robot.getFlywheel().setRunning(!Robot.getFlywheel().running());
+    	//Robot.getElevator().setRunning(!Robot.getElevator().running());
+    	if (Robot.getFlywheel().running() == true)
+    	{
+    		Robot.getFlywheel().setRunning(false);
+    		Robot.getIndexer().setRunning(false);
+    		Robot.getFlywheel().disable();
+    		Robot.getIndexer().disable();
+    	}
+    	else
+    	{
+    		Robot.getFlywheel().enable();
+    		Robot.getIndexer().enable();
+    		Robot.getFlywheel().setRunning(true);
+    		Robot.getIndexer().setRunning(true);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

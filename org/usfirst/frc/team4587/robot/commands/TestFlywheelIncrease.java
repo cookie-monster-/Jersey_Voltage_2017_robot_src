@@ -13,9 +13,7 @@ public class TestFlywheelIncrease extends Command {
     public TestFlywheelIncrease() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	System.out.println("Hi");
     	requires(Robot.getFlywheel());
-    	System.out.println("Bye");
     }
 
     // Called just before this Command runs the first time

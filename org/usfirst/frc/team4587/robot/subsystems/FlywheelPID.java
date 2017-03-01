@@ -1,8 +1,6 @@
 package org.usfirst.frc.team4587.robot.subsystems;
 
-import org.usfirst.frc.team4587.robot.Robot;
 import org.usfirst.frc.team4587.robot.RobotMap;
-import org.usfirst.frc.team4587.robot.commands.Aim;
 import org.usfirst.frc.team4587.robot.commands.RunFlywheel;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -10,8 +8,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import utility.RampedSpeedController;
-import utility.RampedSpeedController.ControllerType;
 
 /**
  *
@@ -20,9 +16,11 @@ public class FlywheelPID extends PIDSubsystem {
 
 	private SpeedController m_flywheelMotor;
 	private Encoder m_encoder;
-	private double m_startEncoders;
-	private double m_nowEncoders;
-	public double m_lastEncoders = 0.0;
+	private double m_lastEncoders = 0.0;
+	public void setLastEncoder(double lastEncoder)
+	{
+		m_lastEncoders = lastEncoder;
+	}
 	private static double m_kP = 0.001;
 	private static double m_kI = 0.000;//0.0001;
 	private static double m_kD = 0.00;//0.001;
@@ -49,8 +47,6 @@ public class FlywheelPID extends PIDSubsystem {
     	setAbsoluteTolerance(2.0);
     	m_flywheelMotor = new VictorSP(RobotMap.MOTOR_FLYWHEEL);
         m_encoder = new Encoder(RobotMap.ENCODER_FLYWHEEL_A, RobotMap.ENCODER_FLYWHEEL_B);
-        m_startEncoders = getEncoder().get();
-        m_nowEncoders = getEncoder().get();
     }
     
     public double getVelocity(double lastEncoder)

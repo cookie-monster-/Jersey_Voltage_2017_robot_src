@@ -17,10 +17,10 @@ import java.io.FileOutputStream;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
-import org.usfirst.frc.team4587.robot.subsystems.ElevatorPID;
 import org.usfirst.frc.team4587.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4587.robot.subsystems.FlywheelPID;
 import org.usfirst.frc.team4587.robot.subsystems.GearIntake;
+import org.usfirst.frc.team4587.robot.subsystems.IndexerPID;
 import org.usfirst.frc.team4587.robot.subsystems.Turret;
 import org.usfirst.frc.team4587.robot.subsystems.TurretPID;
 
@@ -55,10 +55,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		return m_flywheel;
 	}
-	private static ElevatorPID m_elevator;
-	public static ElevatorPID getElevator()
+	private static IndexerPID m_indexer;
+	public static IndexerPID getIndexer()
 	{
-		return m_elevator;
+		return m_indexer;
 	}
 	
 	private static GearIntake m_gearIntake;
@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_robot = this;
 		m_turret = new TurretPID();
 		m_flywheel = new FlywheelPID();
-		m_elevator = new ElevatorPID();
+		m_indexer = new IndexerPID();
     	m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
 		//m_driveBaseSimple = new DriveBaseSimple();
@@ -141,7 +141,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		m_turret.disable();
 		m_flywheel.disable();
-		m_elevator.disable();
+		m_indexer.disable();
 	}
 
 	@Override
@@ -197,7 +197,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 
 		m_turret.enable();
 		m_flywheel.enable();
-		m_elevator.enable();
+		m_indexer.enable();
 		//m_driveBaseSimple.resetEncoders();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
