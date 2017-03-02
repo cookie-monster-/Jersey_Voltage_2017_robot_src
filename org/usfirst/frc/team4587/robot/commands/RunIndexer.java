@@ -31,10 +31,9 @@ public class RunIndexer extends Command {
     protected void execute() {
     	if(Robot.getIndexer().running())
     	{
-    		System.out.println("Running");
     		m_desiredVelocity = SmartDashboard.getNumber("FlywheelVelocity", 0.0) / 60 / 50 * 256; // 60sec/min 50*20ms/sec 256dots/rev
     		SmartDashboard.putNumber("ConvertedFlywheelVelocity", m_desiredVelocity);
-    		m_currentIndexerVelocity = Robot.getIndexer().getVelocity(m_lastIndexerEncoder);
+    		//m_currentIndexerVelocity = Robot.getIndexer().getVelocity(m_lastIndexerEncoder);
     		SmartDashboard.putNumber("Indexer Current Velocity", m_currentIndexerVelocity);
     		m_velocityInRPMs = m_currentIndexerVelocity * 60 * 50 / 256;
     		SmartDashboard.putNumber("Indexer Velocity RPMs", m_velocityInRPMs);

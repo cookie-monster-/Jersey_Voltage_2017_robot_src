@@ -18,7 +18,7 @@ public class TestFlywheelDecrease extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("FlywheelVelocity", SmartDashboard.getNumber("FlywheelVelocity", 0.0) - 250);
+    	SmartDashboard.putNumber("FlywheelVelocity", SmartDashboard.getNumber("FlywheelVelocity", 0.0) - 50);
     }
 
     // Called repeatedly when this Command is scheduled to run

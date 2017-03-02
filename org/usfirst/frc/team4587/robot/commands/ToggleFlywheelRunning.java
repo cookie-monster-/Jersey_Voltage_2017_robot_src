@@ -28,6 +28,7 @@ public class ToggleFlywheelRunning extends Command {
     	}
     	else
     	{
+    		Robot.getFlywheel().initialize();
     		Robot.getFlywheel().enable();
     		Robot.getIndexer().enable();
     		Robot.getFlywheel().setRunning(true);

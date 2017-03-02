@@ -33,12 +33,12 @@ public class RunFlywheel extends Command {
     	{
     		m_desiredVelocity = SmartDashboard.getNumber("FlywheelVelocity", 0.0) / 60 / 50 * 256;  // 60sec/min 50*20ms/sec 256dots/rev
     		SmartDashboard.putNumber("ConvertedFlywheelVelocity", m_desiredVelocity);
-    		m_currentFlywheelVelocity = Robot.getFlywheel().getVelocity(m_lastFlywheelEncoder);
+    		//m_currentFlywheelVelocity = Robot.getFlywheel().getVelocity(m_lastFlywheelEncoder);
     		SmartDashboard.putNumber("Flywheel Current Velocity", m_currentFlywheelVelocity);
     		m_velocityInRPMs = m_currentFlywheelVelocity * 60 * 50 / 256;
     		SmartDashboard.putNumber("Flywheel Velocity RPMs", m_velocityInRPMs);
     			
-    		double error = (m_desiredVelocity - m_currentFlywheelVelocity) / 50;
+    		double error = (m_desiredVelocity - m_currentFlywheelVelocity) / 1;
     		Robot.getFlywheel().setSetpoint(Robot.getFlywheel().getSetpoint() + error);
         	m_lastFlywheelVelocity = m_currentFlywheelVelocity;
         	

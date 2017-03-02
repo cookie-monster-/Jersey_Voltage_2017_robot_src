@@ -8,19 +8,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class TestFlywheelIncrease extends Command {
+public class SetFlywheel extends Command {
 
-    public TestFlywheelIncrease() {
+	double m_rpms;
+	double m_motorLevel;
+    public SetFlywheel(double rpms, double motorLevel) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	System.out.println("Hi");
     	requires(Robot.getFlywheel());
-    	System.out.println("Bye");
+    	requires(Robot.getIndexer());
+    	m_rpms = rpms;
+    	m_motorLevel = motorLevel;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("FlywheelVelocity", SmartDashboard.getNumber("FlywheelVelocity", 0.0) + 250);
+    	Robot.getFlywheel().setSetpoint(m_rpms);
+    	Robot.getFlywheel().setExpectedMotorLevel(m_motorLevel);
+    	Robot.getIndexer().setSetpoint(m_rpms);
+    	Robot.getIndexer().setExpectedMotorLevel(m_motorLevel);
     }
 
     // Called repeatedly when this Command is scheduled to run

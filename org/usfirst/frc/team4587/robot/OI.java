@@ -12,6 +12,7 @@ import org.usfirst.frc.team4587.robot.commands.FollowPath;
 import org.usfirst.frc.team4587.robot.commands.FollowPathTest;
 import org.usfirst.frc.team4587.robot.commands.PlanPathTest;
 import org.usfirst.frc.team4587.robot.commands.PrintTurretEncoder;
+import org.usfirst.frc.team4587.robot.commands.SetFlywheel;
 import org.usfirst.frc.team4587.robot.commands.StartTurretMotors;
 import org.usfirst.frc.team4587.robot.commands.TestFlywheelDecrease;
 import org.usfirst.frc.team4587.robot.commands.TestFlywheelIncrease;
@@ -88,7 +89,7 @@ public class OI implements LogDataSource {
     	buttonA1.whenPressed(new TestFlywheelIncrease());
     	buttonB1.whenPressed(new TestFlywheelDecrease());
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
-    	buttonY1.whenPressed(new ChangeLEDMode((byte)64));
+    	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {

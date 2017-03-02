@@ -17,13 +17,20 @@ public class FlywheelPID extends PIDSubsystem {
 	private SpeedController m_flywheelMotor;
 	private Encoder m_encoder;
 	private double m_lastEncoders = 0.0;
+	private long m_lastTime;
+	private double m_expectedMotorLevel;
+	public void setExpectedMotorLevel(double motorLevel)
+	{
+		m_expectedMotorLevel = motorLevel;
+	}
+	private double m_velocity;
 	public void setLastEncoder(double lastEncoder)
 	{
 		m_lastEncoders = lastEncoder;
 	}
 	private static double m_kP = 0.001;
 	private static double m_kI = 0.000;//0.0001;
-	private static double m_kD = 0.00;//0.001;
+	private static double m_kD = 0.001;//0.001;
 	public double m_testSetPoint = 0.0;
 	
 	private boolean m_running = false;
@@ -49,9 +56,9 @@ public class FlywheelPID extends PIDSubsystem {
         m_encoder = new Encoder(RobotMap.ENCODER_FLYWHEEL_A, RobotMap.ENCODER_FLYWHEEL_B);
     }
     
-    public double getVelocity(double lastEncoder)
+    public double getVelocity()
     {
-    	return m_encoder.get() - lastEncoder;
+    	return m_encoder.get() - m_lastEncoders;
     	
     }
     
@@ -73,8 +80,9 @@ public class FlywheelPID extends PIDSubsystem {
     
     public void initialize()
     {
-    	m_encoder.reset();
-    	
+    	m_flywheelMotor.set(0.0);
+    	setSetpoint(0.0);
+    	m_lastTime = System.nanoTime();
     }
     
     public Encoder getEncoder()
@@ -85,23 +93,50 @@ public class FlywheelPID extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new RunFlywheel());
+    	
+    	//setDefaultCommand(new RunFlywheel());
+    	
     }
 
+    
     protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    	return getVelocity(m_lastEncoders);
+    	double encoderNow = m_encoder.get();
+    	long timeNow = System.nanoTime();
+    	m_velocity = (encoderNow - m_lastEncoders) / (timeNow - m_lastTime) * 60 * 1000000000 / 256;
+    	m_lastEncoders = encoderNow;
+    	m_lastTime = timeNow;
+    	if (Math.abs(m_velocity - getSetpoint()) < 0.05 * getSetpoint())
+    	{
+    		m_expectedMotorLevel = (m_expectedMotorLevel + m_flywheelMotor.get()) / 2;
+    	}
+    	return m_velocity;
     	//encoder delta (velocity)
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	m_flywheelMotor.set(Math.abs(output));
-    	SmartDashboard.putNumber("flywheel pid output", output);
+    	if(getSetpoint() == 0.0)
+    	{
+        	m_flywheelMotor.set(0.0);
+    	}
+    	else
+    	{
+    		double motorLevel = m_expectedMotorLevel + output;
+    		if(motorLevel < 0)
+    		{
+    			motorLevel = 0;
+    		}
+    		else if(motorLevel > 1)
+    		{
+    			motorLevel = 1;
+    		}
+        	m_flywheelMotor.set(motorLevel);
+    	}
+    	//m_flywheelMotor.set(0.8);
+    	SmartDashboard.putNumber("flywheel actual motor level", m_flywheelMotor.get());
     	SmartDashboard.putNumber("flywheel setpoint", getSetpoint());
-    	SmartDashboard.putNumber("flywheel pid input", returnPIDInput());
+    	SmartDashboard.putNumber("flywheel pid input", m_velocity);
+    	SmartDashboard.putNumber("flywheel expected motor level", m_expectedMotorLevel);
     }
 }
