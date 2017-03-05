@@ -16,6 +16,7 @@ public class RobotMap {
 	public static final int	MOTOR_LEFT_DRIVETRAIN = 1;
 	public static final int MOTOR_TURRET = 7;
 	public static final int MOTOR_GEAR_INTAKE = 4;
+	public static final int SOLENOID_GEAR_INTAKE = 0;
 	//
 	public static final int MOTOR_FLYWHEEL = 0;
 	public static final int MOTOR_INDEXER = 1;

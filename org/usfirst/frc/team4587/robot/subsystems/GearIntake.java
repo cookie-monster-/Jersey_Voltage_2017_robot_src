@@ -3,6 +3,7 @@ package org.usfirst.frc.team4587.robot.subsystems;
 import org.usfirst.frc.team4587.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,6 +21,19 @@ public class GearIntake extends Subsystem implements LogDataSource {
     // here. Call these from Commands.
 
 	private SpeedController m_gearIntakeMotor;
+	private Solenoid m_gearIntakePiston;
+	public void gearIntakeDown()
+	{
+		m_gearIntakePiston.set(true);
+	}
+	public void gearIntakeUp()
+	{
+		m_gearIntakePiston.set(false);
+	}
+	public boolean getPiston()
+	{
+		return m_gearIntakePiston.get();
+	}
     public void setGearIntakeMotor(double x)
     {
     	m_gearIntakeMotor.set(-1 * x);
@@ -56,7 +70,7 @@ public class GearIntake extends Subsystem implements LogDataSource {
     public GearIntake()
     {    	
         m_gearIntakeMotor = new Spark(RobotMap.MOTOR_GEAR_INTAKE);
-        
+        m_gearIntakePiston = new Solenoid(RobotMap.SOLENOID_GEAR_INTAKE);
 
         m_gearIntakeSwitch = new DigitalInput(RobotMap.SWITCH_GEAR_INTAKE_LIMIT);
         m_motorOn = false;

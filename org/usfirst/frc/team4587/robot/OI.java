@@ -19,6 +19,7 @@ import org.usfirst.frc.team4587.robot.commands.TestFlywheelIncrease;
 import org.usfirst.frc.team4587.robot.commands.ToggleAimMode;
 import org.usfirst.frc.team4587.robot.commands.ToggleFlywheelRunning;
 import org.usfirst.frc.team4587.robot.commands.ToggleGearIntakeMotors;
+import org.usfirst.frc.team4587.robot.commands.ToggleGearIntakeUpDown;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.commands.testTurretDecrease;
 import org.usfirst.frc.team4587.robot.commands.testTurretIncrease;
@@ -86,10 +87,12 @@ public class OI implements LogDataSource {
 		leftBumper1.whenPressed(new PlanPathTest());
 		rightBumper1.whenPressed(new FollowPath());
 		*/
-    	buttonA1.whenPressed(new TestFlywheelIncrease());
+    	/*buttonA1.whenPressed(new TestFlywheelIncrease());
     	buttonB1.whenPressed(new TestFlywheelDecrease());
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
-    	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));
+    	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));*/
+    	buttonA1.whenPressed(new ToggleGearIntakeUpDown());
+    	buttonB1.whenPressed(new ChangeLEDMode((byte)66));
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {

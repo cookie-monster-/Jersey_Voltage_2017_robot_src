@@ -3,34 +3,38 @@ package org.usfirst.frc.team4587.robot.commands;
 import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DriveSimpleWithJoysticks extends Command {
+public class ToggleGearIntakeUpDown extends Command {
 
-    public DriveSimpleWithJoysticks() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.getDriveBaseSimple());
+
+    public ToggleGearIntakeUpDown() {
+    	requires(Robot.getGearIntake());
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	
+    protected void initialize() 
+    {
+    	if(Robot.getGearIntake().getPiston() == true)
+    	{
+    		Robot.getGearIntake().gearIntakeUp();
+    	}
+    	else
+    	{
+    		Robot.getGearIntake().gearIntakeDown();
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Robot.getDriveBaseSimple().arcadeDrive(Robot.getOI().getDrive(), Robot.getOI().getTurn());
-    	SmartDashboard.putNumber("drive stick", Robot.getOI().getDrive());
-    	SmartDashboard.putNumber("turn stick", Robot.getOI().getTurn());
+    protected void execute() 
+    {
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
@@ -40,5 +44,6 @@ public class DriveSimpleWithJoysticks extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

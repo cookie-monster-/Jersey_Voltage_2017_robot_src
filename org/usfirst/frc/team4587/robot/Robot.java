@@ -92,12 +92,12 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void robotInit() {
 		m_robot = this;
-		m_turret = new TurretPID();
-		m_flywheel = new FlywheelPID();
-		m_indexer = new IndexerPID();
-    	m_gearIntake = new GearIntake();
+		//m_turret = new TurretPID();
+		//m_flywheel = new FlywheelPID();
+		//m_indexer = new IndexerPID();
+    	//m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
-		//m_driveBaseSimple = new DriveBaseSimple();
+		m_driveBaseSimple = new DriveBaseSimple();
 		try
 		{
 			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
@@ -189,15 +189,16 @@ public class Robot extends IterativeRobot implements LogDataSource {
 
 	@Override
 	public void teleopInit() {
+		System.out.println("init1");
 		initializeNewPhase(ValueLogger.TELEOP_PHASE);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-
-		m_turret.enable();
-		m_flywheel.enable();
-		m_indexer.enable();
+		System.out.println("init");
+		//m_turret.enable();
+		//m_flywheel.enable();
+		//m_indexer.enable();
 		//m_driveBaseSimple.resetEncoders();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
@@ -221,20 +222,21 @@ public class Robot extends IterativeRobot implements LogDataSource {
     
 		Scheduler.getInstance().run();
 		if ( logger != null ) logger.logValues(start);
-		SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
+		/*SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
 		SmartDashboard.putNumber("Turret Degrees", m_turret.getDegrees());
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
-		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());
+		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());*/
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
 		//m_driveBaseSimple.getValues();
-		SmartDashboard.putBoolean("Is Running", m_flywheel.running());
-		SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
+		
+		//SmartDashboard.putBoolean("Is Running", m_flywheel.running());put back
+		//SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
 		
 		//SmartDashboard.putNumber("Turret Motor", m_turret.getTurretMotorActual());
-		if (m_gearIntake.getGearIntakeSwitch() == false)
+		/*if (m_gearIntake.getGearIntakeSwitch() == false)
     	{
-    		m_gearIntake.setGearIsLoaded(true);
-    	}
+    		m_gearIntake.setGearIsLoaded(true);put back
+    	}*/
 	}
 
 	/**
