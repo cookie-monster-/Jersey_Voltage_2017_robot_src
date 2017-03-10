@@ -8,6 +8,7 @@ import org.usfirst.frc.team4587.robot.commands.ChangeLEDMode;
 import org.usfirst.frc.team4587.robot.commands.DriveSimpleWithJoysticks;
 import org.usfirst.frc.team4587.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team4587.robot.commands.EjectGear;
+import org.usfirst.frc.team4587.robot.commands.FollowChezyPath;
 import org.usfirst.frc.team4587.robot.commands.FollowPath;
 import org.usfirst.frc.team4587.robot.commands.FollowPathTest;
 import org.usfirst.frc.team4587.robot.commands.PlanPathTest;
@@ -91,8 +92,9 @@ public class OI implements LogDataSource {
     	buttonB1.whenPressed(new TestFlywheelDecrease());
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
     	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));*/
-    	buttonA1.whenPressed(new ToggleGearIntakeUpDown());
-    	buttonB1.whenPressed(new ChangeLEDMode((byte)66));
+    	buttonA1.whenPressed(new FollowChezyPath());
+    	//buttonB1.whenPressed(new ToggleGearIntakeMotors());
+    	//buttonX1.whenPressed(new EjectGear());
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {

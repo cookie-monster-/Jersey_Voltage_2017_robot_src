@@ -43,9 +43,8 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 		m_encoderLeft = new Encoder(RobotMap.ENCODER_LEFT_DRIVE_A, 
 				RobotMap.ENCODER_LEFT_DRIVE_B);
 
-		//m_encoderRight = new Encoder(RobotMap.ENCODER_RIGHT_DRIVE_A, 
-		//		 RobotMap.ENCODER_RIGHT_DRIVE_B);
-				 m_encoderRight = new Encoder(RobotMap.ENCODER_FLYWHEEL_A, RobotMap.ENCODER_FLYWHEEL_B);
+		m_encoderRight = new Encoder(RobotMap.ENCODER_RIGHT_DRIVE_A, 
+				 RobotMap.ENCODER_RIGHT_DRIVE_B);
 	}
 	
 	public void resetEncoders()

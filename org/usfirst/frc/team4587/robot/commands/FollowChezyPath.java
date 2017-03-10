@@ -2,6 +2,8 @@ package org.usfirst.frc.team4587.robot.commands;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import org.usfirst.frc.team4587.robot.Robot;
 
@@ -22,18 +24,25 @@ public class FollowChezyPath extends Command {
 	int m_startEncoderLeft;
 	int m_startEncoderRight;
 	double m_startAngle;
-	double Ka = 0.05;
-	double Kv = 0.8/43;
+	double m_startTime;
+	double Ka = 0.1;
+	double Kv = 0.4/43;
 	double Kp = 0.005;
 	double Kg = 0.015;
 	Path m_path;
-	int count = 0;
+	FileWriter m_logWriter;
     public FollowChezyPath() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getDriveBaseSimple());
+    	
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	quit = false;
     	try{
-    		m_bufferedReader = new BufferedReader(new FileReader("/home/lvuser/ChezyPath.txt"));
+    		m_bufferedReader = new BufferedReader(new FileReader("/home/lvuser/JerseyVoltagePath.txt"));
     		StringBuilder sb = new StringBuilder();
     		String line;
     		while((line = m_bufferedReader.readLine()) != null)
@@ -45,35 +54,58 @@ public class FollowChezyPath extends Command {
     	}catch(Exception e){
     		
     	}
-    }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	quit = false;
-    	
+		try {
+			m_logWriter = new FileWriter("/home/lvuser/PathLog.csv", false);
+			m_logWriter.write("aLeft,vLeft,xLeft,aRight,vRight,xRight,desiredAngle,currentAngle,realLeftEncoder,realRightEncoder,leftMotorLevel,rightMotorLevel,System.nanoTime()" + "\n");
+		} catch ( IOException e ) {
+			System.out.println(e);
+			m_logWriter = null;
+		}
+    	m_startEncoderLeft = Robot.getDriveBaseSimple().getEncoderLeft();
+    	m_startEncoderRight = Robot.getDriveBaseSimple().getEncoderRight();
+    	m_startAngle = Gyro.getYaw();
+    	m_startTime = System.nanoTime();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(count >= m_path.getLeftWheelTrajectory().getNumSegments())
+    	double time = System.nanoTime();
+    	double dt = (time - m_startTime) / 1000000;
+    	int step0 = (int)(dt / 20);
+    	int step1 = step0 + 1;
+    	double offset = dt - 20 * step0;
+    	if(step1 >= m_path.getLeftWheelTrajectory().getNumSegments())
     	{
     		quit = true;
     	}
     	else
         	{
-        		Trajectory.Segment left = m_path.getLeftWheelTrajectory().getSegment(count);
-            	Trajectory.Segment right = m_path.getRightWheelTrajectory().getSegment(count);
-        		double aLeft = left.acc * 12 / 0.049 / 1000 * 20 / 1000 * 20;
-        		double vLeft = left.vel * 12 / 0.049 / 1000 * 20;
-        		double xLeft = left.pos * 12 / 0.049;
-        		double aRight = right.acc * 12 / 0.049 / 1000 * 20 / 1000 * 20;
-        		double vRight = right.vel * 12 / 0.049 / 1000 * 20;
-        		double xRight = right.pos * 12 / 0.049;
-        		double desiredAngle = right.heading * 180 / Math.PI;
+    			
+    			
+        		Trajectory.Segment left0 = m_path.getLeftWheelTrajectory().getSegment(step0);
+            	Trajectory.Segment right0 = m_path.getRightWheelTrajectory().getSegment(step0);
+        		Trajectory.Segment left1 = m_path.getLeftWheelTrajectory().getSegment(step1);
+            	Trajectory.Segment right1 = m_path.getRightWheelTrajectory().getSegment(step1);
+        		double aLeft = (left0.acc + ((offset / 20) * (left1.acc - left0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20;
+        		double vLeft = (left0.vel + ((offset / 20) * (left1.vel - left0.vel))) * 12 / 0.049 / 1000 * 20;
+        		double xLeft = (left0.pos + ((offset / 20) * (left1.pos - left0.pos))) * 12 / 0.049;
+        		double aRight = (right0.acc + ((offset / 20) * (right1.acc - right0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20;
+        		double vRight = (right0.vel + ((offset / 20) * (right1.vel - right0.vel))) * 12 / 0.049 / 1000 * 20;
+        		double xRight = (right0.pos + ((offset / 20) * (right1.pos - right0.pos))) * 12 / 0.049;
+        		double desiredAngle = right0.heading * 180 / Math.PI * -1;
         		double currentAngle = Gyro.getYaw();
         		int realLeftEncoder = Robot.getDriveBaseSimple().getEncoderLeft();
         		int realRightEncoder = Robot.getDriveBaseSimple().getEncoderRight();
         		desiredAngle += m_startAngle;
+        		while(desiredAngle > 180)
+        		{
+        			desiredAngle -= 360;
+        		}
+        		while(desiredAngle < -180)
+        		{
+        			desiredAngle += 360;
+        		}
         		xLeft += m_startEncoderLeft;
         		xRight += m_startEncoderRight;
         		double leftMotorLevel = Ka * aLeft + Kv * vLeft - Kp * (realLeftEncoder - xLeft) - Kg * (currentAngle - desiredAngle);
@@ -83,6 +115,15 @@ public class FollowChezyPath extends Command {
         		Robot.getDriveBaseSimple().setRightMotor(rightMotorLevel);
         		SmartDashboard.putNumber("left motor set to: ", leftMotorLevel);
         		SmartDashboard.putNumber("right motor set to: ", rightMotorLevel);
+
+        		if(m_logWriter != null)
+        		{
+        			try{
+        				m_logWriter.write(aLeft + "," + vLeft + "," + xLeft + "," + aRight + "," + vRight + "," + xRight + "," + desiredAngle + "," + currentAngle + "," + realLeftEncoder + "," + realRightEncoder + "," + leftMotorLevel + "," + rightMotorLevel + "," + time + "\n");
+        			}catch(Exception e){
+        				
+        			}
+        		}
         	}
     }
 
@@ -95,7 +136,7 @@ public class FollowChezyPath extends Command {
     protected void end() {
     	try
     	{
-    		m_bufferedReader.close();
+    		m_logWriter.close();
     	}
     	catch(Exception e)
     	{

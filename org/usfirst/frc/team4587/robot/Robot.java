@@ -92,10 +92,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void robotInit() {
 		m_robot = this;
-		//m_turret = new TurretPID();
+		m_turret = new TurretPID();
 		//m_flywheel = new FlywheelPID();
 		//m_indexer = new IndexerPID();
-    	//m_gearIntake = new GearIntake();
+    	m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
 		try
@@ -140,8 +140,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		m_turret.disable();
-		m_flywheel.disable();
-		m_indexer.disable();
+		//m_flywheel.disable();
+		//m_indexer.disable();
 	}
 
 	@Override
@@ -227,8 +227,9 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
 		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());*/
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
-		//m_driveBaseSimple.getValues();
+		m_driveBaseSimple.getValues();
 		
+		SmartDashboard.putNumber("Gyro Yaw",Gyro.getYaw());
 		//SmartDashboard.putBoolean("Is Running", m_flywheel.running());put back
 		//SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
 		
