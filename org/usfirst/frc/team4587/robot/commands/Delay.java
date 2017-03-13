@@ -8,41 +8,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveSimpleWithJoysticks extends Command {
+public class Delay extends Command {
 
-	private boolean slowTurn;
-    public DriveSimpleWithJoysticks() {
+	int m_delay;
+	int m_count;
+    public Delay(int delay) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.getDriveBaseSimple());
-    	slowTurn = true;
+    	m_delay = delay;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	slowTurn = !slowTurn;
-    	
+    	m_count = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (slowTurn == false)
-    	{
-        	Robot.getDriveBaseSimple().arcadeDrive(Robot.getOI().getDrive(), Robot.getOI().getTurn());
-        	SmartDashboard.putNumber("drive stick", Robot.getOI().getDrive());
-        	SmartDashboard.putNumber("turn stick", Robot.getOI().getTurn());
-    	}
-    	else
-    	{
-        	Robot.getDriveBaseSimple().arcadeDrive(Robot.getOI().getDrive(), Robot.getOI().getTurn() * 0.25);
-        	SmartDashboard.putNumber("drive stick", Robot.getOI().getDrive());
-        	SmartDashboard.putNumber("turn stick", Robot.getOI().getTurn());
-    	}
+    	m_count++;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return m_count >= m_delay;
     }
 
     // Called once after isFinished returns true

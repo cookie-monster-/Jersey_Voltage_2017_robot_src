@@ -7,24 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ToggleGearIntakeUpDown extends Command {
+public class RaiseGearIntake extends Command {
 
 
-    public ToggleGearIntakeUpDown() {
+    public RaiseGearIntake() {
     	requires(Robot.getGearIntake());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	if(Robot.getGearIntake().getPiston() == false)
-    	{
-    		Robot.getGearIntake().gearIntakeUp();
-    	}
-    	else
-    	{
-    		Robot.getGearIntake().gearIntakeDown();
-    	}
+    	Robot.getGearIntake().gearIntakeUp();
     }
 
     // Called repeatedly when this Command is scheduled to run

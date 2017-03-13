@@ -25,6 +25,7 @@ import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.commands.testTurretDecrease;
 import org.usfirst.frc.team4587.robot.commands.testTurretIncrease;
 import org.usfirst.frc.team4587.robot.commands.testTurretSetSetpoint;
+import org.usfirst.frc.team4587.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -92,9 +93,16 @@ public class OI implements LogDataSource {
     	buttonB1.whenPressed(new TestFlywheelDecrease());
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
     	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));*/
-    	buttonA1.whenPressed(new FollowChezyPath());
-    	//buttonB1.whenPressed(new ToggleGearIntakeMotors());
-    	//buttonX1.whenPressed(new EjectGear());
+    	
+    	buttonX1.whenPressed(new ClimbMotorStart());
+    	buttonY1.whenPressed(new ClimbMotorStop());
+    	
+    	buttonB1.whenPressed(new ToggleGearIntakeMotors());
+    	rightBumper1.whenPressed(new EjectGear());
+    	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
+    	//buttonA1.whenPressed(new DriveSimpleWithJoysticks());
+    	//buttonA1.whenPressed(new FollowChezyPath(-1));
+    	buttonA1.whenPressed(new AutoGearTest());
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {

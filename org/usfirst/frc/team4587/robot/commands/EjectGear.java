@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class EjectGear extends Command {
 
 	private boolean m_motorOn = false;
+	private int count;
 
     public EjectGear() {
     	requires(Robot.getGearIntake());
@@ -18,17 +19,23 @@ public class EjectGear extends Command {
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	Robot.getGearIntake().setGearIntakeMotor(-1.0);
+    	Robot.getGearIntake().gearIntakeDown();
+    	count = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
+    	count++;
+    	if(count > 5)
+    	{
+        	Robot.getGearIntake().setGearIntakeMotor(-1.0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return count>5;
     }
 
     // Called once after isFinished returns true

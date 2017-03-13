@@ -24,11 +24,11 @@ public class GearIntake extends Subsystem implements LogDataSource {
 	private Solenoid m_gearIntakePiston;
 	public void gearIntakeDown()
 	{
-		m_gearIntakePiston.set(true);
+		m_gearIntakePiston.set(false);
 	}
 	public void gearIntakeUp()
 	{
-		m_gearIntakePiston.set(false);
+		m_gearIntakePiston.set(true);
 	}
 	public boolean getPiston()
 	{

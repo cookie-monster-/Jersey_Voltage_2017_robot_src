@@ -22,23 +22,23 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.\
 	private SpeedController left0;//23
-	private SpeedController left1;
+	//private SpeedController left1;
 	private SpeedController right0;//01
-	private SpeedController right1;
+	//private SpeedController right1;
 	
 	private RobotDrive drive0;
-	private RobotDrive drive1;
+	//private RobotDrive drive1;
 	public Encoder m_encoderRight, m_encoderLeft;
 	
 	public DriveBaseSimple()
 	{
 		left0 = new Spark(RobotMap.MOTOR_LEFT_DRIVETRAIN);
-		left1 = new Spark(3);
+		//left1 = new Spark(3);
 		right0 = new Spark(RobotMap.MOTOR_RIGHT_DRIVETRAIN);
-		right1 = new Spark(2);
+		//right1 = new Spark(2);
 		
 		drive0 = new RobotDrive(left0, right0);
-		drive1 = new RobotDrive(left1, right1);
+		//drive1 = new RobotDrive(left1, right1);
 		
 		m_encoderLeft = new Encoder(RobotMap.ENCODER_LEFT_DRIVE_A, 
 				RobotMap.ENCODER_LEFT_DRIVE_B);
@@ -56,13 +56,13 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 	public void setLeftMotor(double speed)
 	{
 		left0.set(speed);
-		left1.set(speed);
+		//left1.set(speed);
 	}
 	
 	public void setRightMotor(double speed)
 	{
 		right0.set(speed*-1);
-		right1.set(speed*-1);
+		//right1.set(speed*-1);
 	}
 	
 	public int getEncoderLeft()
@@ -78,7 +78,7 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 	public void arcadeDrive(double drive, double turn)
 	{
 		drive0.arcadeDrive(drive, turn*-1);
-		drive1.arcadeDrive(drive, turn*-1);
+		//drive1.arcadeDrive(drive, turn*-1);
 	}
 	
 	public void getValues(){

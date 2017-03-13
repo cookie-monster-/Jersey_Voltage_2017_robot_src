@@ -23,6 +23,7 @@ import org.usfirst.frc.team4587.robot.subsystems.GearIntake;
 import org.usfirst.frc.team4587.robot.subsystems.IndexerPID;
 import org.usfirst.frc.team4587.robot.subsystems.Turret;
 import org.usfirst.frc.team4587.robot.subsystems.TurretPID;
+import org.usfirst.frc.team4587.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -77,6 +78,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		return m_driveBaseSimple;
 	}
+	private static ClimbMotor m_climbMotor;
+	public static ClimbMotor getClimbMotor()
+	{
+		return m_climbMotor;
+	}
 	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -92,12 +98,13 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void robotInit() {
 		m_robot = this;
-		m_turret = new TurretPID();
+		//m_turret = new TurretPID();
 		//m_flywheel = new FlywheelPID();
 		//m_indexer = new IndexerPID();
     	m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
+		m_climbMotor = new ClimbMotor();
 		try
 		{
 			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
@@ -139,7 +146,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
-		m_turret.disable();
+		//m_turret.disable();
 		//m_flywheel.disable();
 		//m_indexer.disable();
 	}
