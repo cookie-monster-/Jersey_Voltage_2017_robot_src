@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoGearTest extends CommandGroup {
+public class AutoGearTwo extends CommandGroup {
 
-    public AutoGearTest() {
+    public AutoGearTwo() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,9 +25,6 @@ public class AutoGearTest extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath(-1));
-    	addSequential(new Delay(10));
-    	addSequential(new EjectGear());
     	/*addSequential(new Delay(25));
     	addSequential(new ToggleGearIntakeMotors());
     	addSequential(new FollowChezyPath(1));*/
