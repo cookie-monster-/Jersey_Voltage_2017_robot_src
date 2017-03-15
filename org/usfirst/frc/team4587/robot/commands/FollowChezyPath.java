@@ -31,28 +31,23 @@ public class FollowChezyPath extends Command {
 	double Kg = 0.015;
 	Path m_path;
 	FileWriter m_logWriter;
-	int m_numPath;
+	String m_namePath;
 	String filename;
 	boolean m_backwards;
-    public FollowChezyPath(int numPath) {
+	boolean m_goLeft;
+    public FollowChezyPath(String namePath, boolean backwards, boolean goLeft) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getDriveBaseSimple());
-    	m_numPath = numPath;
+    	m_namePath = namePath;
+    	m_backwards = backwards;
+    	m_goLeft = goLeft;
+    	filename = "/home/lvuser/" + m_namePath + ".txt";
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	quit = false;
-    	filename = "/home/lvuser/JerseyVoltagePath" + m_numPath + ".txt";
-    	if(m_numPath < 0)
-    	{
-    		filename = "/home/lvuser/JerseyVoltagePath.txt";
-    	}
-    	if(m_numPath == 1)
-    	{
-    		m_backwards = true;
-    	}
     	try{
     		m_bufferedReader = new BufferedReader(new FileReader(filename));
     		StringBuilder sb = new StringBuilder();
@@ -68,7 +63,7 @@ public class FollowChezyPath extends Command {
     	}
 
 		try {
-			m_logWriter = new FileWriter("/home/lvuser/PathLog.csv", false);
+			m_logWriter = new FileWriter("/home/lvuser/" + m_namePath +"Log.csv", false);
 			m_logWriter.write("aLeft,vLeft,xLeft,aRight,vRight,xRight,desiredAngle,currentAngle,realLeftEncoder,realRightEncoder,leftMotorLevel,rightMotorLevel,System.nanoTime()" + "\n");
 		} catch ( IOException e ) {
 			System.out.println(e);
@@ -87,98 +82,89 @@ public class FollowChezyPath extends Command {
     	int step0 = (int)(dt / 20);
     	int step1 = step0 + 1;
     	double offset = dt - 20 * step0;
+    	
+    	double aLeft;
+		double vLeft;
+		double xLeft;
+		double aRight;
+		double vRight;
+		double xRight;
+    	
     	if(step1 >= m_path.getLeftWheelTrajectory().getNumSegments())
     	{
     		quit = true;
     	}
     	else
         	{
+	    		Trajectory.Segment left0;
+	        	Trajectory.Segment right0;
+	    		Trajectory.Segment left1;
+	        	Trajectory.Segment right1;
+    			if(m_goLeft)
+    			{
+            		left0 = m_path.getLeftWheelTrajectory().getSegment(step0);
+                	right0 = m_path.getRightWheelTrajectory().getSegment(step0);
+            		left1 = m_path.getLeftWheelTrajectory().getSegment(step1);
+                	right1 = m_path.getRightWheelTrajectory().getSegment(step1);
+    			}
+    			else //swap left and right
+    			{
+            		right0 = m_path.getLeftWheelTrajectory().getSegment(step0);
+                	left0 = m_path.getRightWheelTrajectory().getSegment(step0);
+            		right1 = m_path.getLeftWheelTrajectory().getSegment(step1);
+                	left1 = m_path.getRightWheelTrajectory().getSegment(step1);
+    			}
     			
-    			
-        		Trajectory.Segment left0 = m_path.getLeftWheelTrajectory().getSegment(step0);
-            	Trajectory.Segment right0 = m_path.getRightWheelTrajectory().getSegment(step0);
-        		Trajectory.Segment left1 = m_path.getLeftWheelTrajectory().getSegment(step1);
-            	Trajectory.Segment right1 = m_path.getRightWheelTrajectory().getSegment(step1);
-            	if(m_backwards == true)
+            	if(m_backwards == true) //multiply all by -1
             	{
-	        		double aLeft = (left0.acc + ((offset / 20) * (left1.acc - left0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20 *-1;
-	        		double vLeft = (left0.vel + ((offset / 20) * (left1.vel - left0.vel))) * 12 / 0.049 / 1000 * 20 *-1;
-	        		double xLeft = (left0.pos + ((offset / 20) * (left1.pos - left0.pos))) * 12 / 0.049 *-1;
-	        		double aRight = (right0.acc + ((offset / 20) * (right1.acc - right0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20 *-1;
-	        		double vRight = (right0.vel + ((offset / 20) * (right1.vel - right0.vel))) * 12 / 0.049 / 1000 * 20 *-1;
-	        		double xRight = (right0.pos + ((offset / 20) * (right1.pos - right0.pos))) * 12 / 0.049 *-1;
-	        		double desiredAngle = right0.heading * 180 / Math.PI * -1;
-	        		double currentAngle = Gyro.getYaw();
-	        		int realLeftEncoder = Robot.getDriveBaseSimple().getEncoderLeft();
-	        		int realRightEncoder = Robot.getDriveBaseSimple().getEncoderRight();
-	        		desiredAngle += m_startAngle;
-	        		while(desiredAngle > 180)
-	        		{
-	        			desiredAngle -= 360;
-	        		}
-	        		while(desiredAngle < -180)
-	        		{
-	        			desiredAngle += 360;
-	        		}
-	        		xLeft += m_startEncoderLeft;
-	        		xRight += m_startEncoderRight;
-	        		double leftMotorLevel = Ka * aLeft + Kv * vLeft - Kp * (realLeftEncoder - xLeft) - Kg * (currentAngle - desiredAngle);
-	        		double rightMotorLevel = Ka * aRight + Kv * vRight - Kp * (realRightEncoder - xRight) + Kg * (currentAngle - desiredAngle);
-	        		
-	        		Robot.getDriveBaseSimple().setLeftMotor(leftMotorLevel);
-	        		Robot.getDriveBaseSimple().setRightMotor(rightMotorLevel);
-	        		SmartDashboard.putNumber("left motor set to: ", leftMotorLevel);
-	        		SmartDashboard.putNumber("right motor set to: ", rightMotorLevel);
-	            	
-	        		if(m_logWriter != null)
-	        		{
-	        			try{
-	        				m_logWriter.write(aLeft + "," + vLeft + "," + xLeft + "," + aRight + "," + vRight + "," + xRight + "," + desiredAngle + "," + currentAngle + "," + realLeftEncoder + "," + realRightEncoder + "," + leftMotorLevel + "," + rightMotorLevel + "," + time + "\n");
-	        			}catch(Exception e){
-	        				
-	        			}
-	        		}
+	        		aLeft = (left0.acc + ((offset / 20) * (left1.acc - left0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20 *-1;
+	        		vLeft = (left0.vel + ((offset / 20) * (left1.vel - left0.vel))) * 12 / 0.049 / 1000 * 20 *-1;
+	        		xLeft = (left0.pos + ((offset / 20) * (left1.pos - left0.pos))) * 12 / 0.049 *-1;
+	        		aRight = (right0.acc + ((offset / 20) * (right1.acc - right0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20 *-1;
+	        		vRight = (right0.vel + ((offset / 20) * (right1.vel - right0.vel))) * 12 / 0.049 / 1000 * 20 *-1;
+	        		xRight = (right0.pos + ((offset / 20) * (right1.pos - right0.pos))) * 12 / 0.049 *-1;
             	}
             	else
             	{
-            		double aLeft = (left0.acc + ((offset / 20) * (left1.acc - left0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20;
-	        		double vLeft = (left0.vel + ((offset / 20) * (left1.vel - left0.vel))) * 12 / 0.049 / 1000 * 20;
-	        		double xLeft = (left0.pos + ((offset / 20) * (left1.pos - left0.pos))) * 12 / 0.049;
-	        		double aRight = (right0.acc + ((offset / 20) * (right1.acc - right0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20;
-	        		double vRight = (right0.vel + ((offset / 20) * (right1.vel - right0.vel))) * 12 / 0.049 / 1000 * 20;
-	        		double xRight = (right0.pos + ((offset / 20) * (right1.pos - right0.pos))) * 12 / 0.049;
-	        		double desiredAngle = right0.heading * 180 / Math.PI * -1;
-	        		double currentAngle = Gyro.getYaw();
-	        		int realLeftEncoder = Robot.getDriveBaseSimple().getEncoderLeft();
-	        		int realRightEncoder = Robot.getDriveBaseSimple().getEncoderRight();
-	        		desiredAngle += m_startAngle;
-	        		while(desiredAngle > 180)
-	        		{
-	        			desiredAngle -= 360;
-	        		}
-	        		while(desiredAngle < -180)
-	        		{
-	        			desiredAngle += 360;
-	        		}
-	        		xLeft += m_startEncoderLeft;
-	        		xRight += m_startEncoderRight;
-	        		double leftMotorLevel = Ka * aLeft + Kv * vLeft - Kp * (realLeftEncoder - xLeft) - Kg * (currentAngle - desiredAngle);
-	        		double rightMotorLevel = Ka * aRight + Kv * vRight - Kp * (realRightEncoder - xRight) + Kg * (currentAngle - desiredAngle);
-	        		
-	        		Robot.getDriveBaseSimple().setLeftMotor(leftMotorLevel);
-	        		Robot.getDriveBaseSimple().setRightMotor(rightMotorLevel);
-	        		SmartDashboard.putNumber("left motor set to: ", leftMotorLevel);
-	        		SmartDashboard.putNumber("right motor set to: ", rightMotorLevel);
-	            	
-	        		if(m_logWriter != null)
-	        		{
-	        			try{
-	        				m_logWriter.write(aLeft + "," + vLeft + "," + xLeft + "," + aRight + "," + vRight + "," + xRight + "," + desiredAngle + "," + currentAngle + "," + realLeftEncoder + "," + realRightEncoder + "," + leftMotorLevel + "," + rightMotorLevel + "," + time + "\n");
-	        			}catch(Exception e){
-	        				
-	        			}
-	        		}
+            		aLeft = (left0.acc + ((offset / 20) * (left1.acc - left0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20;
+	        		vLeft = (left0.vel + ((offset / 20) * (left1.vel - left0.vel))) * 12 / 0.049 / 1000 * 20;
+	        		xLeft = (left0.pos + ((offset / 20) * (left1.pos - left0.pos))) * 12 / 0.049;
+	        		aRight = (right0.acc + ((offset / 20) * (right1.acc - right0.acc))) * 12 / 0.049 / 1000 * 20 / 1000 * 20;
+	        		vRight = (right0.vel + ((offset / 20) * (right1.vel - right0.vel))) * 12 / 0.049 / 1000 * 20;
+	        		xRight = (right0.pos + ((offset / 20) * (right1.pos - right0.pos))) * 12 / 0.049;
             	}
+
+        		double desiredAngle = right0.heading * 180 / Math.PI * -1;
+        		double currentAngle = Gyro.getYaw();
+        		int realLeftEncoder = Robot.getDriveBaseSimple().getEncoderLeft();
+        		int realRightEncoder = Robot.getDriveBaseSimple().getEncoderRight();
+        		desiredAngle += m_startAngle;
+        		while(desiredAngle > 180)
+        		{
+        			desiredAngle -= 360;
+        		}
+        		while(desiredAngle < -180)
+        		{
+        			desiredAngle += 360;
+        		}
+        		xLeft += m_startEncoderLeft;
+        		xRight += m_startEncoderRight;
+        		double leftMotorLevel = Ka * aLeft + Kv * vLeft - Kp * (realLeftEncoder - xLeft) - Kg * (currentAngle - desiredAngle);
+        		double rightMotorLevel = Ka * aRight + Kv * vRight - Kp * (realRightEncoder - xRight) + Kg * (currentAngle - desiredAngle);
+        		
+        		Robot.getDriveBaseSimple().setLeftMotor(leftMotorLevel);
+        		Robot.getDriveBaseSimple().setRightMotor(rightMotorLevel);
+        		SmartDashboard.putNumber("left motor set to: ", leftMotorLevel);
+        		SmartDashboard.putNumber("right motor set to: ", rightMotorLevel);
+            	
+        		if(m_logWriter != null)
+        		{
+        			try{
+        				m_logWriter.write(aLeft + "," + vLeft + "," + xLeft + "," + aRight + "," + vRight + "," + xRight + "," + desiredAngle + "," + currentAngle + "," + realLeftEncoder + "," + realRightEncoder + "," + leftMotorLevel + "," + rightMotorLevel + "," + time + "\n");
+        			}catch(Exception e){
+        				
+        			}
+        		}
         	}
     }
 

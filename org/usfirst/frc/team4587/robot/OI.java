@@ -102,7 +102,8 @@ public class OI implements LogDataSource {
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonA1.whenPressed(new DriveSimpleWithJoysticks());
     	//buttonA1.whenPressed(new FollowChezyPath(-1));
-    	buttonA1.whenPressed(new AutoGearTest());
+    	//buttonA1.whenPressed(new AutoGearTest());
+    	buttonA1.whenPressed(new AutoGearIntakeMotors());
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {
