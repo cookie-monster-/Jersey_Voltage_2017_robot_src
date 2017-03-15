@@ -22,6 +22,8 @@ public class AimGear extends Command {
 	myPIDSource m_myPIDSource;
 	myPIDOutput m_myPIDOutput;
 	int count;
+	int countToStop;
+	
 
     public AimGear() {
     	
@@ -31,7 +33,7 @@ public class AimGear extends Command {
     	requires(Robot.getDriveBaseSimple());
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
-    	turnControl = new PIDController(0.03, 0.0, 0.0, m_myPIDSource, m_myPIDOutput);
+    	turnControl = new PIDController(0.05, 0.00, 0., m_myPIDSource, m_myPIDOutput);
     	turnControl.setAbsoluteTolerance(1);
     	turnControl.setInputRange(-180, 180);
     	turnControl.setContinuous(true);
@@ -87,6 +89,7 @@ public class AimGear extends Command {
     	turnControl.reset();
     	turnControl.setSetpoint(Gyro.getYaw());;
     	turnControl.enable();
+    	countToStop = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -96,20 +99,28 @@ public class AimGear extends Command {
 	    	if (m_centerline >= 0)
 	    	{
 	    		System.out.println("centerline >= 0");
-	    		if(Math.abs(m_centerline - 320) > 20)
+	    		if(Math.abs(m_centerline - 160) > 20)
 	    		{
 	    			Robot.writeToArduino((byte)65);
 	    			SmartDashboard.putNumber("byte sent to arduino", 65);
 	    			SmartDashboard.putNumber("last gear centerline", m_lastCenterline);
 	    			if(m_lastCenterline != m_centerline)
 	    			{
-		    			double error = (m_centerline - 320) / 16.0;
-		    			//turnControl.setSetpoint(turnControl.getSetpoint() + error);
-		    			setSetpoint(turnControl.getSetpoint() + error);
-		    			//setSetpoint(error);
-		    			//Robot.getTurret().setSetpoint(120);
-		    			m_lastCenterline = m_centerline;
-		    			SmartDashboard.putNumber("Desired gear Setpoint", turnControl.getSetpoint());
+	    				if(countToStop <= 400)
+	    				{
+			    			double error = (m_centerline - 160) / 20.0;
+					    	//turnControl.setSetpoint(turnControl.getSetpoint() + error);
+					    	setSetpoint(turnControl.getSetpoint() + error);
+					    	//setSetpoint(error);
+					    	//Robot.getTurret().setSetpoint(120);
+					    	m_lastCenterline = m_centerline;
+					    	SmartDashboard.putNumber("Desired gear Setpoint", turnControl.getSetpoint());
+	    				}
+	    				else if (countToStop >= 425){
+	    					countToStop = 0;
+	    				}
+				    	countToStop ++;
+		    			
 	    			}
 	    		}
 	    		else
@@ -122,9 +133,10 @@ public class AimGear extends Command {
 	    	{
 	    		System.out.println("gear centerline < 0");
 	    		//turnControl.setSetpoint(-135);
-	    		setSetpoint(-135);
+	    		//setSetpoint(-135);
 	    	}
 	    	System.out.println("Setpoint: " + turnControl.getSetpoint());
+    
     	}
 
     // Make this return true when this Command no longer needs to run execute()

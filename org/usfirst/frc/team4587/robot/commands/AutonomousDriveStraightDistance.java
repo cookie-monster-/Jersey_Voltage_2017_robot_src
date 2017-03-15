@@ -10,49 +10,48 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutonomousDriveStraightDistance extends Command {
 	int m_startLeft = 0;
-	int m_startRight = 0;
 	double m_distanceInches;
 	double m_speed;
+	double m_distanceTraveled;
 	
 
     public AutonomousDriveStraightDistance(double distanceInches, double speed) {
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.getDriveBase());
+    	requires(Robot.getDriveBaseSimple());
     	m_distanceInches = distanceInches;
     	m_speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	m_startLeft = Robot.getDriveBase().getEncoderLeft();
-    	m_startRight = Robot.getDriveBase().getEncoderRight();
+    	m_startLeft = Robot.getDriveBaseSimple().getEncoderLeft();
+    	Robot.getDriveBaseSimple().arcadeDrive(m_speed, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.getDriveBase().teleopDrive(m_speed, 0);
+    	m_distanceTraveled = Robot.getDriveBaseSimple().getEncoderLeft() - m_startLeft;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	SmartDashboard.putNumber("distancetraveled", Robot.getDriveBase().straightDistanceTraveled(m_startLeft, m_startRight));
+    	SmartDashboard.putNumber("distancetraveled", m_distanceTraveled);
     	SmartDashboard.putNumber("startLeft", m_startLeft);
-    	SmartDashboard.putNumber("startRight", m_startRight);
     	if(m_distanceInches > 0)
     	{
-    		return Robot.getDriveBase().straightDistanceTraveled(m_startLeft, m_startRight) >= m_distanceInches;
+    		return m_distanceTraveled >= m_distanceInches;
     	}
     	else
     	{
-    		return Robot.getDriveBase().straightDistanceTraveled(m_startLeft, m_startRight) <= m_distanceInches;
+    		return m_distanceTraveled <= m_distanceInches;
     	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.getDriveBase().teleopDrive(0, 0);
+    	Robot.getDriveBaseSimple().arcadeDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same

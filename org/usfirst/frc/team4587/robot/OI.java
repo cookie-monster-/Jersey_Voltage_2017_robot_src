@@ -1,30 +1,5 @@
 package org.usfirst.frc.team4587.robot;
 
-import org.usfirst.frc.team4587.robot.commands.AimFixedShooter;
-import org.usfirst.frc.team4587.robot.commands.AutonomousMotionTesting;
-import org.usfirst.frc.team4587.robot.commands.AutonomousTurnToAngle;
-import org.usfirst.frc.team4587.robot.commands.AutonomousTurnToAngleSimple;
-import org.usfirst.frc.team4587.robot.commands.ChangeLEDMode;
-import org.usfirst.frc.team4587.robot.commands.DriveSimpleWithJoysticks;
-import org.usfirst.frc.team4587.robot.commands.DriveWithJoysticks;
-import org.usfirst.frc.team4587.robot.commands.EjectGear;
-import org.usfirst.frc.team4587.robot.commands.FollowChezyPath;
-import org.usfirst.frc.team4587.robot.commands.FollowPath;
-import org.usfirst.frc.team4587.robot.commands.FollowPathTest;
-import org.usfirst.frc.team4587.robot.commands.PlanPathTest;
-import org.usfirst.frc.team4587.robot.commands.PrintTurretEncoder;
-import org.usfirst.frc.team4587.robot.commands.SetFlywheel;
-import org.usfirst.frc.team4587.robot.commands.StartTurretMotors;
-import org.usfirst.frc.team4587.robot.commands.TestFlywheelDecrease;
-import org.usfirst.frc.team4587.robot.commands.TestFlywheelIncrease;
-import org.usfirst.frc.team4587.robot.commands.ToggleAimMode;
-import org.usfirst.frc.team4587.robot.commands.ToggleFlywheelRunning;
-import org.usfirst.frc.team4587.robot.commands.ToggleGearIntakeMotors;
-import org.usfirst.frc.team4587.robot.commands.ToggleGearIntakeUpDown;
-import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
-import org.usfirst.frc.team4587.robot.commands.testTurretDecrease;
-import org.usfirst.frc.team4587.robot.commands.testTurretIncrease;
-import org.usfirst.frc.team4587.robot.commands.testTurretSetSetpoint;
 import org.usfirst.frc.team4587.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -94,16 +69,20 @@ public class OI implements LogDataSource {
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
     	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));*/
     	
-    	buttonX1.whenPressed(new ClimbMotorStart());
+    	/*buttonX1.whenPressed(new ClimbMotorStart());
     	buttonY1.whenPressed(new ClimbMotorStop());
     	
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
-    	//buttonA1.whenPressed(new DriveSimpleWithJoysticks());
+    	buttonB1.whenPressed(new DriveSimpleWithJoysticks());
     	//buttonA1.whenPressed(new FollowChezyPath(-1));
     	//buttonA1.whenPressed(new AutoGearTest());
-    	buttonA1.whenPressed(new AutoGearIntakeMotors());
+    	buttonA1.whenPressed(new AutoGearIntakeMotors());*/
+    	buttonA1.whenPressed(new AimGear());
+    	buttonX1.whenPressed(new AimGearDrive());
+    	buttonB1.whenPressed(new DriveSimpleWithJoysticks());
+    	buttonY1.whenPressed(new AutonomousDriveStraightDistance(50000, 0.7));
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {

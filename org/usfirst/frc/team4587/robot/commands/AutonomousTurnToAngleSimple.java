@@ -15,26 +15,22 @@ import utility.Gyro;
 public class AutonomousTurnToAngleSimple extends Command {
 	double m_startAngle;
 	double m_desiredAngle;
-	double m_speed;
-	double m_tolerance;
 	PIDController turnControl;
 	myPIDSource m_myPIDSource;
 	myPIDOutput m_myPIDOutput;
 	int count;
 
-    public AutonomousTurnToAngleSimple(double angleDegrees, double speed, double tolerance) {
+    public AutonomousTurnToAngleSimple(double angleDegrees) {
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	count = 0;
     	requires(Robot.getDriveBaseSimple());
     	m_desiredAngle = angleDegrees;
-    	m_speed = speed;
-    	m_tolerance = tolerance;
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
     	turnControl = new PIDController(0.03, 0.0, 0.0, m_myPIDSource, m_myPIDOutput);
-    	turnControl.setAbsoluteTolerance(1);
+    	turnControl.setAbsoluteTolerance(4);
     	turnControl.setInputRange(-180, 180);
     	turnControl.setContinuous(true);
     }
@@ -108,7 +104,7 @@ public class AutonomousTurnToAngleSimple extends Command {
     	{
     		return Gyro.getYaw() <= m_desiredAngle + m_tolerance;
     	}*/
-    	if(count > 3)
+    	if(count > 5)
     	{
         	return turnControl.onTarget();
     	}
