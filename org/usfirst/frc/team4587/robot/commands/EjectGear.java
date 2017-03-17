@@ -51,7 +51,7 @@ public class EjectGear extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.getGearIntake().setGearIntakeMotor(0.0);
-    	Robot.getGearIntake().gearIntakeUp();
+    	//Robot.getGearIntake().gearIntakeUp();
     	Robot.getDriveBaseSimple().arcadeDrive(0.0, 0.0);
     }
 

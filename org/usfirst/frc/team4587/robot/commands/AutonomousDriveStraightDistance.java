@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class AutonomousDriveStraightDistance extends Command {
-	int m_startLeft = 0;
+	int m_startRight = 0;
 	double m_distanceInches;
 	double m_speed;
 	double m_distanceTraveled;
@@ -26,19 +26,20 @@ public class AutonomousDriveStraightDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	m_startLeft = Robot.getDriveBaseSimple().getEncoderLeft();
+    	m_startRight = Robot.getDriveBaseSimple().getEncoderRight();
     	Robot.getDriveBaseSimple().arcadeDrive(m_speed, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	m_distanceTraveled = Robot.getDriveBaseSimple().getEncoderLeft() - m_startLeft;
+    	m_distanceTraveled = Robot.getDriveBaseSimple().getEncoderRight() - m_startRight;
+    	Robot.getDriveBaseSimple().arcadeDrive(m_speed, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	SmartDashboard.putNumber("distancetraveled", m_distanceTraveled);
-    	SmartDashboard.putNumber("startLeft", m_startLeft);
+    	SmartDashboard.putNumber("startRight", m_startRight);
     	if(m_distanceInches > 0)
     	{
     		return m_distanceTraveled >= m_distanceInches;

@@ -133,9 +133,14 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		if(m_arduino != null)
 		{
+			System.out.println("yep");
 			byte[] buffer = new byte [1];
 			buffer[0] = mode;
 			m_arduino.write(buffer, 1);
+		}
+		else
+		{
+			System.out.println("nope");
 		}
 	}
 	/**

@@ -71,18 +71,25 @@ public class OI implements LogDataSource {
     	
     	/*buttonX1.whenPressed(new ClimbMotorStart());
     	buttonY1.whenPressed(new ClimbMotorStop());
-    	
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
-    	buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	//buttonA1.whenPressed(new FollowChezyPath(-1));
-    	//buttonA1.whenPressed(new AutoGearTest());
+    	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
     	buttonA1.whenPressed(new AutoGearIntakeMotors());*/
-    	buttonA1.whenPressed(new AimGear());
+    	
+    	//buttonA1.whenPressed(new AutoGearTest());
+    	//buttonA1.whenPressed(new RunGearCameraThread());
+    	//buttonX1.whenPressed(new AimGearNoPi());
+    	buttonA1.whenPressed(new ChangeLEDMode((byte)64));
+    	buttonB1.whenPressed(new ChangeLEDMode((byte)65));
+    	buttonX1.whenPressed(new ChangeLEDMode((byte)66));
+    	buttonY1.whenPressed(new ChangeLEDMode((byte)67));
+    	
+    	/*buttonA1.whenPressed(new AimGear());
     	buttonX1.whenPressed(new AimGearDrive());
     	buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	buttonY1.whenPressed(new AutonomousDriveStraightDistance(50000, 0.7));
+    	buttonY1.whenPressed(new AutonomousDriveStraightDistance(1000, 0.7));*/
+    	
     	//  D R I V E R   C O N T R O L L E R
 
     	/*if ( Robot.iAmARealRobot()) {
