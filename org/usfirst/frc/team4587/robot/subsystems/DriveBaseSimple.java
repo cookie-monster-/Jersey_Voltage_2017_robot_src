@@ -67,12 +67,12 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 	
 	public int getEncoderLeft()
 	{
-		return m_encoderLeft.get() * -1;
+		return m_encoderLeft.get();
 	}
 	
 	public int getEncoderRight()
 	{
-		return m_encoderRight.get() * -1;
+		return m_encoderRight.get();
 	}
 
 	public void arcadeDrive(double drive, double turn)

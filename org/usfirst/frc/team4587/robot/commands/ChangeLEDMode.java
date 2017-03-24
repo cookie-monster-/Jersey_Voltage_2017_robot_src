@@ -4,6 +4,7 @@ import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import utility.Bling;
 
 /**
  *
@@ -22,6 +23,8 @@ public class ChangeLEDMode extends Command {
     	Robot.writeToArduino(m_mode);
     	System.out.println("hello");
     	SmartDashboard.putBoolean("HELLO", true);
+    	Bling.sendData(m_mode);
+    	System.out.println("goodbye");
     }
 
     // Called repeatedly when this Command is scheduled to run

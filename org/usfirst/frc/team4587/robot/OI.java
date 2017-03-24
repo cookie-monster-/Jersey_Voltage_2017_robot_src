@@ -69,21 +69,21 @@ public class OI implements LogDataSource {
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
     	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));*/
     	
-    	/*buttonX1.whenPressed(new ClimbMotorStart());
+    	buttonX1.whenPressed(new ClimbMotorStart());
     	buttonY1.whenPressed(new ClimbMotorStop());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	buttonA1.whenPressed(new AutoGearIntakeMotors());*/
+    	buttonA1.whenPressed(new AutoGearIntakeMotors());
     	
     	//buttonA1.whenPressed(new AutoGearTest());
-    	//buttonA1.whenPressed(new RunGearCameraThread());
+    	//buttonY1.whenPressed(new RunGearCameraThread());
     	//buttonX1.whenPressed(new AimGearNoPi());
-    	buttonA1.whenPressed(new ChangeLEDMode((byte)64));
+    	/*buttonA1.whenPressed(new ChangeLEDMode((byte)64));
     	buttonB1.whenPressed(new ChangeLEDMode((byte)65));
     	buttonX1.whenPressed(new ChangeLEDMode((byte)66));
-    	buttonY1.whenPressed(new ChangeLEDMode((byte)67));
+    	buttonY1.whenPressed(new ChangeLEDMode((byte)67));*/
     	
     	/*buttonA1.whenPressed(new AimGear());
     	buttonX1.whenPressed(new AimGearDrive());

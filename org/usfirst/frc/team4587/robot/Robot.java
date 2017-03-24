@@ -8,12 +8,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import utility.Bling;
 import utility.Gyro;
 import utility.LogDataSource;
 import utility.ValueLogger;
 
 import java.io.FileOutputStream;
 
+import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
+import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
@@ -105,13 +108,16 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
 		m_climbMotor = new ClimbMotor();
+		Bling.initialize();
 		try
 		{
-			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
+			//m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
+			m_arduino = new SerialPort(9600, SerialPort.Port.kOnboard);
 		}
 		catch(Exception e)
 		{
 			m_arduino = null;
+			System.out.println("DEAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 		
 		m_oi = new OI();
@@ -176,7 +182,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void autonomousInit() {
 		initializeNewPhase(ValueLogger.AUTONOMOUS_PHASE);
-		autonomousCommand = chooser.getSelected();
+		//autonomousCommand = new AutoGearBayou("right");
+		autonomousCommand = new AutoGearSimple("right");
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

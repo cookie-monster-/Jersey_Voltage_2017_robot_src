@@ -34,14 +34,14 @@ public class FollowChezyPath extends Command {
 	String m_namePath;
 	String filename;
 	boolean m_backwards;
-	boolean m_goLeft;
-    public FollowChezyPath(String namePath, boolean backwards, boolean goLeft) {
+	boolean m_reverseLeftRight;
+    public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getDriveBaseSimple());
     	m_namePath = namePath;
     	m_backwards = backwards;
-    	m_goLeft = goLeft;
+    	m_reverseLeftRight = reverseLeftRight;
     	filename = "/home/lvuser/" + m_namePath + ".txt";
     }
 
@@ -100,7 +100,7 @@ public class FollowChezyPath extends Command {
 	        	Trajectory.Segment right0;
 	    		Trajectory.Segment left1;
 	        	Trajectory.Segment right1;
-    			if(m_goLeft)
+    			if(m_reverseLeftRight == false)
     			{
             		left0 = m_path.getLeftWheelTrajectory().getSegment(step0);
                 	right0 = m_path.getRightWheelTrajectory().getSegment(step0);

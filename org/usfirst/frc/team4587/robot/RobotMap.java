@@ -14,28 +14,27 @@ public class RobotMap {
 
 	public static final int MOTOR_RIGHT_DRIVETRAIN = 0;
 	public static final int	MOTOR_LEFT_DRIVETRAIN = 1;
-	public static final int MOTOR_TURRET = 7;
+	
 	public static final int MOTOR_GEAR_INTAKE = 3;
+	public static final int MOTOR_FLYWHEEL = 4;
+	public static final int MOTOR_INDEXER = 5;
+	public static final int MOTOR_TURRET = 6;
+	public static final int MOTOR_CLIMB_1 = 7;
+	public static final int MOTOR_CLIMB_2 = 8;
+	//
 	public static final int SOLENOID_GEAR_INTAKE = 0;
-	public static final int MOTOR_CLIMB = 2;
 	//
-	public static final int MOTOR_FLYWHEEL = 0;
-	public static final int MOTOR_INDEXER = 1;
-	//
-	public static final int ENCODER_TURRET_A = 1;
-	public static final int ENCODER_TURRET_B = 2;
-	//
-	public static final int ENCODER_FLYWHEEL_A = 3;
-	public static final int ENCODER_FLYWHEEL_B = 4;
-    public static final int ENCODER_INDEXER_A = 5;
-    public static final int ENCODER_INDEXER_B = 6;//+++
-    
-	//
-	public static final int ENCODER_RIGHT_DRIVE_B = 6;//
-    public static final int ENCODER_RIGHT_DRIVE_A = 7;
-    public static final int ENCODER_LEFT_DRIVE_A = 8;
-    public static final int ENCODER_LEFT_DRIVE_B = 9;
-    public static final int SWITCH_GEAR_INTAKE_LIMIT = 0;
+    public static final int SWITCH_GEAR_INTAKE_LIMIT = 4;
+	public static final int ENCODER_TURRET_A = 6;
+	public static final int ENCODER_TURRET_B = 7;
+	public static final int ENCODER_FLYWHEEL_A = 8;
+	public static final int ENCODER_FLYWHEEL_B = 9;
+	public static final int ENCODER_RIGHT_DRIVE_A = 2;
+    public static final int ENCODER_RIGHT_DRIVE_B = 3;
+    public static final int ENCODER_LEFT_DRIVE_A = 0;
+    public static final int ENCODER_LEFT_DRIVE_B = 1;
+    public static final int ENCODER_INDEXER_A = 10;//?
+    public static final int ENCODER_INDEXER_B = 11;//?
     
 	
 	// If are using multiple modules, make sure to define both the port

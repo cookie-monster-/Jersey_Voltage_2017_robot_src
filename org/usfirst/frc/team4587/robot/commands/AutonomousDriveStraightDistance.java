@@ -32,7 +32,7 @@ public class AutonomousDriveStraightDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	m_distanceTraveled = Robot.getDriveBaseSimple().getEncoderRight() - m_startRight;
+    	m_distanceTraveled = Robot.getDriveBaseSimple().getEncoderRight() - m_startRight * -1;
     	Robot.getDriveBaseSimple().arcadeDrive(m_speed, 0);
     }
 

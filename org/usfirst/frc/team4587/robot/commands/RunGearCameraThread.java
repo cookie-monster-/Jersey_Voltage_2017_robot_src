@@ -19,7 +19,9 @@ public class RunGearCameraThread extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("Camera thread start");
     	m_gearCameraThread = new GearCameraThread();
+    	m_gearCameraThread.setRunning(true);
     	m_gearCameraThread.start();
     	
     }

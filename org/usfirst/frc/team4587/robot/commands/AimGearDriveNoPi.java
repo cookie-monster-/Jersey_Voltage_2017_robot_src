@@ -94,6 +94,7 @@ public class AimGearDriveNoPi extends Command {
     	countToStop = 0;
 
     	m_gearCameraThread = new GearCameraThread();
+    	m_gearCameraThread.setRunning(true);
     	m_gearCameraThread.start();
     }
 
@@ -152,6 +153,7 @@ public class AimGearDriveNoPi extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	turnControl.disable();
+    	m_gearCameraThread.setRunning(false);
     	//Robot.getDriveBaseSimple().arcadeDrive(0, 0);
     }
 

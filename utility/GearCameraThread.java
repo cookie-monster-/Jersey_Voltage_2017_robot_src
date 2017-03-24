@@ -33,9 +33,19 @@ public class GearCameraThread extends Thread{
 		  return gearArea;
 	  }
 	  
+	  private boolean running = false;
+	  public boolean isRunning()
+	  {
+		  return running;
+	  }
+	  public void setRunning(boolean x)
+	  {
+		  running = x;
+	  }
+	  
 	  public void run()
 	  {
-		  while(true)
+		  while(running)
 		  {
 			  String mode = SmartDashboard.getString("GearCameraMode", "HumanVision");
 			  if (oldMode.equals("startUp"))
@@ -51,13 +61,14 @@ public class GearCameraThread extends Thread{
 				    gp = new GripPipeline();
 				    inputImage = new Mat();
 				    hsv = new Mat();
+				    mode = "ComputerVision";
 			  }
 			  if(mode.equals("HumanVision"))
 			  {
 				  if(oldMode.equals("HumanVision") == false)
 				  {
-					    camera2.setWhiteBalanceAuto();
-					    camera2.setExposureAuto();
+					    //camera2.setWhiteBalanceAuto();
+					    //camera2.setExposureAuto();
 				  }
 				  try
 				  {

@@ -5,9 +5,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoGearTest extends CommandGroup {
+public class AutoGearBayou extends CommandGroup {
 
-    public AutoGearTest() {
+    public AutoGearBayou(String side) {
+    	boolean leftSide;
+    	if(side.equals("left"))
+    	{
+    		leftSide = true;
+    	}
+    	else
+    	{
+    		leftSide = false;
+    	}
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,7 +34,7 @@ public class AutoGearTest extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("JerseyVoltagePath", false, true));
+    	addSequential(new FollowChezyPath("JerseyVoltagePath", false, leftSide));
     	addSequential(new Delay(10));
     	addSequential(new EjectGear());
     	/*addSequential(new Delay(25));
