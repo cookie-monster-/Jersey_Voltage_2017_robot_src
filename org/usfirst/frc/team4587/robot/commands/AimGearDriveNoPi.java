@@ -35,7 +35,7 @@ public class AimGearDriveNoPi extends Command {
     	requires(Robot.getDriveBaseSimple());
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
-    	turnControl = new PIDController(0.035, 0.00, 0., m_myPIDSource, m_myPIDOutput);
+    	turnControl = new PIDController(0.02, 0.0, 0.0, m_myPIDSource, m_myPIDOutput);
     	turnControl.setAbsoluteTolerance(1);
     	turnControl.setInputRange(-180, 180);
     	turnControl.setContinuous(true);
@@ -46,8 +46,8 @@ public class AimGearDriveNoPi extends Command {
 		@Override
 		public void pidWrite(double output) {
 			// TODO Auto-generated method stub
-			Robot.getDriveBaseSimple().setLeftMotor(output + 0.3);
-			Robot.getDriveBaseSimple().setRightMotor(output*-1 + 0.3);
+			Robot.getDriveBaseSimple().setLeftMotor(output + 0.25);
+			Robot.getDriveBaseSimple().setRightMotor(output*-1 + 0.25);
 		}
     	
     }
@@ -96,6 +96,7 @@ public class AimGearDriveNoPi extends Command {
     	m_gearCameraThread = new GearCameraThread();
     	m_gearCameraThread.setRunning(true);
     	m_gearCameraThread.start();
+    	m_gearCameraThread.setMode("ComputerVision");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -114,9 +115,9 @@ public class AimGearDriveNoPi extends Command {
 	    			{
 	    				if(countToStop <= 400)
 	    				{
-			    			double error = (m_centerline - 160) / 20.0;
+			    			double error = (m_centerline - 160) / 8.0;
 					    	//turnControl.setSetpoint(turnControl.getSetpoint() + error);
-					    	setSetpoint(turnControl.getSetpoint() + error);
+					    	setSetpoint(Gyro.getYaw() + error);
 					    	//setSetpoint(error);
 					    	//Robot.getTurret().setSetpoint(120);
 					    	m_lastCenterline = m_centerline;

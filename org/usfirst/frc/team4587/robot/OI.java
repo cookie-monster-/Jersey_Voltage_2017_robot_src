@@ -69,17 +69,29 @@ public class OI implements LogDataSource {
     	buttonX1.whenPressed(new ToggleFlywheelRunning());
     	buttonY1.whenPressed(new SetFlywheel(3000, 0.8));*/
     	
-    	buttonX1.whenPressed(new ClimbMotorStart());
-    	buttonY1.whenPressed(new ClimbMotorStop());
+    	//buttonX1.whenPressed(new ClimbMotorStart());
+    	//buttonY1.whenPressed(new ClimbMotorStop());
+    	buttonY1.whenPressed(new ClimbMotorToggle());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
     	buttonA1.whenPressed(new AutoGearIntakeMotors());
+    	//leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
+    	
+    	//buttonA1.whenPressed(new AutoGearSimple("right"));
+    	//buttonY1.whenPressed(new AimGearDriveNoPi());
+    	//buttonB1.whenPressed(new AutoGearBayou("right"));
     	
     	//buttonA1.whenPressed(new AutoGearTest());
-    	//buttonY1.whenPressed(new RunGearCameraThread());
+    	//buttonA1.whenPressed(new RunGearCameraThread(true));
+    	//buttonB1.whenPressed(new RunGearCameraThread(false));
     	//buttonX1.whenPressed(new AimGearNoPi());
+    	//buttonX1.whenPressed(new AutonomousTurnToAngleSimple(-60));
+    	/*buttonA1.whenPressed(new AutoGearSimple("right"));
+    	buttonY1.whenPressed(new RunGearCameraThread());
+    	buttonX1.whenPressed(new AimGearDriveNoPi());
+    	buttonB1.whenPressed(new AutonomousDriveStraightDistance(50,0.7));*/
     	/*buttonA1.whenPressed(new ChangeLEDMode((byte)64));
     	buttonB1.whenPressed(new ChangeLEDMode((byte)65));
     	buttonX1.whenPressed(new ChangeLEDMode((byte)66));

@@ -23,6 +23,7 @@ public class ClimbMotor extends Subsystem {
 
 	private SpeedController m_climbMotor0;
 	private SpeedController m_climbMotor1;
+	private boolean m_isClimbing = false;
 	public void startClimb()
 	{
 		m_climbMotor0.set(1);
@@ -32,6 +33,12 @@ public class ClimbMotor extends Subsystem {
 	{
 		m_climbMotor0.set(0);
 		m_climbMotor1.set(0);
+	}
+	public boolean isClimbing(){
+		return m_isClimbing;
+	}
+	public void setClimbing(boolean climbing){
+		m_isClimbing = climbing;
 	}
 
     public ClimbMotor()

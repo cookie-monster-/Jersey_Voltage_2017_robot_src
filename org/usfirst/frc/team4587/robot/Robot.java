@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import utility.Bling;
+import utility.GearCameraThread;
 import utility.Gyro;
 import utility.LogDataSource;
 import utility.ValueLogger;
@@ -16,6 +17,7 @@ import utility.ValueLogger;
 import java.io.FileOutputStream;
 
 import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
+import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
@@ -86,6 +88,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		return m_climbMotor;
 	}
+	private static GearCameraThread m_gearCameraThread;
+	public static GearCameraThread getGearCameraThread(){
+		return m_gearCameraThread;
+	}
 	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -107,6 +113,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
     	m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
+		m_gearCameraThread = new GearCameraThread();
 		m_climbMotor = new ClimbMotor();
 		Bling.initialize();
 		try
@@ -161,6 +168,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//m_turret.disable();
 		//m_flywheel.disable();
 		//m_indexer.disable();
+		m_gearCameraThread.setRunning(false);
 	}
 
 	@Override
@@ -182,8 +190,9 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void autonomousInit() {
 		initializeNewPhase(ValueLogger.AUTONOMOUS_PHASE);
-		//autonomousCommand = new AutoGearBayou("right");
-		autonomousCommand = new AutoGearSimple("right");
+		autonomousCommand = new AutoGearBayou("right");
+		//autonomousCommand = new AutoGearSimple("right");
+		//autonomousCommand = new AutoGearCenter();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -230,6 +239,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		{
 			
 		}
+		//m_gearCameraThread.setRunning(true);
+		//m_gearCameraThread.start();
 	}
 
 	/**

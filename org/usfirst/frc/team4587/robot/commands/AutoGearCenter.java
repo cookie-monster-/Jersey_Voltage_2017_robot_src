@@ -5,18 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoGearSimple extends CommandGroup {
+public class AutoGearCenter extends CommandGroup {
 
-    public AutoGearSimple(String side) {
-    	int angle;
-    	if(side.equals("left"))
-    	{
-    		angle = 60;
-    	}
-    	else
-    	{
-    		angle = -60;
-    	}
+    public AutoGearCenter() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,8 +26,7 @@ public class AutoGearSimple extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new AutonomousDriveStraightDistance(80, 0.7));
-    	addSequential(new AutonomousTurnToAngleSimple(angle));
+    	addSequential(new AutonomousDriveStraightDistance(25, 0.7));
     	addSequential(new AimGearDriveNoPi());
     	addSequential(new Delay(10));
     	addSequential(new EjectGear());

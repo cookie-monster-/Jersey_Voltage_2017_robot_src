@@ -110,7 +110,7 @@ public class AimGear extends Command {
 	    				{
 			    			double error = (m_centerline - 160) / 20.0;
 					    	//turnControl.setSetpoint(turnControl.getSetpoint() + error);
-					    	setSetpoint(turnControl.getSetpoint() + error);
+					    	setSetpoint(Gyro.getYaw() + error);
 					    	//setSetpoint(error);
 					    	//Robot.getTurret().setSetpoint(120);
 					    	m_lastCenterline = m_centerline;

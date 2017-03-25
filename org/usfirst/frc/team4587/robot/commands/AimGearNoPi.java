@@ -24,7 +24,7 @@ public class AimGearNoPi extends Command {
 	myPIDOutput m_myPIDOutput;
 	int count;
 	int countToStop;
-	private GearCameraThread m_gearCameraThread;
+	int countFinish;
 
     public AimGearNoPi() {
     	
@@ -34,7 +34,7 @@ public class AimGearNoPi extends Command {
     	requires(Robot.getDriveBaseSimple());
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
-    	turnControl = new PIDController(0.05, 0.00, 0., m_myPIDSource, m_myPIDOutput);
+    	turnControl = new PIDController(0.05, 0.001, 0.0, m_myPIDSource, m_myPIDOutput);
     	turnControl.setAbsoluteTolerance(1);
     	turnControl.setInputRange(-180, 180);
     	turnControl.setContinuous(true);
@@ -92,14 +92,14 @@ public class AimGearNoPi extends Command {
     	turnControl.enable();
     	countToStop = 0;
     	
-    	m_gearCameraThread = new GearCameraThread();
-    	m_gearCameraThread.start();
+    	Robot.getGearCameraThread().setRunning(true);
+    	Robot.getGearCameraThread().setMode("ComputerVision");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		System.out.println("Execute");
-	    	m_centerline = m_gearCameraThread.getGearCenterline();
+	    	m_centerline = Robot.getGearCameraThread().getGearCenterline();
 	    	if (m_centerline >= 0)
 	    	{
 	    		System.out.println("centerline >= 0");
@@ -110,20 +110,13 @@ public class AimGearNoPi extends Command {
 	    			SmartDashboard.putNumber("last gear centerline", m_lastCenterline);
 	    			if(m_lastCenterline != m_centerline)
 	    			{
-	    				if(countToStop <= 400)
-	    				{
-			    			double error = (m_centerline - 160) / 20.0;
+			    			double error = (m_centerline - 160) / 16.0;
 					    	//turnControl.setSetpoint(turnControl.getSetpoint() + error);
-					    	setSetpoint(turnControl.getSetpoint() + error);
+					    	setSetpoint(Gyro.getYaw() + error);
 					    	//setSetpoint(error);
 					    	//Robot.getTurret().setSetpoint(120);
 					    	m_lastCenterline = m_centerline;
 					    	SmartDashboard.putNumber("Desired gear Setpoint", turnControl.getSetpoint());
-	    				}
-	    				else if (countToStop >= 425){
-	    					countToStop = 0;
-	    				}
-				    	countToStop ++;
 		    			
 	    			}
 	    		}
@@ -145,6 +138,14 @@ public class AimGearNoPi extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	
+    	/*if(turnControl.onTarget()){
+    		countFinish++;
+    	}
+    	else{
+    		countFinish = 0;
+    	}
+    	return countFinish>=10;*/
     	return false;
     }
 

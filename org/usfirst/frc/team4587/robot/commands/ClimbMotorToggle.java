@@ -4,41 +4,36 @@ import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import utility.GearCameraThread;
 
 /**
  *
  */
-public class RunGearCameraThread extends Command {
+public class ClimbMotorToggle extends Command {
 
-	private GearCameraThread m_gearCameraThread;
-	boolean m_humanVision;
-    public RunGearCameraThread(boolean humanVision) {
+	
+    public ClimbMotorToggle() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	m_humanVision = humanVision;
-    	m_gearCameraThread = new GearCameraThread();
+    	requires(Robot.getClimbMotor());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(m_gearCameraThread.isRunning() == false)
+    	if(Robot.getClimbMotor().isClimbing())
     	{
-	    	System.out.println("Camera thread start");
-	    	m_gearCameraThread.setRunning(true);
-	    	m_gearCameraThread.start();
-    	}
-    	if(m_humanVision){
-    		m_gearCameraThread.setMode("HumanVision");
+    		Robot.getClimbMotor().stopClimb();
+    		Robot.getClimbMotor().setClimbing(false);
     	}
     	else
     	{
-    		m_gearCameraThread.setMode("ComputerVision");
+    		Robot.getClimbMotor().startClimb();
+    		Robot.getClimbMotor().setClimbing(true);
     	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

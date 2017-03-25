@@ -81,6 +81,14 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 		//drive1.arcadeDrive(drive, turn*-1);
 	}
 	
+	public double straightDistanceTraveled(int startLeft, int startRight)
+	{
+		int deltaLeft = getEncoderLeft() - startLeft;
+		int deltaRight = getEncoderRight() - startRight;
+		double average = deltaLeft + deltaRight / 2.0;
+		return average / 256 * Math.PI * 4;
+	}
+	
 	public void getValues(){
     	SmartDashboard.putNumber("Left Motor Value", left0.get());
     	SmartDashboard.putNumber("Right Motor Value", right0.get());

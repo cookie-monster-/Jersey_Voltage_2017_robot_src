@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GearCameraThread extends Thread{
 	  String oldMode = "startUp";
+	  String mode = "";
 	  MjpegServer cameraStream;
 	  UsbCamera camera2;
 	  int streamCameraPort = 5805;
@@ -42,12 +43,15 @@ public class GearCameraThread extends Thread{
 	  {
 		  running = x;
 	  }
+	  public void setMode(String xmode){
+		  mode = xmode;
+	  }
 	  
 	  public void run()
 	  {
 		  while(running)
 		  {
-			  String mode = SmartDashboard.getString("GearCameraMode", "HumanVision");
+			  //mode = SmartDashboard.getString("GearCameraMode", "HumanVision");
 			  if (oldMode.equals("startUp"))
 			  {
 				    cameraStream = new MjpegServer("MJPEG", streamCameraPort);
@@ -55,20 +59,19 @@ public class GearCameraThread extends Thread{
 				    camera2.setResolution(320,240);
 				    imageSink = new CvSink("CV Image Grabber");
 				    imageSink.setSource(camera2);
-				    imageSource = new CvSource("CV Image Source", VideoMode.PixelFormat.kMJPEG, 640, 480, 30);
+				    imageSource = new CvSource("CV Image Source", VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
 				    cvStream = new MjpegServer("CV Image Stream", 1188);
 				    cvStream.setSource(imageSource);
 				    gp = new GripPipeline();
 				    inputImage = new Mat();
 				    hsv = new Mat();
-				    mode = "ComputerVision";
 			  }
 			  if(mode.equals("HumanVision"))
 			  {
 				  if(oldMode.equals("HumanVision") == false)
 				  {
-					    //camera2.setWhiteBalanceAuto();
-					    //camera2.setExposureAuto();
+					    camera2.setWhiteBalanceAuto();
+					    camera2.setExposureManual(70);
 				  }
 				  try
 				  {
@@ -87,7 +90,7 @@ public class GearCameraThread extends Thread{
 					  camera2.setWhiteBalanceManual(wbm.getMin());
 					  camera2.setExposureManual(0);
 				  }
-					
+					gearCenterline= -1;
 				long start = System.nanoTime();
 				long frameTime = imageSink.grabFrame(inputImage);
 				if (frameTime != 0) 
@@ -104,6 +107,9 @@ public class GearCameraThread extends Thread{
 					SmartDashboard.putNumber("piGear.time", (System.nanoTime() - start) / 1000000);
 					gearCenterline = gp.centerline;
 					gearArea = gp.area;
+					if(gearCenterline == 0){
+						gearCenterline = -1;
+					}
 				}
 			  }
 			  oldMode = mode;
