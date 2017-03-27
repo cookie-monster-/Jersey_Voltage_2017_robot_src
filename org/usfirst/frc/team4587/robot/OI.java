@@ -77,7 +77,13 @@ public class OI implements LogDataSource {
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
     	buttonA1.whenPressed(new AutoGearIntakeMotors());
-    	//leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
+    	
+    	/*leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
+    	rightBumper1.whenPressed(new EjectGear());
+    	buttonA1.whenPressed(new FollowChezyPath("CenterGearPath", false, false));
+    	//buttonB1.whenPressed(new AutoGearCenter());
+    	buttonX1.whenPressed(new AutoGearSide("right"));
+    	buttonY1.whenPressed(new AutonomousTurnToAngleSimple(-57));*/
     	
     	//buttonA1.whenPressed(new AutoGearSimple("right"));
     	//buttonY1.whenPressed(new AimGearDriveNoPi());

@@ -49,6 +49,7 @@ public class GearCameraThread extends Thread{
 	  
 	  public void run()
 	  {
+		  running = true; // This change makes it so we don't have to remember to call setRunning() before startinh the thread.
 		  while(running)
 		  {
 			  //mode = SmartDashboard.getString("GearCameraMode", "HumanVision");

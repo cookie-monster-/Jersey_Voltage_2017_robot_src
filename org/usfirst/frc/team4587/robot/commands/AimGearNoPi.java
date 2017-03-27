@@ -27,7 +27,6 @@ public class AimGearNoPi extends Command {
 	int countFinish;
 
     public AimGearNoPi() {
-    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	count = 0;
@@ -92,53 +91,51 @@ public class AimGearNoPi extends Command {
     	turnControl.enable();
     	countToStop = 0;
     	
-    	Robot.getGearCameraThread().setRunning(true);
     	Robot.getGearCameraThread().setMode("ComputerVision");
+    	Robot.getGearCameraThread().setRunning(true);
+    	Robot.getGearCameraThread().start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		System.out.println("Execute");
-	    	m_centerline = Robot.getGearCameraThread().getGearCenterline();
-	    	if (m_centerline >= 0)
+    	System.out.println("Execute");
+	    m_centerline = Robot.getGearCameraThread().getGearCenterline();
+	    if (m_centerline >= 0)
+	    {
+	    	System.out.println("centerline >= 0");
+	    	if(Math.abs(m_centerline - 160) > 20)
 	    	{
-	    		System.out.println("centerline >= 0");
-	    		if(Math.abs(m_centerline - 160) > 20)
+	    		Robot.writeToArduino((byte)65);
+	    		SmartDashboard.putNumber("byte sent to arduino", 65);
+	    		SmartDashboard.putNumber("last gear centerline", m_lastCenterline);
+	    		if(m_lastCenterline != m_centerline)
 	    		{
-	    			Robot.writeToArduino((byte)65);
-	    			SmartDashboard.putNumber("byte sent to arduino", 65);
-	    			SmartDashboard.putNumber("last gear centerline", m_lastCenterline);
-	    			if(m_lastCenterline != m_centerline)
-	    			{
-			    			double error = (m_centerline - 160) / 16.0;
-					    	//turnControl.setSetpoint(turnControl.getSetpoint() + error);
-					    	setSetpoint(Gyro.getYaw() + error);
-					    	//setSetpoint(error);
-					    	//Robot.getTurret().setSetpoint(120);
-					    	m_lastCenterline = m_centerline;
-					    	SmartDashboard.putNumber("Desired gear Setpoint", turnControl.getSetpoint());
-		    			
-	    			}
-	    		}
-	    		else
-	    		{
-	    			Robot.writeToArduino((byte)64);
-	    			SmartDashboard.putNumber("byte sent to arduino", 64);
+			    	double error = (m_centerline - 160) / 16.0;
+					//turnControl.setSetpoint(turnControl.getSetpoint() + error);
+					setSetpoint(Gyro.getYaw() + error);
+					//setSetpoint(error);
+					//Robot.getTurret().setSetpoint(120);
+					SmartDashboard.putNumber("Desired gear Setpoint", turnControl.getSetpoint());		
 	    		}
 	    	}
 	    	else
 	    	{
-	    		System.out.println("gear centerline < 0");
-	    		//turnControl.setSetpoint(-135);
-	    		//setSetpoint(-135);
+	    		Robot.writeToArduino((byte)64);
+	    		SmartDashboard.putNumber("byte sent to arduino", 64);
 	    	}
-	    	System.out.println("Setpoint: " + turnControl.getSetpoint());
-    
-    	}
+	    }
+	    else
+	    {
+	    	System.out.println("gear centerline < 0");
+	    	//turnControl.setSetpoint(-135);
+	    	//setSetpoint(-135);
+	    }
+	    System.out.println("Setpoint: " + turnControl.getSetpoint());
+		m_lastCenterline = m_centerline;
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	
     	/*if(turnControl.onTarget()){
     		countFinish++;
     	}

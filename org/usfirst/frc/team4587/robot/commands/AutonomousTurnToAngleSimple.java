@@ -24,13 +24,12 @@ public class AutonomousTurnToAngleSimple extends Command {
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	count = 0;
     	requires(Robot.getDriveBaseSimple());
     	m_desiredAngle = angleDegrees;
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
-    	turnControl = new PIDController(0.03, 0.0, 0.0, m_myPIDSource, m_myPIDOutput);
-    	turnControl.setAbsoluteTolerance(4);
+    	turnControl = new PIDController(0.02, 0.001, 0.015, m_myPIDSource, m_myPIDOutput);
+    	turnControl.setAbsoluteTolerance(2);
     	turnControl.setInputRange(-180, 180);
     	turnControl.setContinuous(true);
     }
@@ -73,6 +72,7 @@ public class AutonomousTurnToAngleSimple extends Command {
     	m_startAngle = Gyro.getYaw();
     	turnControl.setSetpoint(m_desiredAngle);
     	turnControl.enable();
+    	count = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -104,7 +104,7 @@ public class AutonomousTurnToAngleSimple extends Command {
     	{
     		return Gyro.getYaw() <= m_desiredAngle + m_tolerance;
     	}*/
-    	if(count > 5)
+    	if(count > 30)
     	{
         	return turnControl.onTarget();
     	}

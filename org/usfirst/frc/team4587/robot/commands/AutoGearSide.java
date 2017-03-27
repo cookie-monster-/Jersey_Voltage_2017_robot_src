@@ -5,9 +5,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoGearCenter extends CommandGroup {
+public class AutoGearSide extends CommandGroup {
 
-    public AutoGearCenter() {
+    public AutoGearSide(String side) {
+    	double angle;
+    	if(side.equals("left")){
+    		angle = 57;
+    	}
+    	else
+    	{
+    		angle = -57;
+    	}
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,7 +34,12 @@ public class AutoGearCenter extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("CenterGearPath", false, false));
+    	addSequential(new FollowChezyPath("RightGearPath0", false, false));
+    	addSequential(new Delay(10));
+    	addSequential(new AutonomousTurnToAngleSimple(angle));
+    	//addSequential(new Delay(10));
+    	addSequential(new FollowChezyPath("RightGearPath1",false,false));
+
     	addSequential(new Delay(10));
     	addSequential(new EjectGear());
     	/*addSequential(new Delay(25));

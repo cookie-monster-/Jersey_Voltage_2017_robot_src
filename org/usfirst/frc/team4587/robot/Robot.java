@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 
 import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
 import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
+import org.usfirst.frc.team4587.robot.commands.AutoGearSide;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
@@ -190,9 +191,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void autonomousInit() {
 		initializeNewPhase(ValueLogger.AUTONOMOUS_PHASE);
-		autonomousCommand = new AutoGearBayou("right");
+		//autonomousCommand = new AutoGearRight();
 		//autonomousCommand = new AutoGearSimple("right");
-		//autonomousCommand = new AutoGearCenter();
+		//autonomousCommand = new AutoGearSide("right");
+		autonomousCommand = new AutoGearCenter();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
