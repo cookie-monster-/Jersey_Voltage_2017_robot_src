@@ -120,7 +120,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		try
 		{
 			//m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
-			m_arduino = new SerialPort(9600, SerialPort.Port.kOnboard);
+			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
 		}
 		catch(Exception e)
 		{
@@ -151,7 +151,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 			byte[] buffer = new byte [1];
 			buffer[0] = mode;
 			m_arduino.write(buffer, 1);
-			System.out.println(buffer[0]);
+			m_arduino.flush();
 		}
 		else
 		{

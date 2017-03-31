@@ -71,12 +71,12 @@ public class OI implements LogDataSource {
     	
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
-    	buttonY1.whenPressed(new ClimbMotorToggle());
+    	/*buttonY1.whenPressed(new ClimbMotorToggle());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	buttonA1.whenPressed(new AutoGearIntakeMotors());
+    	buttonA1.whenPressed(new AutoGearIntakeMotors());*/
     	
     	/*leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	rightBumper1.whenPressed(new EjectGear());
@@ -98,10 +98,12 @@ public class OI implements LogDataSource {
     	buttonY1.whenPressed(new RunGearCameraThread());
     	buttonX1.whenPressed(new AimGearDriveNoPi());
     	buttonB1.whenPressed(new AutonomousDriveStraightDistance(50,0.7));*/
-    	/*buttonA1.whenPressed(new ChangeLEDMode((byte)64));
-    	buttonB1.whenPressed(new ChangeLEDMode((byte)65));
-    	buttonX1.whenPressed(new ChangeLEDMode((byte)66));
-    	buttonY1.whenPressed(new ChangeLEDMode((byte)67));*/
+    	buttonA1.whenPressed(new ChangeLEDMode((byte)65));
+    	buttonB1.whenPressed(new ChangeLEDMode((byte)66));
+    	buttonX1.whenPressed(new ChangeLEDMode((byte)67));
+    	buttonY1.whenPressed(new ChangeLEDMode((byte)68));
+    	leftBumper1.whenPressed(new ChangeLEDMode((byte)69));
+    	rightBumper1.whenPressed(new ChangeLEDMode((byte)70));
     	
     	/*buttonA1.whenPressed(new AimGear());
     	buttonX1.whenPressed(new AimGearDrive());
