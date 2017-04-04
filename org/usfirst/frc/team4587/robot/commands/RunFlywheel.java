@@ -31,22 +31,25 @@ public class RunFlywheel extends Command {
     protected void execute() {
     	if(Robot.getFlywheel().running())
     	{
-    		m_desiredVelocity = SmartDashboard.getNumber("FlywheelVelocity", 0.0) / 60 / 50 * 256;  // 60sec/min 50*20ms/sec 256dots/rev
+        	System.out.println("hi");
+    		m_desiredVelocity = SmartDashboard.getNumber("FlywheelVelocity", 0.0) / 60 / 50 * 3 / 12 * 32;  // 60sec/min 50*20ms/sec 256dots/rev
     		SmartDashboard.putNumber("ConvertedFlywheelVelocity", m_desiredVelocity);
-    		//m_currentFlywheelVelocity = Robot.getFlywheel().getVelocity(m_lastFlywheelEncoder);
+    		m_currentFlywheelVelocity = Robot.getFlywheel().getVelocity();
     		SmartDashboard.putNumber("Flywheel Current Velocity", m_currentFlywheelVelocity);
-    		m_velocityInRPMs = m_currentFlywheelVelocity * 60 * 50 / 256;
+    		m_velocityInRPMs = m_currentFlywheelVelocity * 60 * 50  / 3 * 12 / 32;
     		SmartDashboard.putNumber("Flywheel Velocity RPMs", m_velocityInRPMs);
     			
-    		double error = (m_desiredVelocity - m_currentFlywheelVelocity) / 1;
-    		Robot.getFlywheel().setSetpoint(Robot.getFlywheel().getSetpoint() + error);
+    		double error = (m_desiredVelocity - m_currentFlywheelVelocity)  * 60 * 50  / 3 * 12 / 32;
+    		//Robot.getFlywheel().setSetpoint(Robot.getFlywheel().getSetpoint() + error);
         	m_lastFlywheelVelocity = m_currentFlywheelVelocity;
         	
-        	SmartDashboard.putNumber("Flywheel Setpoint", Robot.getFlywheel().getSetpoint() + error);
+        	SmartDashboard.putNumber("Flywheel Setpoint", Robot.getFlywheel().getSetpoint());
     		SmartDashboard.putNumber("Error", error);
+    	}else{
+    		Robot.getFlywheel().initialize();
     	}
     	m_lastFlywheelEncoder = Robot.getFlywheel().getEncoder().get();
-    	Robot.getFlywheel().setLastEncoder(m_lastFlywheelEncoder);
+    	//Robot.getFlywheel().setLastEncoder(m_lastFlywheelEncoder);
     	SmartDashboard.putNumber("Last Encoder Flywheel", m_lastFlywheelEncoder);
 
     }

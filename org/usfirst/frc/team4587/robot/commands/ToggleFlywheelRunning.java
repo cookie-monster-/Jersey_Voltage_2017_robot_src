@@ -22,17 +22,20 @@ public class ToggleFlywheelRunning extends Command {
     	if (Robot.getFlywheel().running() == true)
     	{
     		Robot.getFlywheel().setRunning(false);
-    		Robot.getIndexer().setRunning(false);
+    		//Robot.getIndexer().setRunning(false);
     		Robot.getFlywheel().disable();
-    		Robot.getIndexer().disable();
+    		Robot.getFlywheel().setSetpoint(0.0);
+    		//Robot.getIndexer().disable();
+    		System.out.println("not running");
     	}
     	else
     	{
-    		Robot.getFlywheel().initialize();
+    		System.out.println("running");
+    		//Robot.getFlywheel().initialize();
     		Robot.getFlywheel().enable();
-    		Robot.getIndexer().enable();
+    		//Robot.getIndexer().enable();
     		Robot.getFlywheel().setRunning(true);
-    		Robot.getIndexer().setRunning(true);
+    		//Robot.getIndexer().setRunning(true);
     	}
     }
 

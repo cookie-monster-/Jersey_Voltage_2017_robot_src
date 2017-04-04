@@ -20,6 +20,7 @@ import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
 import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSide;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
+import org.usfirst.frc.team4587.robot.commands.SetScytheAndShintake;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
@@ -61,6 +62,16 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public static FlywheelPID getFlywheel()
 	{
 		return m_flywheel;
+	}
+	/*private static FlywheelSimple m_flywheel;
+	public static FlywheelSimple getFlywheel()
+	{
+		return m_flywheel;
+	}*/
+	private static ScytheAndShintake m_scytheAndShintake;
+	public static ScytheAndShintake getScytheAndShintake()
+	{
+		return m_scytheAndShintake;
 	}
 	private static IndexerPID m_indexer;
 	public static IndexerPID getIndexer()
@@ -108,14 +119,15 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void robotInit() {
 		m_robot = this;
-		//m_turret = new TurretPID();
-		//m_flywheel = new FlywheelPID();
+		m_turret = new TurretPID();
+		m_flywheel = new FlywheelPID();
+		m_scytheAndShintake = new ScytheAndShintake();
 		//m_indexer = new IndexerPID();
-    	m_gearIntake = new GearIntake();
+    	//m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
-		m_gearCameraThread = new GearCameraThread();
-		m_climbMotor = new ClimbMotor();
+		//m_gearCameraThread = new GearCameraThread();
+		//m_climbMotor = new ClimbMotor();
 		Bling.initialize();
 		try
 		{
@@ -130,12 +142,12 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		
 		m_oi = new OI();
 		logger = null;
-        //logger = new ValueLogger("/home/lvuser/dump",10);
-        //logger.registerDataSource(this);
+        logger = new ValueLogger("/home/lvuser/dump",10);
+        logger.registerDataSource(this);
         //logger.registerDataSource ( m_driveBase );
         //logger.registerDataSource ( m_gearIntake );
-        //logger.registerDataSource ( m_driveBaseSimple );
-        
+        logger.registerDataSource ( m_driveBaseSimple );
+        logger.registerDataSource(m_flywheel);
         //logger.registerDataSource(m_turret);
 		/*chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -167,9 +179,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		//m_turret.disable();
-		//m_flywheel.disable();
+		Robot.getFlywheel().setRunning(false);
+		Robot.getFlywheel().disable();
+		Robot.getFlywheel().setSetpoint(0.0);
 		//m_indexer.disable();
-		m_gearCameraThread.setRunning(false);
+		//m_gearCameraThread.setRunning(false);
 	}
 
 	@Override
@@ -194,7 +208,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//autonomousCommand = new AutoGearRight();
 		//autonomousCommand = new AutoGearSimple("right");
 		//autonomousCommand = new AutoGearSide("right");
-		autonomousCommand = new AutoGearCenter();
+		//autonomousCommand = new AutoGearCenter();
+		autonomousCommand = new SetScytheAndShintake(0.0,1.0,0);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -263,9 +278,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_driveBaseSimple.getValues();
 		
 		SmartDashboard.putNumber("Gyro Yaw",Gyro.getYaw());
-		//SmartDashboard.putBoolean("Is Running", m_flywheel.running());put back
-		//SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
-		
+		SmartDashboard.putBoolean("Is Running", m_flywheel.running());
+		SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
 		//SmartDashboard.putNumber("Turret Motor", m_turret.getTurretMotorActual());
 		/*if (m_gearIntake.getGearIntakeSwitch() == false)
     	{

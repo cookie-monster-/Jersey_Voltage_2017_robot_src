@@ -5,6 +5,7 @@ import org.usfirst.frc.team4587.robot.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import utility.JoyButton;
 import utility.LogDataSource;
 import utility.ValueLogger;
@@ -44,12 +45,24 @@ public class OI implements LogDataSource {
     	rightBumper2	= new JoystickButton(stick2, 6);
     	rightTrigger2	= new JoyButton(stick2, JoyButton.JoyDir.DOWN, 3);
 
-    	/*
+    	buttonY1.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
+    	buttonA1.whenPressed(new SetScytheAndShintake(0.7,1.0,25));
+    	buttonB1.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
+    	buttonX1.whenPressed(new SetScytheAndShintake(0.0,-1.0,0));
+
+    	//buttonX1.whenPressed(new TestFlywheelDecrease());
+    	//buttonY1.whenPressed(new TestFlywheelIncrease());
+    	leftBumper1.whenPressed(new SetFlywheel(2900));
+    	rightBumper1.whenPressed(new ToggleFlywheelRunning());
+    	/*buttonX1.whenPressed(new SetFlywheelMotorsSimple(0.5));
+    	buttonY1.whenPressed(new SetFlywheelMotorsSimple(0.0));
+    	leftBumper1.whenPressed(new SetFlywheelMotorsSimple(1.0));
+    	rightBumper1.whenPressed(new SetFlywheelMotorsSimple(0.75));*/
     	//buttonA1.whenPressed(new testTurretIncrease());
-    	buttonX1.whenPressed(new ToggleAimMode());
+    	//buttonX1.whenPressed(new ToggleAimMode());
     	//buttonB1.whenPressed(new testTurretDecrease());
     	//buttonY1.whenPressed(new testTurretSetSetpoint());
-    	leftBumper1.whenPressed(new ToggleGearIntakeMotors());
+    	/*leftBumper1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	buttonA1.whenPressed(new ChangeLEDMode((byte)64));
     	buttonY1.whenPressed(new ChangeLEDMode((byte)65));
@@ -84,7 +97,6 @@ public class OI implements LogDataSource {
     	//buttonB1.whenPressed(new AutoGearCenter());
     	buttonX1.whenPressed(new AutoGearSide("right"));
     	buttonY1.whenPressed(new AutonomousTurnToAngleSimple(-57));*/
-    	
     	//buttonA1.whenPressed(new AutoGearSimple("right"));
     	//buttonY1.whenPressed(new AimGearDriveNoPi());
     	//buttonB1.whenPressed(new AutoGearBayou("right"));
@@ -98,12 +110,12 @@ public class OI implements LogDataSource {
     	buttonY1.whenPressed(new RunGearCameraThread());
     	buttonX1.whenPressed(new AimGearDriveNoPi());
     	buttonB1.whenPressed(new AutonomousDriveStraightDistance(50,0.7));*/
-    	buttonA1.whenPressed(new ChangeLEDMode((byte)65));
+    	/*buttonA1.whenPressed(new ChangeLEDMode((byte)65));
     	buttonB1.whenPressed(new ChangeLEDMode((byte)66));
     	buttonX1.whenPressed(new ChangeLEDMode((byte)67));
     	buttonY1.whenPressed(new ChangeLEDMode((byte)68));
     	leftBumper1.whenPressed(new ChangeLEDMode((byte)69));
-    	rightBumper1.whenPressed(new ChangeLEDMode((byte)70));
+    	rightBumper1.whenPressed(new ChangeLEDMode((byte)70));*/
     	
     	/*buttonA1.whenPressed(new AimGear());
     	buttonX1.whenPressed(new AimGearDrive());

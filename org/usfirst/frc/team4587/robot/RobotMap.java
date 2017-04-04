@@ -14,11 +14,15 @@ public class RobotMap {
 
 	public static final int MOTOR_RIGHT_DRIVETRAIN = 0;
 	public static final int	MOTOR_LEFT_DRIVETRAIN = 1;
+	public static final int MOTOR_FLYWHEEL_1 = 2;
+	public static final int MOTOR_FLYWHEEL_2 = 3;
+	public static final int MOTOR_FLYWHEEL_3 = 4;
+	public static final int MOTOR_TURRET = 5;
+	public static final int MOTOR_SCYTHE = 6;
+	public static final int MOTOR_SHINTAKE = 7;
 	
 	public static final int MOTOR_GEAR_INTAKE = 3;
-	public static final int MOTOR_FLYWHEEL = 4;
-	public static final int MOTOR_INDEXER = 5;
-	public static final int MOTOR_TURRET = 6;
+	public static final int MOTOR_INDEXER = 6;
 	public static final int MOTOR_CLIMB_1 = 7;
 	public static final int MOTOR_CLIMB_2 = 8;
 	//

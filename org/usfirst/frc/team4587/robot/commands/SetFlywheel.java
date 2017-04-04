@@ -12,21 +12,24 @@ public class SetFlywheel extends Command {
 
 	double m_rpms;
 	double m_motorLevel;
-    public SetFlywheel(double rpms, double motorLevel) {
+    public SetFlywheel(double rpms) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getFlywheel());
-    	requires(Robot.getIndexer());
+    	//requires(Robot.getIndexer());
     	m_rpms = rpms;
-    	m_motorLevel = motorLevel;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	m_motorLevel = m_rpms / 6750 * 1.3;//6750 = max rpms
     	Robot.getFlywheel().setSetpoint(m_rpms);
     	Robot.getFlywheel().setExpectedMotorLevel(m_motorLevel);
-    	Robot.getIndexer().setSetpoint(m_rpms);
-    	Robot.getIndexer().setExpectedMotorLevel(m_motorLevel);
+    	//SmartDashboard.putNumber("Flywheel RPM's set to: ", m_rpms);
+    	SmartDashboard.putNumber("FlywheelVelocity", m_rpms);
+    	//Robot.getIndexer().setSetpoint(m_rpms);
+    	//Robot.getIndexer().setExpectedMotorLevel(m_motorLevel);
+    	System.out.println(m_rpms + " " + m_motorLevel + " setpoint: " + Robot.getFlywheel().getSetpoint());
     }
 
     // Called repeatedly when this Command is scheduled to run
