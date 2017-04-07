@@ -25,7 +25,7 @@ public class FollowChezyPath extends Command {
 	int m_startEncoderRight;
 	double m_startAngle;
 	double m_startTime;
-	double Ka = 0.1;
+	double Ka = 0.01;//0.1
 	double Kv = 0.4/43;
 	double Kp = 0.005;
 	double Kg = 0.015;

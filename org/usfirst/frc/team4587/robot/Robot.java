@@ -20,6 +20,7 @@ import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
 import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSide;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
+import org.usfirst.frc.team4587.robot.commands.HopperAuto;
 import org.usfirst.frc.team4587.robot.commands.SetScytheAndShintake;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
@@ -209,7 +210,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//autonomousCommand = new AutoGearSimple("right");
 		//autonomousCommand = new AutoGearSide("right");
 		//autonomousCommand = new AutoGearCenter();
-		autonomousCommand = new SetScytheAndShintake(0.0,1.0,0);
+		autonomousCommand = new HopperAuto();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -229,6 +230,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void autonomousPeriodic() {
 		long start = System.nanoTime();
         Scheduler.getInstance().run();
+		m_driveBaseSimple.getValues();
        // if ( logger != null ) logger.logValues(start);
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
 	}

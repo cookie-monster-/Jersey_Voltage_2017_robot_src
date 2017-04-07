@@ -45,10 +45,10 @@ public class OI implements LogDataSource {
     	rightBumper2	= new JoystickButton(stick2, 6);
     	rightTrigger2	= new JoyButton(stick2, JoyButton.JoyDir.DOWN, 3);
 
-    	buttonY1.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
+    	buttonY1.whenPressed(new SetScytheAndShintake(0.7,0.0,0));
     	buttonA1.whenPressed(new SetScytheAndShintake(0.7,1.0,25));
     	buttonB1.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
-    	buttonX1.whenPressed(new SetScytheAndShintake(0.0,-1.0,0));
+    	buttonX1.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
 
     	//buttonX1.whenPressed(new TestFlywheelDecrease());
     	//buttonY1.whenPressed(new TestFlywheelIncrease());

@@ -14,6 +14,7 @@ public class GearIntakeLEDs extends Command {
     public GearIntakeLEDs() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.getGearIntake());
     }
 
     // Called just before this Command runs the first time
@@ -23,11 +24,28 @@ public class GearIntakeLEDs extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(Robot.getGearIntake().getPiston()){
+    		if(Robot.getGearIntake().getGearIntakeSwitch()){
+    	    	Robot.writeToArduino((byte)66);//yes gear up
+    		}else{
+    	    	Robot.writeToArduino((byte)69);//no gear up
+    		}
+    	}else{
+    		if(Robot.getGearIntake().getGearIntakeSwitch()){
+    	    	Robot.writeToArduino((byte)65);//yes gear down
+    		}else{
+    	    	if(Robot.getGearIntake().motorOn()){
+    	    		Robot.writeToArduino((byte)68);//no gear down motor on
+    	    	}else{
+    	    		Robot.writeToArduino((byte)67);//no gear down motor off
+    	    	}
+    		}
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
