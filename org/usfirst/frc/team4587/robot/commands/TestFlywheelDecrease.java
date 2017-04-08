@@ -18,7 +18,13 @@ public class TestFlywheelDecrease extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("FlywheelVelocity", SmartDashboard.getNumber("FlywheelVelocity", 0.0) - 50);
+    	SmartDashboard.putNumber("FlywheelVelocity", SmartDashboard.getNumber("FlywheelVelocity", 0.0) - 100);
+		double m_rpms;
+		double m_motorLevel;
+		m_rpms = SmartDashboard.getNumber("FlywheelVelocity", 0);
+    	m_motorLevel = m_rpms / 6750 * 1.3;//6750 = max rpms
+    	Robot.getFlywheel().setSetpoint(m_rpms);
+    	Robot.getFlywheel().setExpectedMotorLevel(m_motorLevel);
     }
 
     // Called repeatedly when this Command is scheduled to run

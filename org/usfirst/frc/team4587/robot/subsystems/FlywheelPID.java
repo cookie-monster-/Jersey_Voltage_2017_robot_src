@@ -18,11 +18,15 @@ import utility.ValueLogger;
 public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
 
 	private SpeedController m_flywheelMotor1;
-	private SpeedController m_flywheelMotor2;
-	private SpeedController m_flywheelMotor3;
+	//private SpeedController m_flywheelMotor2;
+	//private SpeedController m_flywheelMotor3;
 	private Encoder m_encoder;
-	private double m_lastEncoders = 0.0;
-	private long m_lastTime;
+	private double m_lastEncoders0 = 0.0;
+	private double m_lastEncoders1 = 0.0;
+	private double m_lastEncoders2 = 0.0;
+	private long m_lastTime0;
+	private long m_lastTime1;
+	private long m_lastTime2;
 	private double m_expectedMotorLevel;
 	private double m_output;
 	public void setExpectedMotorLevel(double motorLevel)
@@ -34,7 +38,7 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
 	{
 		m_lastEncoders = lastEncoder;
 	}*/
-	private static double m_kP = 0.0001;
+	private static double m_kP = 0.0005;
 	private static double m_kI = 0.0000;//0.0001;
 	private static double m_kD = 0.000;//0.001;
 	public double m_testSetPoint = 0.0;
@@ -61,15 +65,15 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
         // enable() - Enables the PID controller.
     	setAbsoluteTolerance(2.0);
     	m_flywheelMotor1 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_1);
-    	m_flywheelMotor2 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_2);
-    	m_flywheelMotor3 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_3);
+    	//m_flywheelMotor2 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_2);
+    	//m_flywheelMotor3 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_3);
         m_encoder = new Encoder(RobotMap.ENCODER_FLYWHEEL_A, RobotMap.ENCODER_FLYWHEEL_B);
         
     }
     
     public double getVelocity()
     {
-    	return m_encoder.get() - m_lastEncoders;
+    	return (m_encoder.get() - m_lastEncoders2)/3.0;
     	
     }
     
@@ -92,10 +96,15 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     public void initialize()
     {
     	m_flywheelMotor1.set(0.0);
-    	m_flywheelMotor2.set(0.0);
-    	m_flywheelMotor3.set(0.0);
+    	//m_flywheelMotor2.set(0.0);
+    	//m_flywheelMotor3.set(0.0);
     	setSetpoint(0.0);
-    	m_lastTime = System.nanoTime();
+    	m_lastTime0 = System.nanoTime();
+    	m_lastTime1 = m_lastTime0;
+    	m_lastTime2 = m_lastTime0;
+    	m_lastEncoders0 = m_encoder.get();
+    	m_lastEncoders1 = m_lastEncoders0;
+    	m_lastEncoders2 = m_lastEncoders0;
     }
     
     public Encoder getEncoder()
@@ -107,7 +116,7 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	
-    	setDefaultCommand(new RunFlywheel());
+    	//setDefaultCommand(new RunFlywheel());
     	
     }
 
@@ -115,16 +124,20 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     protected double returnPIDInput() {
     	encoderNow = m_encoder.get();
     	timeNow = System.nanoTime();
-    	m_velocity = (encoderNow - m_lastEncoders) / (timeNow - m_lastTime) * 60 * 1000000000 / 3 * 12 / 32/* 3ticks per rev * 12t on motor / 32t on flywheel*/;
-    	m_lastEncoders = encoderNow;
-    	m_lastTime = timeNow;
-    	if (Math.abs(m_velocity - getSetpoint()) < 0.05 * getSetpoint())
+    	m_velocity = ((encoderNow - m_lastEncoders2))/ (timeNow - m_lastTime2) * 60 * 1000000000 / 3 * 12 / 32/* 3ticks per rev * 12t on motor / 32t on flywheel*/;
+    	m_lastEncoders2 = m_lastEncoders1;
+    	m_lastEncoders1 = m_lastEncoders0;
+    	m_lastEncoders0 = encoderNow;
+    	m_lastTime2 = m_lastTime1;
+    	m_lastTime1 = m_lastTime0;
+    	m_lastTime0 = timeNow;
+    	if (Math.abs(m_velocity - getSetpoint()) < 0.02 * getSetpoint())
     	{
     		m_expectedMotorLevel = (m_expectedMotorLevel + m_flywheelMotor1.get()) / 2;
     	}
-    	if(m_velocity > getSetpoint()){
+    	/*if(m_velocity > getSetpoint()){
     		m_expectedMotorLevel = (m_expectedMotorLevel + m_flywheelMotor1.get()) / 2;
-    	}
+    	}*/
     	return m_velocity;
     	//encoder delta (velocity)
     }
@@ -136,8 +149,8 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     	if(getSetpoint() == 0.0)
     	{
         	m_flywheelMotor1.set(0.0);
-        	m_flywheelMotor2.set(0.0);
-        	m_flywheelMotor3.set(0.0);
+        	//m_flywheelMotor2.set(0.0);
+        	//m_flywheelMotor3.set(0.0);
     	}
     	else
     	{
@@ -151,8 +164,8 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     			motorLevel = 1;
     		}
         	m_flywheelMotor1.set(motorLevel);
-        	m_flywheelMotor2.set(motorLevel);
-        	m_flywheelMotor3.set(motorLevel);
+        	//m_flywheelMotor2.set(motorLevel);
+        	//m_flywheelMotor3.set(motorLevel);
         	System.out.println(motorLevel);
     	}
     	//m_flywheelMotor.set(0.8);
@@ -171,8 +184,8 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     	logger.logDoubleValue("flywheel expected motor level", m_expectedMotorLevel);
     	logger.logDoubleValue( "flywheel encoder", m_encoder.get() );
     	logger.logDoubleValue( "flywheel encoder now", encoderNow );
-    	logger.logDoubleValue( "flywheel encoder last", m_lastEncoders );
+    	logger.logDoubleValue( "flywheel encoder last", m_lastEncoders0 );
     	logger.logDoubleValue( "time now", timeNow );
-    	logger.logDoubleValue( "time last", m_lastTime );
+    	logger.logDoubleValue( "time last", m_lastTime0 );
     }
 }

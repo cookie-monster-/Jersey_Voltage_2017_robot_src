@@ -3,23 +3,28 @@ package org.usfirst.frc.team4587.robot.commands;
 import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class ToggleFlywheelRunning extends Command {
 
-    public ToggleFlywheelRunning() {
+	double m_rpms;
+	boolean run;
+    public ToggleFlywheelRunning(boolean runx,double rpms) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getFlywheel());
+    	run = runx;
+    	m_rpms = rpms;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	//Robot.getFlywheel().setRunning(!Robot.getFlywheel().running());
     	//Robot.getElevator().setRunning(!Robot.getElevator().running());
-    	if (Robot.getFlywheel().running() == true)
+    	if (run == false)
     	{
     		Robot.getFlywheel().setRunning(false);
     		//Robot.getIndexer().setRunning(false);
@@ -31,11 +36,21 @@ public class ToggleFlywheelRunning extends Command {
     	else
     	{
     		System.out.println("running");
-    		//Robot.getFlywheel().initialize();
+    		Robot.getFlywheel().initialize();
     		Robot.getFlywheel().enable();
     		//Robot.getIndexer().enable();
     		Robot.getFlywheel().setRunning(true);
     		//Robot.getIndexer().setRunning(true);
+    		double m_motorLevel;
+    		//m_rpms = SmartDashboard.getNumber("FlywheelVelocity", 1850);
+        	m_motorLevel = m_rpms / 6750 * 1.3;//6750 = max rpms
+        	Robot.getFlywheel().setSetpoint(m_rpms);
+        	Robot.getFlywheel().setExpectedMotorLevel(m_motorLevel);
+        	//SmartDashboard.putNumber("Flywheel RPM's set to: ", m_rpms);
+        	SmartDashboard.putNumber("FlywheelVelocity", m_rpms);
+        	//Robot.getIndexer().setSetpoint(m_rpms);
+        	//Robot.getIndexer().setExpectedMotorLevel(m_motorLevel);
+        	System.out.println(m_rpms + " " + m_motorLevel + " setpoint: " + Robot.getFlywheel().getSetpoint());
     	}
     }
 

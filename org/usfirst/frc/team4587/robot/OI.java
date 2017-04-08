@@ -44,7 +44,7 @@ public class OI implements LogDataSource {
     	leftTrigger2	= new JoyButton(stick2, JoyButton.JoyDir.DOWN, 2);
     	rightBumper2	= new JoystickButton(stick2, 6);
     	rightTrigger2	= new JoyButton(stick2, JoyButton.JoyDir.DOWN, 3);
-
+/*
     	buttonY1.whenPressed(new SetScytheAndShintake(0.7,0.0,0));
     	buttonA1.whenPressed(new SetScytheAndShintake(0.7,1.0,25));
     	buttonB1.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
@@ -54,6 +54,7 @@ public class OI implements LogDataSource {
     	//buttonY1.whenPressed(new TestFlywheelIncrease());
     	leftBumper1.whenPressed(new SetFlywheel(2900));
     	rightBumper1.whenPressed(new ToggleFlywheelRunning());
+    	*/
     	/*buttonX1.whenPressed(new SetFlywheelMotorsSimple(0.5));
     	buttonY1.whenPressed(new SetFlywheelMotorsSimple(0.0));
     	leftBumper1.whenPressed(new SetFlywheelMotorsSimple(1.0));
@@ -84,12 +85,21 @@ public class OI implements LogDataSource {
     	
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
-    	/*buttonY1.whenPressed(new ClimbMotorToggle());
+    	buttonY1.whenPressed(new ClimbMotorToggle());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	buttonA1.whenPressed(new AutoGearIntakeMotors());*/
+    	buttonA1.whenPressed(new AutoGearIntakeMotors());
+
+    	buttonA2.whenPressed(new SetScytheAndShintake(0.6,1.0,25));
+    	buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
+    	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,2830));
+    	buttonY2.whenPressed(new ToggleFlywheelRunning(false,2830));
+    	leftBumper2.whenPressed(new TestFlywheelDecrease());
+    	rightBumper2.whenPressed(new TestFlywheelIncrease());
+    	//rightBumper2.whenPressed(new SetScytheAndShintake(-1.0,-1.0,0));
     	
     	/*leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	rightBumper1.whenPressed(new EjectGear());

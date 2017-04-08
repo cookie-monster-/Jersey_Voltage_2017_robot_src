@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4587.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,6 +21,7 @@ import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
 import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSide;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
+import org.usfirst.frc.team4587.robot.commands.AutoMobility;
 import org.usfirst.frc.team4587.robot.commands.HopperAuto;
 import org.usfirst.frc.team4587.robot.commands.SetScytheAndShintake;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
@@ -124,11 +126,13 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_flywheel = new FlywheelPID();
 		m_scytheAndShintake = new ScytheAndShintake();
 		//m_indexer = new IndexerPID();
-    	//m_gearIntake = new GearIntake();
+		Compressor compressor = new Compressor(0);
+		//compressor.start();
+    	m_gearIntake = new GearIntake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
 		//m_gearCameraThread = new GearCameraThread();
-		//m_climbMotor = new ClimbMotor();
+		m_climbMotor = new ClimbMotor();
 		Bling.initialize();
 		try
 		{
@@ -146,7 +150,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
         logger = new ValueLogger("/home/lvuser/dump",10);
         logger.registerDataSource(this);
         //logger.registerDataSource ( m_driveBase );
-        //logger.registerDataSource ( m_gearIntake );
+        logger.registerDataSource ( m_gearIntake );
         logger.registerDataSource ( m_driveBaseSimple );
         logger.registerDataSource(m_flywheel);
         //logger.registerDataSource(m_turret);
@@ -208,9 +212,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		initializeNewPhase(ValueLogger.AUTONOMOUS_PHASE);
 		//autonomousCommand = new AutoGearRight();
 		//autonomousCommand = new AutoGearSimple("right");
-		//autonomousCommand = new AutoGearSide("right");
+		//autonomousCommand = new AutoGearSide("left");
 		//autonomousCommand = new AutoGearCenter();
 		autonomousCommand = new HopperAuto();
+		//autonomousCommand = new AutoMobility();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

@@ -22,17 +22,17 @@ public class ClimbMotor extends Subsystem {
     // here. Call these from Commands.
 
 	private SpeedController m_climbMotor0;
-	private SpeedController m_climbMotor1;
+	//private SpeedController m_climbMotor1;
 	private boolean m_isClimbing = false;
 	public void startClimb()
 	{
 		m_climbMotor0.set(1);
-		m_climbMotor1.set(1);
+		//m_climbMotor1.set(1);
 	}
 	public void stopClimb()
 	{
 		m_climbMotor0.set(0);
-		m_climbMotor1.set(0);
+		//m_climbMotor1.set(0);
 	}
 	public boolean isClimbing(){
 		return m_isClimbing;
@@ -44,7 +44,7 @@ public class ClimbMotor extends Subsystem {
     public ClimbMotor()
     {    	
     	m_climbMotor0 = new Spark(RobotMap.MOTOR_CLIMB_1);
-    	m_climbMotor1 = new Spark(RobotMap.MOTOR_CLIMB_2);
+    	//m_climbMotor1 = new Spark(RobotMap.MOTOR_CLIMB_2);
     }
     
     public void initDefaultCommand() {

@@ -40,7 +40,7 @@ public class AutoGearSide extends CommandGroup {
     	//addSequential(new Delay(10));
     	addSequential(new FollowChezyPath("RightGearPath1",false,false));
 
-    	addSequential(new Delay(10));
+    	addSequential(new Delay(20));
     	addSequential(new EjectGear());
     	/*addSequential(new Delay(25));
     	addSequential(new ToggleGearIntakeMotors());

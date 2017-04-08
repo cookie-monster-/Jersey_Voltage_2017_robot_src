@@ -35,6 +35,8 @@ public class FollowChezyPath extends Command {
 	String filename;
 	boolean m_backwards;
 	boolean m_reverseLeftRight;
+	double m_finalPositionRight;
+	double m_finalPositionLeft;
     public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -73,6 +75,9 @@ public class FollowChezyPath extends Command {
     	m_startEncoderRight = Robot.getDriveBaseSimple().getEncoderRight();
     	m_startAngle = Gyro.getYaw();
     	m_startTime = System.nanoTime();
+    	
+    	m_finalPositionLeft = m_path.getLeftWheelTrajectory().getSegment(m_path.getLeftWheelTrajectory().getNumSegments() - 1).pos * 12 / 0.049 *-1;
+    	m_finalPositionRight = m_path.getRightWheelTrajectory().getSegment(m_path.getRightWheelTrajectory().getNumSegments() - 1).pos * 12 / 0.049 *-1;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -94,6 +99,12 @@ public class FollowChezyPath extends Command {
     	{
     		quit = true;
     	}
+    	/*else if(m_backwards && m_finalPositionRight >= Robot.getDriveBaseSimple().getEncoderRight() && m_finalPositionLeft >= Robot.getDriveBaseSimple().getEncoderLeft()){
+    		quit = true;
+    	}
+    	else if(m_backwards == false && m_finalPositionRight <= Robot.getDriveBaseSimple().getEncoderRight() && m_finalPositionLeft <= Robot.getDriveBaseSimple().getEncoderLeft()){
+    		quit = true;
+    	}*/
     	else
         	{
 	    		Trajectory.Segment left0;
