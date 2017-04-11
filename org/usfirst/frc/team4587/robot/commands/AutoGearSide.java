@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4587.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import utility.Gyro;
 
 /**
  *
@@ -34,11 +35,11 @@ public class AutoGearSide extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("RightGearPath0", false, false));
+    	addSequential(new FollowChezyPath("RightGearPath0", false, false,Gyro.getYaw()));
     	addSequential(new Delay(10));
     	addSequential(new AutonomousTurnToAngleSimple(angle));
     	//addSequential(new Delay(10));
-    	addSequential(new FollowChezyPath("RightGearPath1",false,false));
+    	addSequential(new FollowChezyPath("RightGearPath1",false,false,Gyro.getYaw()));
 
     	addSequential(new Delay(20));
     	addSequential(new EjectGear());

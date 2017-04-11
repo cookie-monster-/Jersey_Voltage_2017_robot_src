@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4587.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import utility.Gyro;
 
 /**
  *
@@ -26,7 +27,7 @@ public class AutoMobility extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("CenterGearPath", false, false));
+    	addSequential(new FollowChezyPath("CenterGearPath", false, false,Gyro.getYaw()));
     	/*addSequential(new Delay(25));
     	addSequential(new ToggleGearIntakeMotors());
     	addSequential(new FollowChezyPath(1));*/

@@ -169,6 +169,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 			buffer[0] = mode;
 			m_arduino.write(buffer, 1);
 			m_arduino.flush();
+			System.out.println(mode);
 		}
 		else
 		{
@@ -189,6 +190,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		Robot.getFlywheel().setSetpoint(0.0);
 		//m_indexer.disable();
 		//m_gearCameraThread.setRunning(false);
+		writeToArduino((byte)69);
 	}
 
 	@Override
@@ -214,7 +216,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//autonomousCommand = new AutoGearSimple("right");
 		//autonomousCommand = new AutoGearSide("left");
 		//autonomousCommand = new AutoGearCenter();
-		autonomousCommand = new HopperAuto();
+		autonomousCommand = new HopperAuto("red");
 		//autonomousCommand = new AutoMobility();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -287,6 +289,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		SmartDashboard.putNumber("Gyro Yaw",Gyro.getYaw());
 		SmartDashboard.putBoolean("Is Running", m_flywheel.running());
 		SmartDashboard.putNumber("Flywheel Encoder", m_flywheel.getEncoder().get());
+		SmartDashboard.putBoolean("gear intake limit", m_gearIntake.getGearIntakeSwitch());
 		//SmartDashboard.putNumber("Turret Motor", m_turret.getTurretMotorActual());
 		/*if (m_gearIntake.getGearIntakeSwitch() == false)
     	{

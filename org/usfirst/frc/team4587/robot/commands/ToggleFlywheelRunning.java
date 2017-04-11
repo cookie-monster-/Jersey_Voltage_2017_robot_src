@@ -28,8 +28,8 @@ public class ToggleFlywheelRunning extends Command {
     	{
     		Robot.getFlywheel().setRunning(false);
     		//Robot.getIndexer().setRunning(false);
-    		Robot.getFlywheel().disable();
     		Robot.getFlywheel().setSetpoint(0.0);
+    		Robot.getFlywheel().disable();
     		//Robot.getIndexer().disable();
     		System.out.println("not running");
     	}

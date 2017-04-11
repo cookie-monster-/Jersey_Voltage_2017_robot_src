@@ -37,7 +37,7 @@ public class FollowChezyPath extends Command {
 	boolean m_reverseLeftRight;
 	double m_finalPositionRight;
 	double m_finalPositionLeft;
-    public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight) {
+    public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight, double degrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getDriveBaseSimple());
@@ -45,6 +45,8 @@ public class FollowChezyPath extends Command {
     	m_backwards = backwards;
     	m_reverseLeftRight = reverseLeftRight;
     	filename = "/home/lvuser/" + m_namePath + ".txt";
+
+    	m_startAngle = degrees;
     }
 
     // Called just before this Command runs the first time
@@ -73,7 +75,6 @@ public class FollowChezyPath extends Command {
 		}
     	m_startEncoderLeft = Robot.getDriveBaseSimple().getEncoderLeft();
     	m_startEncoderRight = Robot.getDriveBaseSimple().getEncoderRight();
-    	m_startAngle = Gyro.getYaw();
     	m_startTime = System.nanoTime();
     	
     	m_finalPositionLeft = m_path.getLeftWheelTrajectory().getSegment(m_path.getLeftWheelTrajectory().getNumSegments() - 1).pos * 12 / 0.049 *-1;

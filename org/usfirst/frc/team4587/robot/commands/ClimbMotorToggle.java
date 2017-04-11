@@ -15,6 +15,9 @@ public class ClimbMotorToggle extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getClimbMotor());
+    	//requires(Robot.getFlywheel());
+    	//requires(Robot.getScytheAndShintake());
+    	//requires(Robot.getGearIntake());
     }
 
     // Called just before this Command runs the first time
@@ -26,6 +29,10 @@ public class ClimbMotorToggle extends Command {
     	}
     	else
     	{
+    		//Robot.getFlywheel().initialize();
+    		//Robot.getScytheAndShintake().setScytheMotor(0.0);
+    		//Robot.getScytheAndShintake().setShintakeMotor(0.0);
+    		//Robot.getGearIntake().setGearIntakeMotor(0.0);
     		Robot.getClimbMotor().startClimb();
     		Robot.getClimbMotor().setClimbing(true);
     	}

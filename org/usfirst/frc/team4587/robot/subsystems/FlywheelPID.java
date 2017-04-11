@@ -24,9 +24,13 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
 	private double m_lastEncoders0 = 0.0;
 	private double m_lastEncoders1 = 0.0;
 	private double m_lastEncoders2 = 0.0;
+	//private double m_lastEncoders3 = 0.0;
+	//private double m_lastEncoders4 = 0.0;
 	private long m_lastTime0;
 	private long m_lastTime1;
 	private long m_lastTime2;
+	//private long m_lastTime3;
+	//private long m_lastTime4;
 	private double m_expectedMotorLevel;
 	private double m_output;
 	public void setExpectedMotorLevel(double motorLevel)
@@ -38,9 +42,9 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
 	{
 		m_lastEncoders = lastEncoder;
 	}*/
-	private static double m_kP = 0.0005;
+	private static double m_kP = 0.0005;//0.0005
 	private static double m_kI = 0.0000;//0.0001;
-	private static double m_kD = 0.000;//0.001;
+	private static double m_kD = 0.000055;//0.001;
 	public double m_testSetPoint = 0.0;
 	double encoderNow;
 	long timeNow;
@@ -74,7 +78,6 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     public double getVelocity()
     {
     	return (m_encoder.get() - m_lastEncoders2)/3.0;
-    	
     }
     
     public void setSetpoint(double setpoint)
@@ -102,9 +105,13 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     	m_lastTime0 = System.nanoTime();
     	m_lastTime1 = m_lastTime0;
     	m_lastTime2 = m_lastTime0;
+    	//m_lastTime3 = m_lastTime0;
+    	//m_lastTime4 = m_lastTime0;
     	m_lastEncoders0 = m_encoder.get();
     	m_lastEncoders1 = m_lastEncoders0;
     	m_lastEncoders2 = m_lastEncoders0;
+    	//m_lastEncoders3 = m_lastEncoders0;
+    	//m_lastEncoders4 = m_lastEncoders0;
     }
     
     public Encoder getEncoder()
@@ -124,10 +131,14 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     protected double returnPIDInput() {
     	encoderNow = m_encoder.get();
     	timeNow = System.nanoTime();
-    	m_velocity = ((encoderNow - m_lastEncoders2))/ (timeNow - m_lastTime2) * 60 * 1000000000 / 3 * 12 / 32/* 3ticks per rev * 12t on motor / 32t on flywheel*/;
+    	m_velocity = ((encoderNow - m_lastEncoders2))/ (timeNow - m_lastTime2) * 60 * 1000000000 / 256;//  / 3 * 12 / 32/* 3ticks per rev * 12t on motor / 32t on flywheel*/;
+    	//m_lastEncoders4 = m_lastEncoders3;
+    	//m_lastEncoders3 = m_lastEncoders2;
     	m_lastEncoders2 = m_lastEncoders1;
     	m_lastEncoders1 = m_lastEncoders0;
     	m_lastEncoders0 = encoderNow;
+    	//m_lastTime4 = m_lastTime3;
+    	//m_lastTime3 = m_lastTime2;
     	m_lastTime2 = m_lastTime1;
     	m_lastTime1 = m_lastTime0;
     	m_lastTime0 = timeNow;
@@ -163,7 +174,11 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     		{
     			motorLevel = 1;
     		}
-        	m_flywheelMotor1.set(motorLevel);
+    		if(m_running){
+    			m_flywheelMotor1.set(motorLevel);
+    		}else{
+    			m_flywheelMotor1.set(0.0);
+    		}
         	//m_flywheelMotor2.set(motorLevel);
         	//m_flywheelMotor3.set(motorLevel);
         	System.out.println(motorLevel);
