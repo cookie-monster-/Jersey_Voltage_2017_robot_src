@@ -3,6 +3,7 @@ package org.usfirst.frc.team4587.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -100,6 +101,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public static GearCameraThread getGearCameraThread(){
 		return m_gearCameraThread;
 	}
+	private static PowerDistributionPanel m_PDP;
+	public static PowerDistributionPanel getPDP(){
+		return m_PDP;
+	}
 	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -126,6 +131,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_driveBaseSimple = new DriveBaseSimple();
 		//m_gearCameraThread = new GearCameraThread();
 		m_climbMotor = new ClimbMotor();
+		m_PDP = new PowerDistributionPanel();
 		Bling.initialize();
 		try
 		{
@@ -288,6 +294,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
     	{
     		m_gearIntake.setGearIsLoaded(true);put back
     	}*/
+		SmartDashboard.putNumber("PDP voltage", m_PDP.getVoltage());
+		SmartDashboard.putNumber("PDP port 4", m_PDP.getCurrent(4));
 	}
 
 	/**
