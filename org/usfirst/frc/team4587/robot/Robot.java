@@ -20,12 +20,10 @@ import java.io.FileOutputStream;
 import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
 import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSide;
-import org.usfirst.frc.team4587.robot.commands.AutoGearSimple;
 import org.usfirst.frc.team4587.robot.commands.AutoMobility;
 import org.usfirst.frc.team4587.robot.commands.HopperAuto;
 import org.usfirst.frc.team4587.robot.commands.SetScytheAndShintake;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
-import org.usfirst.frc.team4587.robot.subsystems.DriveBase;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
 import org.usfirst.frc.team4587.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4587.robot.subsystems.FlywheelPID;
@@ -88,11 +86,6 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		return m_gearIntake;
 	}
 	
-	private static DriveBase m_driveBase;
-	public static DriveBase getDriveBase()
-	{
-		return m_driveBase;
-	}
 	private static DriveBaseSimple m_driveBaseSimple;
 	public static DriveBaseSimple getDriveBaseSimple()
 	{
