@@ -23,26 +23,25 @@ public class AutoGearIntakeMotors extends Command {
     	Robot.getGearIntake().setGearIntakeMotor(1.0);
     	count = 0;
     	finish = false;
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	if (Robot.getGearIntake().getGearIntakeSwitch() == false)
-    	{
-    		x = true;
-    	}
-    	if (x)
-    	{
-    		count++;
-    	}
-    	if (count >= 25)
+    	if (Robot.getGearIntake().isStalling())
     	{
         	Robot.getGearIntake().gearIntakeUp();
+        	Robot.getGearIntake().setGearIsLoaded(true);
+        	if(count == 0){
+        		Robot.getGearIntake().setLEDMode();
+        	}
+        	count++;
     	}
-    	if(count >= 50)
+    	if(count >= 25)
     	{
     		finish = true;
+        	Robot.getGearIntake().setLEDMode();
     	}
     }
 
@@ -54,12 +53,12 @@ public class AutoGearIntakeMotors extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.getGearIntake().setGearIntakeMotor(0.0);
-    	Robot.getGearIntake().gearIntakeUp();
+    	Robot.getGearIntake().setLEDMode();
+    	//Robot.getGearIntake().gearIntakeUp();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

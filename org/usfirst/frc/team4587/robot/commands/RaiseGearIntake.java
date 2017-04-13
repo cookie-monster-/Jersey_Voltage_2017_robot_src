@@ -18,6 +18,7 @@ public class RaiseGearIntake extends Command {
     protected void initialize() 
     {
     	Robot.getGearIntake().gearIntakeUp();
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Called repeatedly when this Command is scheduled to run

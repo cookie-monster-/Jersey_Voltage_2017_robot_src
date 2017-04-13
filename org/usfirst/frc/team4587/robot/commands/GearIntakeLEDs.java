@@ -25,13 +25,13 @@ public class GearIntakeLEDs extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(Robot.getGearIntake().getPiston()){
-    		if(Robot.getGearIntake().getGearIntakeSwitch()){
+    		if(Robot.getGearIntake().isStalling()){
     	    	Robot.writeToArduino((byte)66);//yes gear up
     		}else{
     	    	Robot.writeToArduino((byte)69);//no gear up
     		}
     	}else{
-    		if(Robot.getGearIntake().getGearIntakeSwitch()==false){
+    		if(Robot.getGearIntake().isStalling()){
     	    	Robot.writeToArduino((byte)65);//yes gear down
     		}else{
     	    	if(Robot.getGearIntake().motorOn()){

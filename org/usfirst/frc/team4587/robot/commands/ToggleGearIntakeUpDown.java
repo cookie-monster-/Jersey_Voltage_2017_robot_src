@@ -25,6 +25,7 @@ public class ToggleGearIntakeUpDown extends Command {
     	{
     		Robot.getGearIntake().gearIntakeDown();
     	}
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Called repeatedly when this Command is scheduled to run

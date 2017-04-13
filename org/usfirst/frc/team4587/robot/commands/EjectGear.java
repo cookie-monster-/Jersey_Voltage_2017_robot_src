@@ -24,6 +24,7 @@ public class EjectGear extends Command {
     	Robot.getGearIntake().gearIntakeDown();
     	count = 0;
     	encoderStart = Robot.getDriveBaseSimple().getEncoderLeft();
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,7 +41,9 @@ public class EjectGear extends Command {
     	{
     		Robot.getDriveBaseSimple().arcadeDrive(0.05, 0.0);
     	}
-    	
+    	Robot.getGearIntake().setGearIsLoaded(false);
+
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -53,6 +56,7 @@ public class EjectGear extends Command {
     	Robot.getGearIntake().setGearIntakeMotor(0.0);
     	//Robot.getGearIntake().gearIntakeUp();
     	Robot.getDriveBaseSimple().arcadeDrive(0.0, 0.0);
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Called when another command which requires one or more of the same

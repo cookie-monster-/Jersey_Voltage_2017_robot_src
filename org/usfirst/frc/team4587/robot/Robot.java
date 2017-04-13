@@ -158,17 +158,21 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		SmartDashboard.putData("Auto mode", chooser);*/
         
 	}
-
+	static byte[] buffer = new byte [2];
+	static int counter=0;
 	public static void writeToArduino(byte mode)
 	{
 		if(m_arduino != null)
 		{
 			System.out.println("yep");
-			byte[] buffer = new byte [1];
 			buffer[0] = mode;
-			m_arduino.write(buffer, 1);
+			buffer[1] = 10;
+			m_arduino.write(buffer, 2);
 			m_arduino.flush();
+			counter++;
+			SmartDashboard.putNumber("write to arduino count", counter);
 			System.out.println(mode);
+			SmartDashboard.putNumber("byte sent to arduino last:", mode);
 		}
 		else
 		{
@@ -183,13 +187,13 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	@Override
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
+		writeToArduino((byte)69);
 		//m_turret.disable();
 		Robot.getFlywheel().setRunning(false);
 		Robot.getFlywheel().disable();
 		Robot.getFlywheel().setSetpoint(0.0);
 		//m_indexer.disable();
 		//m_gearCameraThread.setRunning(false);
-		writeToArduino((byte)69);
 	}
 
 	@Override

@@ -85,7 +85,9 @@ public class OI implements LogDataSource {
     	
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
-    	buttonY1.whenPressed(new ClimbMotorToggle());
+    	
+    	 buttonY1.whenPressed(new ClimbMotorToggle());
+    	
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
@@ -100,6 +102,7 @@ public class OI implements LogDataSource {
     	leftBumper2.whenPressed(new UnjamScythe());
     	//rightBumper2.whenPressed(new TestFlywheelIncrease());
     	//rightBumper2.whenPressed(new SetScytheAndShintake(-1.0,-1.0,0));
+    	
     	
     	/*leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	rightBumper1.whenPressed(new EjectGear());
@@ -125,8 +128,8 @@ public class OI implements LogDataSource {
     	buttonX1.whenPressed(new ChangeLEDMode((byte)67));
     	buttonY1.whenPressed(new ChangeLEDMode((byte)68));
     	leftBumper1.whenPressed(new ChangeLEDMode((byte)69));
-    	rightBumper1.whenPressed(new ChangeLEDMode((byte)70));*/
-    	
+    	rightBumper1.whenPressed(new ChangeLEDMode((byte)70));
+    	*/
     	/*buttonA1.whenPressed(new AimGear());
     	buttonX1.whenPressed(new AimGearDrive());
     	buttonB1.whenPressed(new DriveSimpleWithJoysticks());

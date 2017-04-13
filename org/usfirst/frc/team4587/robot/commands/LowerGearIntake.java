@@ -18,6 +18,7 @@ public class LowerGearIntake extends Command {
     protected void initialize() 
     {
     	Robot.getGearIntake().gearIntakeDown();
+    	Robot.getGearIntake().setLEDMode();
     }
 
     // Called repeatedly when this Command is scheduled to run

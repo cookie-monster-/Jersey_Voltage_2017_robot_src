@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4587.robot.subsystems;
 
+import org.usfirst.frc.team4587.robot.Robot;
 import org.usfirst.frc.team4587.robot.RobotMap;
 import org.usfirst.frc.team4587.robot.commands.GearIntakeLEDs;
 
@@ -41,6 +42,9 @@ public class GearIntake extends Subsystem implements LogDataSource {
     	m_motorOn = !(Math.abs(x) < 0.01);
     	
     }
+    public boolean isStalling(){
+    	return Robot.getPDP().getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR) >= 25;
+    }
 
     private DigitalInput m_gearIntakeSwitch;
     public boolean getGearIntakeSwitch()
@@ -56,16 +60,36 @@ public class GearIntake extends Subsystem implements LogDataSource {
     private boolean gearIsLoaded = false;
     public boolean isGearLoaded()
     {
-    	if ( gearIsLoaded == false ) {
+    	/*if ( gearIsLoaded == false ) {
     		if ( getGearIntakeSwitch() == false ) {
     			gearIsLoaded = true;
     		}
-    	}
+    	}*/
     	return gearIsLoaded;
     }
     public void setGearIsLoaded ( boolean x )
     {
     	gearIsLoaded = x;
+    }
+    
+    public void setLEDMode(){
+    	if(m_motorOn){
+    		Robot.writeToArduino((byte)68);
+    	}else{
+    		if(gearIsLoaded){
+    			if(m_gearIntakePiston.get()){
+    				Robot.writeToArduino((byte)66);
+    			}else{
+    				Robot.writeToArduino((byte)65);
+    			}
+    		}else{
+    			if(m_gearIntakePiston.get()){
+    				Robot.writeToArduino((byte)69);
+    			}else{
+    				Robot.writeToArduino((byte)67);
+    			}
+    		}
+    	}
     }
 
     public GearIntake()
@@ -92,7 +116,7 @@ public class GearIntake extends Subsystem implements LogDataSource {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new GearIntakeLEDs());
+    	//setDefaultCommand(new GearIntakeLEDs());
     }
 }
 
