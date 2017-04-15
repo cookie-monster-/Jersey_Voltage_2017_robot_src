@@ -86,6 +86,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		return m_gearIntake;
 	}
+	private static BallIntake m_ballIntake;
+	public static BallIntake getBallIntake()
+	{
+		return m_ballIntake;
+	}
 	
 	private static DriveBaseSimple m_driveBaseSimple;
 	public static DriveBaseSimple getDriveBaseSimple()
@@ -127,6 +132,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		Compressor compressor = new Compressor(0);
 		//compressor.start();
     	m_gearIntake = new GearIntake();
+    	m_ballIntake = new BallIntake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
 		//m_gearCameraThread = new GearCameraThread();

@@ -31,7 +31,9 @@ public class AutoGearIntakeMotors extends Command {
     {
     	if (Robot.getGearIntake().isStalling())
     	{
-        	Robot.getGearIntake().gearIntakeUp();
+    		if(count >= 0){//50 = 1sec
+            	Robot.getGearIntake().gearIntakeUp();
+    		}
         	Robot.getGearIntake().setGearIsLoaded(true);
         	if(count == 0){
         		Robot.getGearIntake().setLEDMode();

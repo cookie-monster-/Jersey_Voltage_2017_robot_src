@@ -15,6 +15,7 @@ public class ToggleFlywheelRunning extends Command {
     public ToggleFlywheelRunning(boolean runx,double rpms) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	System.out.println("ctor-ToggleFlywheelRunning("+(runx?"true":"false")+","+rpms+")");
     	requires(Robot.getFlywheel());
     	run = runx;
     	m_rpms = rpms;
@@ -43,7 +44,8 @@ public class ToggleFlywheelRunning extends Command {
     		//Robot.getIndexer().setRunning(true);
     		double m_motorLevel;
     		//m_rpms = SmartDashboard.getNumber("FlywheelVelocity", 1850);
-        	m_motorLevel = m_rpms / 6750 * 1.3;//6750 = max rpms
+        	//m_motorLevel = m_rpms / 6750 * 1.35;//6750 = max rpms
+        	m_motorLevel =( m_rpms + 900) / 6750;//6750 = max rpms
         	Robot.getFlywheel().setSetpoint(m_rpms);
         	Robot.getFlywheel().setExpectedMotorLevel(m_motorLevel);
         	//SmartDashboard.putNumber("Flywheel RPM's set to: ", m_rpms);

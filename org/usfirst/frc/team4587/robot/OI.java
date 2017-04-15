@@ -93,13 +93,16 @@ public class OI implements LogDataSource {
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
     	buttonA1.whenPressed(new AutoGearIntakeMotors());
+    	leftTrigger1.whenPressed(new BallIntakeOn());
+    	rightTrigger1.whenPressed(new BallIntakeOff());
 
-    	buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
+    	/*buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
     	buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
     	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
-    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,4000));//2830,2785,3400,    2730       2760
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,3400));//2830,2785,3400,    2730       2760
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
     	leftBumper2.whenPressed(new UnjamScythe());
+    	*/
     	//rightBumper2.whenPressed(new TestFlywheelIncrease());
     	//rightBumper2.whenPressed(new SetScytheAndShintake(-1.0,-1.0,0));
     	
