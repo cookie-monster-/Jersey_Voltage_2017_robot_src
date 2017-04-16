@@ -37,6 +37,7 @@ public class FollowChezyPath extends Command {
 	boolean m_reverseLeftRight;
 	double m_finalPositionRight;
 	double m_finalPositionLeft;
+	double m_gyroMultiplier;
     public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight, double degrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -118,6 +119,7 @@ public class FollowChezyPath extends Command {
                 	right0 = m_path.getRightWheelTrajectory().getSegment(step0);
             		left1 = m_path.getLeftWheelTrajectory().getSegment(step1);
                 	right1 = m_path.getRightWheelTrajectory().getSegment(step1);
+                	m_gyroMultiplier = 1;
     			}
     			else //swap left and right
     			{
@@ -125,6 +127,7 @@ public class FollowChezyPath extends Command {
                 	left0 = m_path.getRightWheelTrajectory().getSegment(step0);
             		right1 = m_path.getLeftWheelTrajectory().getSegment(step1);
                 	left1 = m_path.getRightWheelTrajectory().getSegment(step1);
+                	m_gyroMultiplier = -1;
     			}
     			
             	if(m_backwards == true) //multiply all by -1
@@ -146,7 +149,7 @@ public class FollowChezyPath extends Command {
 	        		xRight = (right0.pos + ((offset / 20) * (right1.pos - right0.pos))) * 12 / 0.049;
             	}
 
-        		double desiredAngle = right0.heading * 180 / Math.PI * -1;
+        		double desiredAngle = right0.heading * 180 / Math.PI * m_gyroMultiplier; //* -1;
         		double currentAngle = Gyro.getYaw();
         		int realLeftEncoder = Robot.getDriveBaseSimple().getEncoderLeft();
         		int realRightEncoder = Robot.getDriveBaseSimple().getEncoderRight();

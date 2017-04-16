@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import utility.Gyro;
 import utility.JoyButton;
 import utility.LogDataSource;
 import utility.ValueLogger;
@@ -86,7 +87,7 @@ public class OI implements LogDataSource {
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
     	
-    	 buttonY1.whenPressed(new ClimbMotorToggle());
+    	/*buttonY1.whenPressed(new ClimbMotorToggle());
     	
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	rightBumper1.whenPressed(new EjectGear());
@@ -95,14 +96,15 @@ public class OI implements LogDataSource {
     	buttonA1.whenPressed(new AutoGearIntakeMotors());
     	leftTrigger1.whenPressed(new BallIntakeOn());
     	rightTrigger1.whenPressed(new BallIntakeOff());
-
-    	/*buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
+*/
+    	buttonA1.whenPressed(new FollowChezyPath("hopperPath",false,true,Gyro.getYaw()));
+    	buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
     	buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
     	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
-    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,3400));//2830,2785,3400,    2730       2760
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,1125));//2830,2785,3400,    2730       2760
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
     	leftBumper2.whenPressed(new UnjamScythe());
-    	*/
+    	
     	//rightBumper2.whenPressed(new TestFlywheelIncrease());
     	//rightBumper2.whenPressed(new SetScytheAndShintake(-1.0,-1.0,0));
     	

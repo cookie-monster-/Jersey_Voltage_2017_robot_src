@@ -151,7 +151,7 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     	}
     	else
     	{
-    		double motorLevel = m_expectedMotorLevel + output;
+    		double motorLevel = m_expectedMotorLevel; //+ output;
     		if(motorLevel < 0)
     		{
     			motorLevel = 0;
