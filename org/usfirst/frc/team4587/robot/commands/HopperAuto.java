@@ -33,13 +33,13 @@ public class HopperAuto extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("HopperPath0", false, false,Gyro.getYaw()));
+    	addSequential(new FollowChezyPath("HopperPath0", false, false,1,Gyro.getYaw()));
     	addSequential(new Delay(5));
     	addSequential(new AutonomousTurnToAngleSimple(angle));
     	addSequential(new ToggleFlywheelRunning(true,2705));
     	addSequential(new Delay(15));
     	addSequential(new SetScytheAndShintake(0.0,1.0,0));
-    	addSequential(new FollowChezyPath("HopperPath1", true, false,angle));
+    	addSequential(new FollowChezyPath("HopperPath1", true, false,1,angle));
     	addSequential(new SetScytheAndShintake(0.6,1.0,0));
     	/*addSequential(new Delay(25));
     	addSequential(new ToggleGearIntakeMotors());

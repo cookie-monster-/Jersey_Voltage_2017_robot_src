@@ -97,7 +97,7 @@ public class OI implements LogDataSource {
     	leftTrigger1.whenPressed(new BallIntakeOn());
     	rightTrigger1.whenPressed(new BallIntakeOff());
 */
-    	buttonA1.whenPressed(new FollowChezyPath("hopperPath",false,true,Gyro.getYaw()));
+    	buttonA1.whenPressed(new FollowChezyPath("hopperAfterGearPath",false,true,-1.0,Gyro.getYaw()));
     	buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
     	buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
     	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
