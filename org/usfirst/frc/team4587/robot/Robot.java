@@ -91,6 +91,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		return m_ballIntake;
 	}
+	private static HopperAndShintake m_hopperAndShintake;
+	public static HopperAndShintake getHopperAndShintake()
+	{
+		return m_hopperAndShintake;
+	}
 	
 	private static DriveBaseSimple m_driveBaseSimple;
 	public static DriveBaseSimple getDriveBaseSimple()
@@ -106,11 +111,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public static GearCameraThread getGearCameraThread(){
 		return m_gearCameraThread;
 	}
-	/*private static PowerDistributionPanel m_PDP;
+	private static PowerDistributionPanel m_PDP;
 	public static PowerDistributionPanel getPDP(){
 		return m_PDP;
 	}
-	*/
+	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -128,17 +133,18 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_robot = this;
 		m_turret = new TurretPID();
 		m_flywheel = new FlywheelPID();
-		m_scytheAndShintake = new ScytheAndShintake();
+		//m_scytheAndShintake = new ScytheAndShintake();
 		//m_indexer = new IndexerPID();
 		Compressor compressor = new Compressor(0);
 		//compressor.start();
     	m_gearIntake = new GearIntake();
     	m_ballIntake = new BallIntake();
+    	m_hopperAndShintake = new HopperAndShintake();
 		//m_driveBase = new DriveBase();
 		m_driveBaseSimple = new DriveBaseSimple();
 		//m_gearCameraThread = new GearCameraThread();
 		m_climbMotor = new ClimbMotor();
-		//m_PDP = new PowerDistributionPanel();
+		m_PDP = new PowerDistributionPanel();
 		Bling.initialize();
 		try
 		{
@@ -148,7 +154,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		catch(Exception e)
 		{
 			m_arduino = null;
-			System.out.println("DEAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			System.out.println("arduino serial DEAD!");
 		}
 		
 		m_oi = new OI();
@@ -195,7 +201,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		writeToArduino((byte)69);
-		//m_turret.disable();
+		m_turret.disable();
 		Robot.getFlywheel().setRunning(false);
 		Robot.getFlywheel().disable();
 		Robot.getFlywheel().setSetpoint(0.0);
@@ -261,7 +267,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		System.out.println("init");
-		//m_turret.enable();
+		m_turret.enable();
 		//m_flywheel.enable();
 		//m_indexer.enable();
 		//m_driveBaseSimple.resetEncoders();
@@ -289,10 +295,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
     
 		Scheduler.getInstance().run();
 		if ( logger != null ) logger.logValues(start);
-		/*SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
+		SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
 		SmartDashboard.putNumber("Turret Degrees", m_turret.getDegrees());
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
-		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());*/
+		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
 		m_driveBaseSimple.getValues();
 		
@@ -305,8 +311,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
     	{
     		m_gearIntake.setGearIsLoaded(true);put back
     	}*/
-		//SmartDashboard.putNumber("PDP voltage", m_PDP.getVoltage());
-		//SmartDashboard.putNumber("PDP port 4", m_PDP.getCurrent(4));
+		SmartDashboard.putNumber("PDP voltage", m_PDP.getVoltage());
+		SmartDashboard.putNumber("PDP port 4", m_PDP.getCurrent(4));
 	}
 
 	/**

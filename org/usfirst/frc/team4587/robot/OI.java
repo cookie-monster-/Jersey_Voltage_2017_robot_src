@@ -86,24 +86,26 @@ public class OI implements LogDataSource {
     	
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
+    	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
     	
-    	/*buttonY1.whenPressed(new ClimbMotorToggle());
-    	
+    	buttonA1.whenPressed(new AutoGearIntakeMotors());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
+    	buttonY1.whenPressed(new ClimbMotorToggle());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
-    	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	buttonA1.whenPressed(new AutoGearIntakeMotors());
-    	leftTrigger1.whenPressed(new BallIntakeOn());
-    	rightTrigger1.whenPressed(new BallIntakeOff());
-*/
-    	buttonA1.whenPressed(new FollowChezyPath("hopperPath",false,true,Gyro.getYaw()));
-    	buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
-    	buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
-    	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
+    	
+    	buttonA2.whenPressed(new HopperOn());
+    	buttonB2.whenPressed(new BallIntakeOff());
     	buttonX2.whenPressed(new ToggleFlywheelRunning(true,1125));//2830,2785,3400,    2730       2760
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
-    	leftBumper2.whenPressed(new UnjamScythe());
+    	leftBumper2.whenPressed(new BallIntakeOn());
+    	//rightBumper2.whenPressed(new BallIntakeOff());
+
+    	//buttonA1.whenPressed(new FollowChezyPath("hopperPath",false,true,Gyro.getYaw()));
+    	//buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
+    	//buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
+    	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
+    	//leftBumper2.whenPressed(new UnjamScythe());
     	
     	//rightBumper2.whenPressed(new TestFlywheelIncrease());
     	//rightBumper2.whenPressed(new SetScytheAndShintake(-1.0,-1.0,0));

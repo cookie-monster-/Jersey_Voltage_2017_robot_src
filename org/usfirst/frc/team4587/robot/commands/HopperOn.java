@@ -7,20 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BallIntakeOff extends Command {
+public class HopperOn extends Command {
 
 
-    public BallIntakeOff() {
-    	requires(Robot.getBallIntake());
+    public HopperOn() {
     	requires(Robot.getHopperAndShintake());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	Robot.getBallIntake().setBallIntakeMotor(0.0);
-    	Robot.getHopperAndShintake().setHopperMotor(0.0);
-    	Robot.getHopperAndShintake().setShintakeMotor(0.0);
+    	Robot.getHopperAndShintake().setHopperMotor(1.0);
+    	Robot.getHopperAndShintake().setShintakeMotor(1.0);
     }
 
     // Called repeatedly when this Command is scheduled to run

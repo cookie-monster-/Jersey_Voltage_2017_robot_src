@@ -20,10 +20,11 @@ public class RobotMap {
 	public static final int MOTOR_BALL_INTAKE = 8;
 	
 	public static final int MOTOR_FLYWHEEL_1 = 4;
-	public static final int MOTOR_SCYTHE = 6;
 	public static final int MOTOR_SHINTAKE = 5;
+	public static final int MOTOR_HOPPER = 6;
 	public static final int MOTOR_TURRET = 7;
 
+	public static final int MOTOR_SCYTHE = 9;//bad
 	public static final int MOTOR_INDEXER = 9;//bad
 	public static final int MOTOR_CLIMB_2 = 9;//bad
 	public static final int MOTOR_FLYWHEEL_2 = 9;//bad

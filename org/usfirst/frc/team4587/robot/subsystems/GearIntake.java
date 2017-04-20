@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import utility.Bling;
 import utility.LogDataSource;
 import utility.RampedSpeedController;
 import utility.ValueLogger;
@@ -43,8 +44,8 @@ public class GearIntake extends Subsystem implements LogDataSource {
     	
     }
     public boolean isStalling(){
-    	//return Robot.getPDP().getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR) >= 15;
-    	return false;
+    	return Robot.getPDP().getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR) >= 15;
+    	//return false;
     }
 
     private DigitalInput m_gearIntakeSwitch;
@@ -73,7 +74,7 @@ public class GearIntake extends Subsystem implements LogDataSource {
     	gearIsLoaded = x;
     }
     
-    public void setLEDMode(){
+    /*public void setLEDMode(){
     	if(m_motorOn){
     		Robot.writeToArduino((byte)68);
     	}else{
@@ -88,6 +89,25 @@ public class GearIntake extends Subsystem implements LogDataSource {
     				Robot.writeToArduino((byte)69);
     			}else{
     				Robot.writeToArduino((byte)67);
+    			}
+    		}
+    	}
+    }*/
+    public void setLEDMode(){
+    	if(m_motorOn){
+    		Bling.sendData((byte)68);
+    	}else{
+    		if(gearIsLoaded){
+    			if(m_gearIntakePiston.get()){
+    	    		Bling.sendData((byte)66);
+    			}else{
+    	    		Bling.sendData((byte)65);
+    			}
+    		}else{
+    			if(m_gearIntakePiston.get()){
+    	    		Bling.sendData((byte)69);
+    			}else{
+    	    		Bling.sendData((byte)67);
     			}
     		}
     	}
