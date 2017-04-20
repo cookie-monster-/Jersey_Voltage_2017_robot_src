@@ -38,7 +38,7 @@ public class FollowChezyPath extends Command {
 	double m_finalPositionRight;
 	double m_finalPositionLeft;
 	double m_gyroMultiplier;
-    public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight, double degrees) {
+    public FollowChezyPath(String namePath, boolean backwards, boolean reverseLeftRight,double gyroMultiplier, double degrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getDriveBaseSimple());
@@ -46,7 +46,7 @@ public class FollowChezyPath extends Command {
     	m_backwards = backwards;
     	m_reverseLeftRight = reverseLeftRight;
     	filename = "/home/lvuser/" + m_namePath + ".txt";
-
+    	m_gyroMultiplier = gyroMultiplier;
     	m_startAngle = degrees;
     }
 
@@ -119,7 +119,6 @@ public class FollowChezyPath extends Command {
                 	right0 = m_path.getRightWheelTrajectory().getSegment(step0);
             		left1 = m_path.getLeftWheelTrajectory().getSegment(step1);
                 	right1 = m_path.getRightWheelTrajectory().getSegment(step1);
-                	m_gyroMultiplier = 1;
     			}
     			else //swap left and right
     			{
@@ -127,7 +126,6 @@ public class FollowChezyPath extends Command {
                 	left0 = m_path.getRightWheelTrajectory().getSegment(step0);
             		right1 = m_path.getLeftWheelTrajectory().getSegment(step1);
                 	left1 = m_path.getRightWheelTrajectory().getSegment(step1);
-                	m_gyroMultiplier = -1;
     			}
     			
             	if(m_backwards == true) //multiply all by -1
