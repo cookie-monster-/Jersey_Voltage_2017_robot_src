@@ -29,7 +29,7 @@ public class AutonomousTurnToAngleSimple extends Command {
     	m_myPIDSource = new myPIDSource();
     	m_myPIDOutput = new myPIDOutput();
     	turnControl = new PIDController(0.02, 0.001, 0.015, m_myPIDSource, m_myPIDOutput);
-    	turnControl.setAbsoluteTolerance(4);
+    	turnControl.setAbsoluteTolerance(12);
     	turnControl.setInputRange(-180, 180);
     	turnControl.setContinuous(true);
     }

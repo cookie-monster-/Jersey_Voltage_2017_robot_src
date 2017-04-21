@@ -44,7 +44,7 @@ public class GearIntake extends Subsystem implements LogDataSource {
     	
     }
     public boolean isStalling(){
-    	return Robot.getPDP().getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR) >= 15;
+    	return Robot.getPDP().getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR) >= 25;
     	//return false;
     }
 

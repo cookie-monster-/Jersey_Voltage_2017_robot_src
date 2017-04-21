@@ -16,7 +16,7 @@ public class RobotMap {
 	public static final int	MOTOR_LEFT_DRIVETRAIN = 1;
 	public static final int MOTOR_CLIMB_1 = 2;
 	public static final int MOTOR_GEAR_INTAKE = 3;
-	public static final int PDP_PORT_GEAR_INTAKE_MOTOR = 4;
+	public static final int PDP_PORT_GEAR_INTAKE_MOTOR = 7;
 	public static final int MOTOR_BALL_INTAKE = 8;
 	
 	public static final int MOTOR_FLYWHEEL_1 = 4;
@@ -31,6 +31,7 @@ public class RobotMap {
 	public static final int MOTOR_FLYWHEEL_3 = 9;//bad
 	//
 	public static final int SOLENOID_GEAR_INTAKE = 0;
+	public static final int SOLENOID_HOPPER = 1;
 	//
     public static final int SWITCH_GEAR_INTAKE_LIMIT = 4;
 	public static final int ENCODER_TURRET_A = 6;

@@ -24,6 +24,21 @@ public class HopperAndShintake extends Subsystem implements LogDataSource {
 
 	private SpeedController m_hopperMotor;
 	private SpeedController m_shintakeMotor;
+	private Solenoid m_hopperPiston;
+	
+	public void hopperIn()
+	{
+		m_hopperPiston.set(false);
+	}
+	public void hopperOut()
+	{
+		m_hopperPiston.set(true);
+	}
+	public boolean getPiston()
+	{
+		return m_hopperPiston.get();
+	}
+	
     public void setHopperMotor(double x)
     {
     	m_hopperMotor.set(-1 * x);
@@ -49,6 +64,7 @@ public class HopperAndShintake extends Subsystem implements LogDataSource {
     {    	
         m_hopperMotor = new Spark(RobotMap.MOTOR_HOPPER);
         m_shintakeMotor = new Spark(RobotMap.MOTOR_SHINTAKE);
+        m_hopperPiston = new Solenoid(RobotMap.SOLENOID_HOPPER);
         //m_motorOn = false;
     }
     

@@ -25,7 +25,7 @@ public class Aim extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.getTurret().aiming())
+    	/*if(Robot.getTurret().aiming())
     	{
 	    	m_centerline = SmartDashboard.getNumber("pi.centerline", -1);
 	    	if (m_centerline > 0)
@@ -50,7 +50,7 @@ public class Aim extends Command {
 	    			SmartDashboard.putNumber("byte sent to arduino", 64);
 	    		}
 	    	}
-    	}
+    	}*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

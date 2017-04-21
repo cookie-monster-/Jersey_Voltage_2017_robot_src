@@ -21,8 +21,10 @@ import java.io.FileOutputStream;
 import org.usfirst.frc.team4587.robot.commands.AutoGearBayou;
 import org.usfirst.frc.team4587.robot.commands.AutoGearCenter;
 import org.usfirst.frc.team4587.robot.commands.AutoGearSide;
+import org.usfirst.frc.team4587.robot.commands.AutoGearSide1;
 import org.usfirst.frc.team4587.robot.commands.AutoMobility;
 import org.usfirst.frc.team4587.robot.commands.HopperAuto;
+import org.usfirst.frc.team4587.robot.commands.HopperAutoSimple;
 import org.usfirst.frc.team4587.robot.commands.SetScytheAndShintake;
 import org.usfirst.frc.team4587.robot.commands.TurnTurretDegrees;
 import org.usfirst.frc.team4587.robot.subsystems.DriveBaseSimple;
@@ -59,7 +61,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	{
 		return m_turret;
 	}
-	
+	private static TurretSimple m_turretSimple;
+	public static TurretSimple getTurretSimple()
+	{
+		return m_turretSimple;
+	}
 	private static FlywheelPID m_flywheel;
 	public static FlywheelPID getFlywheel()
 	{
@@ -132,6 +138,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		System.out.println("robotInit");
 		m_robot = this;
 		m_turret = new TurretPID();
+		//m_turretSimple = new TurretSimple();
 		m_flywheel = new FlywheelPID();
 		//m_scytheAndShintake = new ScytheAndShintake();
 		//m_indexer = new IndexerPID();
@@ -201,7 +208,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void disabledInit() {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		writeToArduino((byte)69);
-		m_turret.disable();
+		//m_turret.disable();
 		Robot.getFlywheel().setRunning(false);
 		Robot.getFlywheel().disable();
 		Robot.getFlywheel().setSetpoint(0.0);
@@ -231,8 +238,9 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//autonomousCommand = new AutoGearRight();
 		//autonomousCommand = new AutoGearSimple("right");
 		//autonomousCommand = new AutoGearSide("left");
+		//autonomousCommand = new AutoGearSide1("left");
 		//autonomousCommand = new AutoGearCenter();
-		autonomousCommand = new HopperAuto("red");
+		autonomousCommand = new HopperAutoSimple("blue");
 		//autonomousCommand = new AutoMobility();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -267,7 +275,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		System.out.println("init");
-		m_turret.enable();
+		//m_turret.enable();
 		//m_flywheel.enable();
 		//m_indexer.enable();
 		//m_driveBaseSimple.resetEncoders();
@@ -312,7 +320,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
     		m_gearIntake.setGearIsLoaded(true);put back
     	}*/
 		SmartDashboard.putNumber("PDP voltage", m_PDP.getVoltage());
-		SmartDashboard.putNumber("PDP port 4", m_PDP.getCurrent(4));
+		SmartDashboard.putNumber("PDP port 7", m_PDP.getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR));
 	}
 
 	/**

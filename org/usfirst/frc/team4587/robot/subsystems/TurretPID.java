@@ -84,7 +84,12 @@ public class TurretPID extends PIDSubsystem {
     	
     }
     
-   
+
+	public void setMotor(double speed)
+	{
+		m_turretMotor.set(speed);
+		//right1.set(speed*-1);
+	}
 	public void setTurretMotorTarget(double x)
     {
     	m_turretMotor.set(x*-1);
@@ -96,13 +101,13 @@ public class TurretPID extends PIDSubsystem {
     }
     public double getDegrees()
     {
-    	m_nowEncoders = Robot.getTurret().getEncoder();
+    	//m_nowEncoders = Robot.getTurret().getEncoder();
 	    m_nowDegrees = ((m_nowEncoders - m_startEncoders) / m_encodersInTurn) * 360;
 	    return m_nowDegrees;
     }
     public double getHeading()
     {
-    	m_nowEncoders = Robot.getTurret().getEncoder();
+    	//m_nowEncoders = Robot.getTurret().getEncoder();
 	    m_nowDegrees = ((m_nowEncoders - m_startEncoders) / m_encodersInTurn) * 360;
 	    if (m_nowDegrees >= 0)
 	    {

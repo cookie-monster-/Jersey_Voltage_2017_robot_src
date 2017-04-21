@@ -10,10 +10,13 @@ public class HopperAuto extends CommandGroup {
 
     public HopperAuto(String side) {
     	double angle;
+    	boolean blue;
     	if (side.equals("blue")){
     		angle = 90;
+    		blue = true;
     	}else{
     		angle = -90;
+    		blue = false;
     	}
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -33,14 +36,22 @@ public class HopperAuto extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("HopperPath0", false, false,1,Gyro.getYaw()));
+    	addSequential(new HopperOut());
+    	//addSequential(new ToggleFlywheelRunning(true,4500));
+    	if(blue){
+        	addSequential(new FollowChezyPath("hopperPath",false,false,-1,Gyro.getYaw()));
+    	}else{
+        	addSequential(new FollowChezyPath("hopperPath",false,true,1,Gyro.getYaw()));
+    	}
+    	/*addSequential(new FollowChezyPath("HopperPath0", false, false,1,Gyro.getYaw()));
     	addSequential(new Delay(5));
+    	addSequential(new ToggleFlywheelRunning(true,2730));
     	addSequential(new AutonomousTurnToAngleSimple(angle));
-    	addSequential(new ToggleFlywheelRunning(true,2705));
     	addSequential(new Delay(15));
-    	addSequential(new SetScytheAndShintake(0.0,1.0,0));
-    	addSequential(new FollowChezyPath("HopperPath1", true, false,1,angle));
-    	addSequential(new SetScytheAndShintake(0.6,1.0,0));
+    	//addSequential(new SetScytheAndShintake(0.0,1.0,0));
+    	addSequential(new FollowChezyPath("HopperPath1", true, false,1,angle));*/
+    	addSequential(new HopperOn());
+    	//addSequential(new SetScytheAndShintake(0.6,1.0,0));
     	/*addSequential(new Delay(25));
     	addSequential(new ToggleGearIntakeMotors());
     	addSequential(new FollowChezyPath(1));*/

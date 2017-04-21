@@ -87,7 +87,7 @@ public class Turret extends Subsystem implements LogDataSource {
     }
     public double getHeading()
     {
-    	m_nowEncoders = Robot.getTurret().getEncoder();
+    	//m_nowEncoders = Robot.getTurret().getEncoder();
 	    m_nowDegrees = ((m_nowEncoders - m_startEncoders) / m_encodersInTurn) * 360;
 	    if (m_nowDegrees >= 0)
 	    {
@@ -101,7 +101,7 @@ public class Turret extends Subsystem implements LogDataSource {
     }
     public double getDegrees()
     {
-    	m_nowEncoders = Robot.getTurret().getEncoder();
+    	//m_nowEncoders = Robot.getTurret().getEncoder();
 	    m_nowDegrees = ((m_nowEncoders - m_startEncoders) / m_encodersInTurn) * 360;
 	    return m_nowDegrees;
     }

@@ -3,32 +3,34 @@ package org.usfirst.frc.team4587.robot.commands;
 import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class HopperOn extends Command {
+public class TurretWithJoysticks extends Command {
 
-
-    public HopperOn() {
-    	requires(Robot.getHopperAndShintake());
+    public TurretWithJoysticks() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.getTurret());
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() 
-    {
-    	Robot.getHopperAndShintake().setHopperMotor(1.0);
-    	Robot.getHopperAndShintake().setShintakeMotor(0.7);
+    protected void initialize() {
+        Robot.getTurret().setSetpoint(Robot.getTurret().getDegrees());
+    	Robot.getTurret().disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() 
-    {
+    protected void execute() {
+    	double turnStick = Robot.getOI().getTurn2() *0.2;//* Math.abs(Robot.getOI().getTurn2());
+    	Robot.getTurret().setMotor(turnStick);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -38,6 +40,5 @@ public class HopperOn extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

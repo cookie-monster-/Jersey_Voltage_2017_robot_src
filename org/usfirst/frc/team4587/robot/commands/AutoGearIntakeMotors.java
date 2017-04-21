@@ -40,7 +40,7 @@ public class AutoGearIntakeMotors extends Command {
         	}
         	count++;
     	}
-    	if(count >= 25)
+    	if(count >= 12)
     	{
     		finish = true;
         	Robot.getGearIntake().setLEDMode();

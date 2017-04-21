@@ -5,6 +5,7 @@ import org.usfirst.frc.team4587.robot.commands.StopFlywheel;
 import org.usfirst.frc.team4587.robot.commands.ToggleFlywheelRunning;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -43,7 +44,7 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
 	{
 		m_lastEncoders = lastEncoder;
 	}*/
-	private static double m_kP = 0.0005;//0.0005
+	private static double m_kP = 0.001;//0.0005
 	private static double m_kI = 0.0000;//0.0001;
 	private static double m_kD = 0.000025;//0.001;
 	public double m_testSetPoint = 0.0;
@@ -69,7 +70,7 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
         //                  to
         // enable() - Enables the PID controller.
     	setAbsoluteTolerance(2.0);
-    	m_flywheelMotor1 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_1);
+    	m_flywheelMotor1 = new Spark(RobotMap.MOTOR_FLYWHEEL_1);
     	//m_flywheelMotor2 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_2);
     	//m_flywheelMotor3 = new VictorSP(RobotMap.MOTOR_FLYWHEEL_3);
         m_encoder = new Encoder(RobotMap.ENCODER_FLYWHEEL_A, RobotMap.ENCODER_FLYWHEEL_B);
@@ -128,11 +129,11 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     //	m_lastTime2 = m_lastTime1;
     //	m_lastTime1 = m_lastTime0;
     	m_lastTime0 = timeNow;
-    	//if (Math.abs(m_velocity - getSetpoint()) < 0.02 * getSetpoint())
-    	//{
-    	//	m_expectedMotorLevel = (m_expectedMotorLevel + m_flywheelMotor1.get()) / 2;
-    	//}
-    	/*if(m_velocity > getSetpoint()){
+    	/*if (Math.abs(m_velocity - getSetpoint()) < 0.02 * getSetpoint())
+    	{
+    		m_expectedMotorLevel = (m_expectedMotorLevel + m_flywheelMotor1.get()) / 2;
+    	}
+    	if(m_velocity > getSetpoint()){
     		m_expectedMotorLevel = (m_expectedMotorLevel + m_flywheelMotor1.get()) / 2;
     	}*/
     	return m_velocity;
@@ -151,7 +152,7 @@ public class FlywheelPID extends PIDSubsystem  implements LogDataSource {
     	}
     	else
     	{
-    		double motorLevel = m_expectedMotorLevel; //+ output;
+    		double motorLevel = m_expectedMotorLevel + output;
     		if(motorLevel < 0)
     		{
     			motorLevel = 0;

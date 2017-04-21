@@ -96,12 +96,16 @@ public class OI implements LogDataSource {
     	
     	buttonA2.whenPressed(new HopperOn());
     	buttonB2.whenPressed(new BallIntakeOff());
-    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,1125));//2830,2785,3400,    2730       2760
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,2730));//2830,2785,3400,    2730       2760   3200
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
     	leftBumper2.whenPressed(new BallIntakeOn());
+    	rightBumper2.whenPressed(new ToggleHopperInOut());
+    	
+    	//buttonA1.whenPressed(new HopperAutoSimple("blue"));
+    	//buttonB1.whenPressed(new HopperAutoSimple("red"));
     	//rightBumper2.whenPressed(new BallIntakeOff());
 
-    	//buttonA1.whenPressed(new FollowChezyPath("hopperPath",false,true,Gyro.getYaw()));
+    	//buttonA1.whenPressed(new FollowChezyPath("hopperPath",false,true,1,Gyro.getYaw()));
     	//buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));
     	//buttonB2.whenPressed(new SetScytheAndShintake(0.0,0.0,0));
     	//buttonA2.whenPressed(new SetScytheAndShintake(0.0,1.0,0));
@@ -176,7 +180,10 @@ public class OI implements LogDataSource {
     {
     	return stick1.getRawAxis(4);
     }
-    
+    public double getTurn2()
+    {
+    	return stick2.getRawAxis(4);
+    }
     public double getDrive()
     {
     	return stick1.getRawAxis(1) * -1;

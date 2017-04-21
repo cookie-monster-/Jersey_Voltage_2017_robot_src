@@ -22,6 +22,7 @@ public class ClimbMotorToggle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.getHopperAndShintake().hopperIn();
     	if(Robot.getClimbMotor().isClimbing())
     	{
     		Robot.getClimbMotor().stopClimb();
