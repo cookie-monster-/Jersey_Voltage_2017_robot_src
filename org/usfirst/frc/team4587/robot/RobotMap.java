@@ -34,8 +34,8 @@ public class RobotMap {
 	public static final int SOLENOID_HOPPER = 1;
 	//
     public static final int SWITCH_GEAR_INTAKE_LIMIT = 4;
-	public static final int ENCODER_TURRET_A = 6;
-	public static final int ENCODER_TURRET_B = 7;
+	public static final int ENCODER_TURRET_A = 7;
+	public static final int ENCODER_TURRET_B = 6;
 	public static final int ENCODER_FLYWHEEL_A = 9;
 	public static final int ENCODER_FLYWHEEL_B = 8;
 	public static final int ENCODER_RIGHT_DRIVE_A = 2;

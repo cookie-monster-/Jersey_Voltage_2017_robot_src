@@ -9,13 +9,13 @@ import utility.Gyro;
 public class HopperAuto extends CommandGroup {
 
     public HopperAuto(String side) {
-    	double angle;
+    	//double angle;
     	boolean blue;
     	if (side.equals("blue")){
-    		angle = 90;
+    		//angle = 90;
     		blue = true;
     	}else{
-    		angle = -90;
+    		//angle = -90;
     		blue = false;
     	}
         // Add Commands here:
@@ -35,14 +35,20 @@ public class HopperAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
+    	double m_startDegrees = Gyro.getYaw();
     	addSequential(new RaiseGearIntake());
     	addSequential(new HopperOut());
-    	//addSequential(new ToggleFlywheelRunning(true,4500));
+    	addSequential(new ToggleFlywheelRunning(true,3040));
     	if(blue){
-        	addSequential(new FollowChezyPath("hopperPath",false,false,-1,Gyro.getYaw()));
+    		m_startDegrees -= 90;
+    		//addParallel(new TurnTurretDegreesSimple(-0.3,-350,-393,-0.2));
+    		addSequential(new FollowChezyPath("hopperPathWorlds",false,true,-1,Gyro.getYaw()));
     	}else{
-        	addSequential(new FollowChezyPath("hopperPath",false,true,1,Gyro.getYaw()));
+    		m_startDegrees += 90;
+    		//addParallel(new TurnTurretDegreesSimple(0.3,350,393,0.2));
+    		addSequential(new FollowChezyPath("hopperPathWorlds",false,false,1,Gyro.getYaw()));
     	}
+    	addParallel(new DriveForwardSlowHopper());
     	/*addSequential(new FollowChezyPath("HopperPath0", false, false,1,Gyro.getYaw()));
     	addSequential(new Delay(5));
     	addSequential(new ToggleFlywheelRunning(true,2730));
@@ -51,6 +57,10 @@ public class HopperAuto extends CommandGroup {
     	//addSequential(new SetScytheAndShintake(0.0,1.0,0));
     	addSequential(new FollowChezyPath("HopperPath1", true, false,1,angle));*/
     	addSequential(new HopperOn());
+    	/*if(Math.abs(m_startDegrees - Gyro.getYaw())>=2){
+    		double num = (m_startDegrees - Gyro.getYaw())*1575/360;
+        	addSequential(new TurnTurretDegreesSimple(0.1,num/2,num,0.1));
+    	}*/
     	//addSequential(new SetScytheAndShintake(0.6,1.0,0));
     	/*addSequential(new Delay(25));
     	addSequential(new ToggleGearIntakeMotors());

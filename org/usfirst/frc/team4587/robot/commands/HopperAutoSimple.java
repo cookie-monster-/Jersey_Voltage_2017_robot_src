@@ -32,7 +32,7 @@ public class HopperAutoSimple extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
-    	addSequential(new ToggleFlywheelRunning(true,3200));
+    	addSequential(new ToggleFlywheelRunning(true,3100));
     	addSequential(new RaiseGearIntake());
     	addSequential(new HopperOut());
     	addSequential(new FollowChezyPath("HopperPath0", false, false,1,Gyro.getYaw()));

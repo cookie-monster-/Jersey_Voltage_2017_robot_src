@@ -45,7 +45,7 @@ public class ToggleFlywheelRunning extends Command {
     		double m_motorLevel;
     		//m_rpms = SmartDashboard.getNumber("FlywheelVelocity", 1850);
         	//m_motorLevel = m_rpms / 6750 * 1.35;//6750 = max rpms
-        	m_motorLevel =( m_rpms + 900) / 6750;//6750 = max rpms
+        	m_motorLevel =( m_rpms + 1000) / 6750;//6750 = max rpms
         	Robot.getFlywheel().setSetpoint(m_rpms);
         	Robot.getFlywheel().setExpectedMotorLevel(m_motorLevel);
         	//SmartDashboard.putNumber("Flywheel RPM's set to: ", m_rpms);

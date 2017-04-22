@@ -26,6 +26,7 @@ public class TurretSimple extends Subsystem {
 	private Encoder m_encoder;
 	
 	//private RobotDrive drive1;
+	//3ticks, 100:1, 24:126
 	
 	public TurretSimple()
 	{

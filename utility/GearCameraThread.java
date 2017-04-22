@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GearCameraThread extends Thread{
 	  String oldMode = "startUp";
-	  String mode = "";
+	  String mode = "HumanVision";
 	  MjpegServer cameraStream;
 	  UsbCamera camera2;
 	  int streamCameraPort = 5805;

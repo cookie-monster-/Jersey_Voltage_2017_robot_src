@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4587.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -137,8 +138,8 @@ public class Robot extends IterativeRobot implements LogDataSource {
 	public void robotInit() {
 		System.out.println("robotInit");
 		m_robot = this;
-		m_turret = new TurretPID();
-		//m_turretSimple = new TurretSimple();
+		//m_turret = new TurretPID();
+		m_turretSimple = new TurretSimple();
 		m_flywheel = new FlywheelPID();
 		//m_scytheAndShintake = new ScytheAndShintake();
 		//m_indexer = new IndexerPID();
@@ -240,7 +241,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//autonomousCommand = new AutoGearSide("left");
 		//autonomousCommand = new AutoGearSide1("left");
 		//autonomousCommand = new AutoGearCenter();
-		autonomousCommand = new HopperAutoSimple("blue");
+		autonomousCommand = new HopperAuto("blue");
 		//autonomousCommand = new AutoMobility();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -274,11 +275,21 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		Robot.getHopperAndShintake().setHopperMotor(0.0);
+		Robot.getHopperAndShintake().setShintakeMotor(0.0);
+		Robot.getHopperAndShintake().hopperIn();
 		System.out.println("init");
 		//m_turret.enable();
 		//m_flywheel.enable();
+		//m_gearCameraThread.start();
 		//m_indexer.enable();
 		//m_driveBaseSimple.resetEncoders();
+		try{
+			CameraServer.getInstance().startAutomaticCapture().setFPS(7);
+			CameraServer.getInstance().startAutomaticCapture().setResolution(150, 150);
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		try
@@ -303,10 +314,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
     
 		Scheduler.getInstance().run();
 		if ( logger != null ) logger.logValues(start);
-		SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
+		/*SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
 		SmartDashboard.putNumber("Turret Degrees", m_turret.getDegrees());
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
-		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());
+		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());*/
+		SmartDashboard.putNumber("turret encoder", m_turretSimple.getEncoder());
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
 		m_driveBaseSimple.getValues();
 		
