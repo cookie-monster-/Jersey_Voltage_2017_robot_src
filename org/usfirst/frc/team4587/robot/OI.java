@@ -87,7 +87,7 @@ public class OI implements LogDataSource {
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	
+    	/*
     	buttonA1.whenPressed(new AutoGearIntakeMotors());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
     	buttonY1.whenPressed(new ClimbMotorToggle());
@@ -96,12 +96,15 @@ public class OI implements LogDataSource {
     	
     	buttonA2.whenPressed(new HopperOn());
     	buttonB2.whenPressed(new BallIntakeOff());
-    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,1500));// 3040
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,3070));// 3040
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
     	leftBumper2.whenPressed(new BallIntakeOn());
     	rightBumper2.whenPressed(new ToggleHopperInOut());
     	leftTrigger2.whenPressed(new BallIntakeUnJam());
-    	
+    	rightTrigger2.whenPressed(new BallIntakeOut());
+    	*/
+    	buttonA1.whenPressed(new DriveSimpleWithJoysticks());
+    	buttonB1.whenPressed(new DriveCheesyWithJoysticks());
     	//buttonA1.whenPressed(new TurnTurretDegreesSimple(0.3,350,393,0.2));
     	//buttonB1.whenPressed(new TurnTurretDegreesSimple(-0.3,-350,-393,-0.2));
     	
@@ -109,10 +112,11 @@ public class OI implements LogDataSource {
     	//buttonB1.whenPressed(new HopperAutoSimple("red"));
     	//rightBumper2.whenPressed(new BallIntakeOff());
     	
-    	
-    	//buttonA1.whenPressed(new FollowChezyPath("sideGearPathWorlds",false,true,-1,Gyro.getYaw()));
-    	
-    	
+/*
+    	buttonA1.whenPressed(new FollowChezyPath("sideGearPathWorlds",false,true,-1,Gyro.getYaw()));
+    	buttonB1.whenPressed(new FollowChezyPath("sideGearPathWorlds",false,false,1,Gyro.getYaw()));
+    	buttonX1.whenPressed(new AutoGearSide("right"));
+    	*/
     	//buttonA1.whenPressed(new FollowChezyPath("hopperPathWorlds",false,true,-1,Gyro.getYaw())); true = -1 = left turn
     	//buttonB1.whenPressed(new FollowChezyPath("hopperPathWorlds",false,false,1,Gyro.getYaw())); false = 1 = right turn
     	//buttonA2.whenPressed(new SetScytheAndShintake(0.4,1.0,25));

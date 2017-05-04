@@ -9,13 +9,13 @@ import utility.Gyro;
 public class AutoGearSide extends CommandGroup {
 
     public AutoGearSide(String side) {
-    	double angle;
+    	boolean left;
     	if(side.equals("left")){
-    		angle = 57;
+    		left = true;
     	}
     	else
     	{
-    		angle = -57;
+    		left = false;
     	}
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -35,11 +35,17 @@ public class AutoGearSide extends CommandGroup {
         // arm.
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	addSequential(new RaiseGearIntake());
-    	addSequential(new FollowChezyPath("RightGearPath0", false, false,1,Gyro.getYaw()));
-    	addSequential(new Delay(10));
-    	addSequential(new AutonomousTurnToAngleSimple(angle));
-    	//addSequential(new Delay(10));
-    	addSequential(new FollowChezyPath("RightGearPath1",false,false,1,Gyro.getYaw()));
+    	if(left){
+        	addSequential(new FollowChezyPath("sideGearPathWorlds", false, false,1,Gyro.getYaw()));
+        	addSequential(new Delay(10));
+        	//addSequential(new Delay(10));
+        	addSequential(new FollowChezyPath("SideGearPathWorlds2",false,false,1,60));
+    	}else{
+        	addSequential(new FollowChezyPath("sideGearPathWorlds", false, true,-1,Gyro.getYaw()));
+        	addSequential(new Delay(10));
+        	//addSequential(new Delay(10));
+        	addSequential(new FollowChezyPath("SideGearPathWorlds2",false,false,1,-60));
+    	}
 
     	addSequential(new Delay(20));
     	addSequential(new EjectGear());

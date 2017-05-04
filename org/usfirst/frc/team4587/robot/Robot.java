@@ -154,16 +154,16 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		m_climbMotor = new ClimbMotor();
 		m_PDP = new PowerDistributionPanel();
 		Bling.initialize();
-		try
+		/*try
 		{
 			//m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
 			m_arduino = new SerialPort(9600, SerialPort.Port.kUSB);
 		}
 		catch(Exception e)
-		{
+		{*/
 			m_arduino = null;
-			System.out.println("arduino serial DEAD!");
-		}
+			//System.out.println("arduino serial DEAD!");
+		//}
 		
 		m_oi = new OI();
 		logger = null;
@@ -177,6 +177,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		/*chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);*/
+		/*try{
+			CameraServer.getInstance().startAutomaticCapture().setResolution(150, 150);
+		}catch(Exception e){
+			System.out.println(e);
+		}*/
         
 	}
 	static byte[] buffer = new byte [2];
@@ -284,12 +289,6 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//m_gearCameraThread.start();
 		//m_indexer.enable();
 		//m_driveBaseSimple.resetEncoders();
-		try{
-			CameraServer.getInstance().startAutomaticCapture().setFPS(7);
-			CameraServer.getInstance().startAutomaticCapture().setResolution(150, 150);
-		}catch(Exception e){
-			System.out.println(e);
-		}
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		try
@@ -300,6 +299,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		{
 			
 		}
+		/*try{
+			CameraServer.getInstance().startAutomaticCapture().setResolution(150, 150);
+		}catch(Exception e){
+			System.out.println(e);
+		}*/
 		//m_gearCameraThread.setRunning(true);
 		//m_gearCameraThread.start();
 	}

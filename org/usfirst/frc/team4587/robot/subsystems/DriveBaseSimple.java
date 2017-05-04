@@ -47,6 +47,11 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 				 RobotMap.ENCODER_RIGHT_DRIVE_B);
 	}
 	
+	public void setLeftRightPower(double leftPower, double rightPower) {
+	    left0.set(leftPower);
+	    right0.set(rightPower);
+	  }
+	
 	public void resetEncoders()
 	{
 		m_encoderLeft.reset();
