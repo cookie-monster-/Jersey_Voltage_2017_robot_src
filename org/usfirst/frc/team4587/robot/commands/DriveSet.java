@@ -4,17 +4,20 @@ import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import utility.CheesyDriveHelper;
 
 /**
  *
  */
-public class DriveCheesyWithJoysticks extends Command {
+public class DriveSet extends Command {
 
-    public DriveCheesyWithJoysticks() {
+	double m_drive;
+	double m_turn;
+    public DriveSet(double drive, double turn) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.getDriveBaseSimple());
+    	m_turn = turn;
+    	m_drive = drive;
     }
 
     // Called just before this Command runs the first time
@@ -24,10 +27,10 @@ public class DriveCheesyWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double driveStick = Robot.getOI().getDrive();
-    	double turnStick = Robot.getOI().getTurn();
-    	CheesyDriveHelper cdh = new CheesyDriveHelper(Robot.getDriveBaseSimple());
-    	cdh.cheesyDrive(driveStick, turnStick, true, false);
+    	double driveStick = Robot.getOI().getDrive();// * Math.abs(Robot.getOI().getDrive());
+    	double turnStick = Robot.getOI().getTurn();// * Math.abs(Robot.getOI().getTurn());
+    	//Robot.getDriveBaseSimple().arcadeDrive(m_drive, m_turn);
+    	Robot.getDriveBaseSimple().setLeftRightPower(m_turn, m_drive);
     	SmartDashboard.putNumber("drive stick", Robot.getOI().getDrive());
     	SmartDashboard.putNumber("turn stick", Robot.getOI().getTurn());
     }

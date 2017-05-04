@@ -87,9 +87,10 @@ public class OI implements LogDataSource {
     	//buttonX1.whenPressed(new ClimbMotorStart());
     	//buttonY1.whenPressed(new ClimbMotorStop());
     	//buttonB1.whenPressed(new DriveSimpleWithJoysticks());
-    	/*
+    	
     	buttonA1.whenPressed(new AutoGearIntakeMotors());
     	buttonB1.whenPressed(new ToggleGearIntakeMotors());
+    	buttonX1.whenPressed(new BallIntakeOff());
     	buttonY1.whenPressed(new ClimbMotorToggle());
     	rightBumper1.whenPressed(new EjectGear());
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
@@ -102,9 +103,14 @@ public class OI implements LogDataSource {
     	rightBumper2.whenPressed(new ToggleHopperInOut());
     	leftTrigger2.whenPressed(new BallIntakeUnJam());
     	rightTrigger2.whenPressed(new BallIntakeOut());
-    	*/
+    	
+    	/*
+    	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
     	buttonA1.whenPressed(new DriveSimpleWithJoysticks());
     	buttonB1.whenPressed(new DriveCheesyWithJoysticks());
+    	buttonX1.whenPressed(new FollowChezyPath("hopperPathWorlds",false,false,1,Gyro.getYaw()));
+    	buttonY1.whenPressed(new DriveSet(0.5,-0.5));
+    	*/
     	//buttonA1.whenPressed(new TurnTurretDegreesSimple(0.3,350,393,0.2));
     	//buttonB1.whenPressed(new TurnTurretDegreesSimple(-0.3,-350,-393,-0.2));
     	

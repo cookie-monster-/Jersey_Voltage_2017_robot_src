@@ -134,7 +134,7 @@ public class CheesyDriveHelper {
       leftPwm += overPower * (-1.0 - rightPwm);
       rightPwm = -1.0;
     }
-    drive.setLeftRightPower(leftPwm, rightPwm);
+    drive.setLeftRightPower(leftPwm, rightPwm*-1);
 
   }
 

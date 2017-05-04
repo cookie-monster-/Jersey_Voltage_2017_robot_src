@@ -23,8 +23,14 @@ public class DriveSimpleWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double driveStick = Robot.getOI().getDrive() * Math.abs(Robot.getOI().getDrive());
-    	double turnStick = Robot.getOI().getTurn() * Math.abs(Robot.getOI().getTurn());
+    	double driveStick = Robot.getOI().getDrive();// * Math.abs(Robot.getOI().getDrive());
+    	double turnStick = Robot.getOI().getTurn();// * Math.abs(Robot.getOI().getTurn());
+    	if(Math.abs(turnStick) <= 0.1){
+    		turnStick = 0.0;
+    	}
+    	if(Math.abs(driveStick) <= 0.1){
+    		driveStick = 0.0;
+    	}
     	Robot.getDriveBaseSimple().arcadeDrive(driveStick, turnStick);
     	SmartDashboard.putNumber("drive stick", Robot.getOI().getDrive());
     	SmartDashboard.putNumber("turn stick", Robot.getOI().getTurn());
