@@ -3,6 +3,7 @@ package org.usfirst.frc.team4587.robot.subsystems;
 import java.io.FileOutputStream;
 
 import org.usfirst.frc.team4587.robot.RobotMap;
+import org.usfirst.frc.team4587.robot.commands.DriveCheesyWithJoysticks;
 import org.usfirst.frc.team4587.robot.commands.DriveSimpleWithJoysticks;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -119,7 +120,9 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	
     	setDefaultCommand(new DriveSimpleWithJoysticks());
+    	//setDefaultCommand(new DriveCheesyWithJoysticks());
     }
 }
 

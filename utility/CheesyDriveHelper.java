@@ -30,8 +30,8 @@ public class CheesyDriveHelper {
 
     double wheelNonLinearity;
 
-    //wheel = handleDeadband(wheel, wheelDeadband);
-    //throttle = handleDeadband(throttle, throttleDeadband);
+    wheel = handleDeadband(wheel, wheelDeadband);
+    throttle = handleDeadband(throttle, throttleDeadband);
 
     double negInertia = wheel - oldWheel;
     oldWheel = wheel;

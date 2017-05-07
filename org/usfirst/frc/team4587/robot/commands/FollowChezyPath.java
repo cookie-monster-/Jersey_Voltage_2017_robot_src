@@ -64,7 +64,7 @@ public class FollowChezyPath extends Command {
     		m_bufferedReader.close();
     		m_path = (new TextFileDeserializer()).deserialize(sb.toString());
     	}catch(Exception e){
-    		
+    		System.out.println(e);
     	}
 
 		try {

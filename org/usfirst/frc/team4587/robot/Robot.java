@@ -139,6 +139,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		System.out.println("robotInit");
 		m_robot = this;
 		//m_turret = new TurretPID();
+		
 		m_turretSimple = new TurretSimple();
 		m_flywheel = new FlywheelPID();
 		//m_scytheAndShintake = new ScytheAndShintake();
@@ -153,6 +154,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//m_gearCameraThread = new GearCameraThread();
 		m_climbMotor = new ClimbMotor();
 		m_PDP = new PowerDistributionPanel();
+		
 		Bling.initialize();
 		/*try
 		{
@@ -215,9 +217,11 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		initializeNewPhase(ValueLogger.DISABLED_PHASE);
 		writeToArduino((byte)69);
 		//m_turret.disable();
+		
 		Robot.getFlywheel().setRunning(false);
 		Robot.getFlywheel().disable();
 		Robot.getFlywheel().setSetpoint(0.0);
+		
 		//m_indexer.disable();
 		//m_gearCameraThread.setRunning(false);
 	}
@@ -246,7 +250,9 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		//autonomousCommand = new AutoGearSide("left");
 		//autonomousCommand = new AutoGearSide1("left");
 		//autonomousCommand = new AutoGearCenter();
+		
 		autonomousCommand = new HopperAuto("blue");
+		
 		//autonomousCommand = new AutoMobility();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -274,21 +280,24 @@ public class Robot extends IterativeRobot implements LogDataSource {
 
 	@Override
 	public void teleopInit() {
+		
 		System.out.println("init2");
 		initializeNewPhase(ValueLogger.TELEOP_PHASE);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		
 		Robot.getHopperAndShintake().setHopperMotor(0.0);
 		Robot.getHopperAndShintake().setShintakeMotor(0.0);
 		Robot.getHopperAndShintake().hopperIn();
+		
 		System.out.println("init");
 		//m_turret.enable();
 		//m_flywheel.enable();
 		//m_gearCameraThread.start();
 		//m_indexer.enable();
-		//m_driveBaseSimple.resetEncoders();
+		m_driveBaseSimple.resetEncoders();
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		try
@@ -299,6 +308,7 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		{
 			
 		}
+		
 		/*try{
 			CameraServer.getInstance().startAutomaticCapture().setResolution(150, 150);
 		}catch(Exception e){
@@ -318,11 +328,14 @@ public class Robot extends IterativeRobot implements LogDataSource {
     
 		Scheduler.getInstance().run();
 		if ( logger != null ) logger.logValues(start);
-		/*SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
+		/*
+		SmartDashboard.putNumber("Turret Encoder", m_turret.getEncoder());
 		SmartDashboard.putNumber("Turret Degrees", m_turret.getDegrees());
 		SmartDashboard.putNumber("Turret Heading", m_turret.getHeading());
-		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());*/
+		SmartDashboard.putNumber("Turret Setpoint", m_turret.getSetpoint());
+		
 		SmartDashboard.putNumber("turret encoder", m_turretSimple.getEncoder());
+		*/
 		//m_driveBase.getValues(); //put driveBase info on SmartDashboard
 		m_driveBaseSimple.getValues();
 		
@@ -335,8 +348,10 @@ public class Robot extends IterativeRobot implements LogDataSource {
     	{
     		m_gearIntake.setGearIsLoaded(true);put back
     	}*/
+		
 		SmartDashboard.putNumber("PDP voltage", m_PDP.getVoltage());
 		SmartDashboard.putNumber("PDP port 7", m_PDP.getCurrent(RobotMap.PDP_PORT_GEAR_INTAKE_MOTOR));
+		
 	}
 
 	/**

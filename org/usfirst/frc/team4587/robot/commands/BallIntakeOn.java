@@ -20,7 +20,7 @@ public class BallIntakeOn extends Command {
     {
     	Robot.getBallIntake().setBallIntakeMotor(1.0);
     	Robot.getHopperAndShintake().setHopperMotor(1.0);
-    	Robot.getHopperAndShintake().setShintakeMotor(-1.0);
+    	Robot.getHopperAndShintake().setShintakeMotor(0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run

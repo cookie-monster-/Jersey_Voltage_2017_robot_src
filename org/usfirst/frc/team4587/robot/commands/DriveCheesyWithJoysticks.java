@@ -24,12 +24,36 @@ public class DriveCheesyWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	boolean quickTurn;
     	double driveStick = Robot.getOI().getDrive();
     	double turnStick = Robot.getOI().getTurn();
+    	/*if(Math.abs(turnStick) <= 0.05){
+    		turnStick = 0.0;
+    	}else{
+    		if(turnStick >= 0.05){
+            	turnStick = (turnStick*0.8)+0.2;
+    		}else if(turnStick <= -0.05){
+            	turnStick = (turnStick*0.8)-0.2;
+    		}
+    	}
+    	if(Math.abs(driveStick) <= 0.05){
+    		quickTurn = true;
+    		driveStick = 0.0;
+    	}else{
+    		quickTurn = false;
+    		if(driveStick >= 0.05){
+    	    	driveStick = (driveStick*0.8)+0.2;
+    		}else if(driveStick <= -0.05){
+    	    	driveStick = (driveStick*0.8)-0.2;
+    		}
+    	}*/
+    	quickTurn = false;
     	CheesyDriveHelper cdh = new CheesyDriveHelper(Robot.getDriveBaseSimple());
-    	cdh.cheesyDrive(driveStick, turnStick, true, false);
+    	cdh.cheesyDrive(driveStick, turnStick, quickTurn, false);
     	SmartDashboard.putNumber("drive stick", Robot.getOI().getDrive());
     	SmartDashboard.putNumber("turn stick", Robot.getOI().getTurn());
+    	SmartDashboard.putNumber("drive stick modified", driveStick);
+    	SmartDashboard.putNumber("turn stick modified", turnStick);
     }
 
     // Make this return true when this Command no longer needs to run execute()

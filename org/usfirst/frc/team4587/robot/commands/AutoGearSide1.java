@@ -37,9 +37,9 @@ public class AutoGearSide1 extends CommandGroup {
     	addSequential(new RaiseGearIntake());
     	//addSequential(new FollowChezyPath("RightGearPath0", false, false,1,Gyro.getYaw()));
     	if(left){
-        	addSequential(new FollowChezyPath("sideGearPath", false, false,1,Gyro.getYaw()));//false,1 turns right, right side shorter distance
+        	addSequential(new FollowChezyPath("sideGearPath", false, true,1,Gyro.getYaw()));//false,1 turns right, right side shorter distance
     	}else{
-        	addSequential(new FollowChezyPath("sideGearPath", false, true,-1,Gyro.getYaw()));//true,-1 turns left, right side longer distance
+        	addSequential(new FollowChezyPath("sideGearPath", false, false,-1,Gyro.getYaw()));//true,-1 turns left, right side longer distance
     	}
     	addSequential(new Delay(10));
     	//addSequential(new AutonomousTurnToAngleSimple(angle));

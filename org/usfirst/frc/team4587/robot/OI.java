@@ -97,12 +97,19 @@ public class OI implements LogDataSource {
     	
     	buttonA2.whenPressed(new HopperOn());
     	buttonB2.whenPressed(new BallIntakeOff());
-    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,3070));// 3040
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,1200));// 3040, 3070
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
     	leftBumper2.whenPressed(new BallIntakeOn());
     	rightBumper2.whenPressed(new ToggleHopperInOut());
     	leftTrigger2.whenPressed(new BallIntakeUnJam());
     	rightTrigger2.whenPressed(new BallIntakeOut());
+    	
+    	/*
+    	buttonA1.whenPressed(new AutoGearSide1("left"));
+    	buttonB1.whenPressed(new AutoGearSide1("right"));
+    	buttonX1.whenPressed(new FollowChezyPath("HopperAfterGearPath0",true,false,1,0));
+    	buttonY1.whenPressed(new FollowChezyPath("Turn75Path",false,false,1,0));
+    	*/
     	
     	/*
     	leftBumper1.whenPressed(new ToggleGearIntakeUpDown());
