@@ -3,6 +3,7 @@ package org.usfirst.frc.team4587.robot.subsystems;
 import org.usfirst.frc.team4587.robot.Robot;
 import org.usfirst.frc.team4587.robot.RobotMap;
 import org.usfirst.frc.team4587.robot.commands.GearIntakeLEDs;
+import org.usfirst.frc.team4587.robot.commands.UpdateLEDs;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -138,6 +139,7 @@ public class GearIntake extends Subsystem implements LogDataSource {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	//setDefaultCommand(new GearIntakeLEDs());
+    	setDefaultCommand(new UpdateLEDs());
     }
 }
 

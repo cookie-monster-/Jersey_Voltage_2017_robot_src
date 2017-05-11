@@ -7,33 +7,32 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BallIntakeUnJam extends Command {
+public class UpdateLEDs extends Command {
 
 
-    public BallIntakeUnJam() {
-    	requires(Robot.getBallIntake());
-    	requires(Robot.getHopperAndShintake());
+    public UpdateLEDs() {
+    	requires(Robot.getGearIntake());
     }
-
+    int count;
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	Robot.getBallIntake().setBallIntakeMotor(-1.0);
-    	Robot.getHopperAndShintake().setHopperMotor(0.0);
-    	//Robot.getHopperAndShintake().setShintakeMotor(-1.0);
+    	count=0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	//Robot.getBallIntake().setBallIntakeMotor(-1.0);
-    	//Robot.getHopperAndShintake().setHopperMotor(-1.0);
-    	//Robot.getHopperAndShintake().setShintakeMotor(-1.0);
+    	count++;
+    	if(count>=10){
+    		Robot.getGearIntake().setLEDMode();
+    		count = 0;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

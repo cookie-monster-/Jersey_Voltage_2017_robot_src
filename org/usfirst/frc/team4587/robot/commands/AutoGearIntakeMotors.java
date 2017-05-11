@@ -33,13 +33,10 @@ public class AutoGearIntakeMotors extends Command {
     {
     	if (Robot.getGearIntake().isStalling())
     	{
+        	Robot.getGearIntake().setGearIsLoaded(true);
     		if(count >= 0){//50 = 1sec
             	Robot.getGearIntake().gearIntakeUp();
     		}
-        	Robot.getGearIntake().setGearIsLoaded(true);
-        	if(count == 0){
-        		Robot.getGearIntake().setLEDMode();
-        	}
         	hasStalled = true;
     	}
     	if(hasStalled){
@@ -47,8 +44,12 @@ public class AutoGearIntakeMotors extends Command {
     	}
     	if(count >= 12)
     	{
-    		finish = true;
+        	Robot.getGearIntake().setLEDMode();
+        	Robot.getGearIntake().setGearIntakeMotor(0.0);
         	//Robot.getGearIntake().setLEDMode();
+    	}
+    	if(count >= 100){
+    		finish = true;
     	}
     }
 
@@ -59,7 +60,6 @@ public class AutoGearIntakeMotors extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.getGearIntake().setGearIntakeMotor(0.0);
     	Robot.getGearIntake().setLEDMode();
     	//Robot.getGearIntake().gearIntakeUp();
     }

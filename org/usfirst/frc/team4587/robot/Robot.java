@@ -179,12 +179,13 @@ public class Robot extends IterativeRobot implements LogDataSource {
 		/*chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);*/
-		/*try{
-			CameraServer.getInstance().startAutomaticCapture().setResolution(150, 150);
-		}catch(Exception e){
-			System.out.println(e);
-		}*/
-        
+        /*
+    		try{
+    			CameraServer.getInstance().startAutomaticCapture().setResolution(64, 48);
+    		}catch(Exception e){
+    			System.out.println(e);
+    		}
+    		*/
 	}
 	static byte[] buffer = new byte [2];
 	static int counter=0;

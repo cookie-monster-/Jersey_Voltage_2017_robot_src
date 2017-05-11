@@ -45,8 +45,8 @@ public class RobotMap {
     public static final int ENCODER_INDEXER_A = 10;//?
     public static final int ENCODER_INDEXER_B = 11;//?
 
-    public static final double DRIVE_SENSITIVIY_HIGH = 1.0;
-    public static final double DRIVE_SENSITIVIY_LOW = 1.0;
+    public static final double DRIVE_SENSITIVIY_HIGH = 0.75;
+    public static final double DRIVE_SENSITIVIY_LOW = 0.75;
 	
 	// If are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
