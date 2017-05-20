@@ -22,7 +22,7 @@ public class StartGearCamera extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() 
-    {
+    {/*
     	if(cameraOn == false){
     		System.out.println("start plz");
     		try{
@@ -30,6 +30,7 @@ public class StartGearCamera extends Command {
     			System.out.println("Starting the camera!"); //I only see this printed once in the output, ever.
     			UsbCamera camObject = CameraServer.getInstance().startAutomaticCapture();
     			CvSink cvSink = CameraServer.getInstance().getVideo();
+    			CameraServer.getInstance().putVideo(cvSink, 64, 48)
 
     			//the following code does exactly what CameraServer.putVideo() does; I had putVideo before but the same problem existed.
 
@@ -43,7 +44,8 @@ public class StartGearCamera extends Command {
     		}
     	}else{
     		System.out.println("don't start plz");
-    	}
+    	}*/
+    	CameraServer.getInstance().startAutomaticCapture(0).setResolution(160, 120);
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -98,7 +98,7 @@ public class OI implements LogDataSource {
     	
     	buttonA2.whenPressed(new HopperOn());
     	buttonB2.whenPressed(new BallIntakeOff());
-    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,1200));// 3040, 3070
+    	buttonX2.whenPressed(new ToggleFlywheelRunning(true,2980));// 3040, 3070
     	buttonY2.whenPressed(new ToggleFlywheelRunning(false,0));
     	leftBumper2.whenPressed(new BallIntakeOn());
     	rightBumper2.whenPressed(new ToggleHopperInOut());
@@ -210,6 +210,10 @@ public class OI implements LogDataSource {
     public double getTurn2()
     {
     	return stick2.getRawAxis(4);
+    }
+    public double getTurn3()
+    {
+    	return stick2.getRawAxis(0);
     }
     public double getDrive()
     {

@@ -24,6 +24,7 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
     // here. Call these from Commands.\
 	private SpeedController left0;//23
 	//private SpeedController left1;
+	//private SpeedController left2;
 	private SpeedController right0;//01
 	//private SpeedController right1;
 	
@@ -34,9 +35,10 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 	public DriveBaseSimple()
 	{
 		left0 = new Spark(RobotMap.MOTOR_LEFT_DRIVETRAIN);
-		//left1 = new Spark(3);
+		//left1 = new Spark(RobotMap.MOTOR_LEFT_DRIVETRAIN_2);
+		//left2 = new Spark(RobotMap.MOTOR_LEFT_DRIVETRAIN_3);
 		right0 = new Spark(RobotMap.MOTOR_RIGHT_DRIVETRAIN);
-		//right1 = new Spark(2);
+		//right1 = new Spark(RobotMap.MOTOR_RIGHT_DRIVETRAIN_2);
 		
 		drive0 = new RobotDrive(left0, right0);
 		//drive1 = new RobotDrive(left1, right1);
@@ -51,6 +53,9 @@ public class DriveBaseSimple extends Subsystem implements LogDataSource {
 	public void setLeftRightPower(double leftPower, double rightPower) {
 	    left0.set(leftPower);
 	    right0.set(rightPower);
+	    //left1.set(leftPower);
+	    //right1.set(rightPower);
+	    //left2.set(leftPower);
 	  }
 	
 	public void resetEncoders()

@@ -24,17 +24,29 @@ public class TurretSimpleWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double turnStick = Robot.getOI().getTurn2() *0.2;//* Math.abs(Robot.getOI().getTurn2());
+    	double turnStick2 = Robot.getOI().getTurn3() *0.6;//* Math.abs(Robot.getOI().getTurn2());
     	if(Robot.getTurretSimple().getEncoder() >= 475){
     		if(turnStick >= 0){
     			turnStick = 0;
+    		}
+    		if(turnStick2 >=0){
+    			turnStick2 =0;
     		}
     	}
     	if(Robot.getTurretSimple().getEncoder() <= -475){
     		if(turnStick <= 0){
     			turnStick = 0;
     		}
+    		if(turnStick2 <=0){
+    			turnStick2 =0;
+    		}
     	}
-    	Robot.getTurretSimple().setMotor(turnStick);
+    	if(Math.abs(turnStick/0.2)>Math.abs(turnStick2/0.6)){
+        	Robot.getTurretSimple().setMotor(turnStick);
+    	}else{
+    		Robot.getTurretSimple().setMotor(turnStick2);
+    	}
+    	SmartDashboard.putNumber("TurretSimple Encoder", Robot.getTurretSimple().getEncoder());
     }
 
     // Make this return true when this Command no longer needs to run execute()

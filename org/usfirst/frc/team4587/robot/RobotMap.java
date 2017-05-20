@@ -14,12 +14,16 @@ public class RobotMap {
 
 	public static final int MOTOR_RIGHT_DRIVETRAIN = 0;
 	public static final int	MOTOR_LEFT_DRIVETRAIN = 1;
+	public static final int MOTOR_LEFT_DRIVETRAIN_3 = 14;
+	public static final int MOTOR_RIGHT_DRIVETRAIN_2 = 19;
+	public static final int MOTOR_LEFT_DRIVETRAIN_2 = 10;
 	public static final int MOTOR_CLIMB_1 = 2;
 	public static final int MOTOR_GEAR_INTAKE = 3;
 	public static final int PDP_PORT_GEAR_INTAKE_MOTOR = 7;
 	public static final int MOTOR_BALL_INTAKE = 8;
 	
 	public static final int MOTOR_FLYWHEEL_1 = 4;
+	public static final int MOTOR_FLYWHEEL_2 = 17;
 	public static final int MOTOR_SHINTAKE = 5;
 	public static final int MOTOR_HOPPER = 6;
 	public static final int MOTOR_TURRET = 7;
@@ -27,7 +31,6 @@ public class RobotMap {
 	public static final int MOTOR_SCYTHE = 9;//bad
 	public static final int MOTOR_INDEXER = 9;//bad
 	public static final int MOTOR_CLIMB_2 = 9;//bad
-	public static final int MOTOR_FLYWHEEL_2 = 9;//bad
 	public static final int MOTOR_FLYWHEEL_3 = 9;//bad
 	//
 	public static final int SOLENOID_GEAR_INTAKE = 0;
@@ -45,8 +48,8 @@ public class RobotMap {
     public static final int ENCODER_INDEXER_A = 10;//?
     public static final int ENCODER_INDEXER_B = 11;//?
 
-    public static final double DRIVE_SENSITIVIY_HIGH = 0.75;
-    public static final double DRIVE_SENSITIVIY_LOW = 0.75;
+    public static final double DRIVE_SENSITIVIY_HIGH = 0.2;
+    public static final double DRIVE_SENSITIVIY_LOW = 0.2;
 	
 	// If are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

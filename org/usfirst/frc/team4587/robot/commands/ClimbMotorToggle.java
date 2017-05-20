@@ -4,13 +4,14 @@ import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import utility.Bling;
 
 /**
  *
  */
 public class ClimbMotorToggle extends Command {
 
-	
+	boolean end;
     public ClimbMotorToggle() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -22,6 +23,7 @@ public class ClimbMotorToggle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	end = true;
     	Robot.getHopperAndShintake().hopperIn();
     	if(Robot.getClimbMotor().isClimbing())
     	{
@@ -36,17 +38,19 @@ public class ClimbMotorToggle extends Command {
     		//Robot.getGearIntake().setGearIntakeMotor(0.0);
     		Robot.getClimbMotor().startClimb();
     		Robot.getClimbMotor().setClimbing(true);
+    		Bling.sendData((byte)65);
+    		end = false;
     	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
+    	Bling.sendData((byte)65);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return end;
     }
 
     // Called once after isFinished returns true

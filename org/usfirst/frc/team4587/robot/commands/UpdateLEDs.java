@@ -24,7 +24,7 @@ public class UpdateLEDs extends Command {
     protected void execute() 
     {
     	count++;
-    	if(count>=10){
+    	if(count>=25){
     		Robot.getGearIntake().setLEDMode();
     		count = 0;
     	}

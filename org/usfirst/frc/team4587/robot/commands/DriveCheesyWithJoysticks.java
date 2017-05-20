@@ -39,6 +39,7 @@ public class DriveCheesyWithJoysticks extends Command {
     	if(Math.abs(driveStick) <= 0.02){
     		quickTurn = true;
     		driveStick = 0.0;
+    		turnStick *= Math.abs(turnStick);
     	}else{
     		quickTurn = false;
     		if(driveStick >= 0.02){

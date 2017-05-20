@@ -3,6 +3,7 @@ package org.usfirst.frc.team4587.robot.commands;
 import org.usfirst.frc.team4587.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import utility.Bling;
 
 /**
  *
@@ -38,9 +39,11 @@ public class AutoGearIntakeMotors extends Command {
             	Robot.getGearIntake().gearIntakeUp();
     		}
         	hasStalled = true;
+        	
     	}
     	if(hasStalled){
     		count++;
+    		Bling.sendData((byte)65);
     	}
     	if(count >= 12)
     	{
@@ -60,7 +63,7 @@ public class AutoGearIntakeMotors extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.getGearIntake().setLEDMode();
+    	//Robot.getGearIntake().setLEDMode();
     	//Robot.getGearIntake().gearIntakeUp();
     }
 

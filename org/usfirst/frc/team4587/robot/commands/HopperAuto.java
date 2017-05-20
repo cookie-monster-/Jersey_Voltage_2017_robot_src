@@ -37,8 +37,7 @@ public class HopperAuto extends CommandGroup {
     	//addSequential(new AutonomousDriveStraightDistance(100, 0.55));
     	double m_startDegrees = Gyro.getYaw();
     	addSequential(new RaiseGearIntake());
-    	addSequential(new HopperOut());
-    	addSequential(new ToggleFlywheelRunning(true,3070));
+    	addSequential(new ToggleFlywheelRunning(true,2980));
     	if(blue){
     		m_startDegrees -= 90;
     		addParallel(new TurnTurretDegreesSimple(-0.3,-260,-318,-0.15));
@@ -48,6 +47,7 @@ public class HopperAuto extends CommandGroup {
     		addParallel(new TurnTurretDegreesSimple(0.3,260,318,0.15));
     		addSequential(new FollowChezyPath("hopperPathWorlds",false,false,1,Gyro.getYaw()));
     	}
+    	addSequential(new HopperOut());
     	addParallel(new DriveForwardSlowHopper());
     	/*addSequential(new FollowChezyPath("HopperPath0", false, false,1,Gyro.getYaw()));
     	addSequential(new Delay(5));
